@@ -30,10 +30,6 @@
             text-align: center;
         }
 
-        .profile {
-            margin-bottom: 30px;
-        }
-
         .logo {
             width: 90px;
             height: 90px;
@@ -46,19 +42,18 @@
             justify-content: center;
             font-size: 28px;
             font-weight: 800;
-            letter-spacing: -1px;
         }
 
         .business-name {
             font-size: 25px;
             font-weight: 700;
-            letter-spacing: -0.5px;
             margin-bottom: 7px;
         }
 
         .description {
             color: #999;
             font-size: 15px;
+            margin-bottom: 30px;
         }
 
         .links {
@@ -79,7 +74,7 @@
             border-radius: 14px;
             font-size: 16px;
             font-weight: 650;
-            transition: transform 0.15s ease, opacity 0.15s ease;
+            transition: 0.15s ease;
         }
 
         .link:hover {
@@ -99,7 +94,6 @@
             margin-top: 38px;
             color: #555;
             font-size: 12px;
-            letter-spacing: 0.3px;
         }
     </style>
 </head>
@@ -108,51 +102,53 @@
 
     <main class="page">
 
-        <section class="profile">
+        <div class="logo">
+            TL
+        </div>
 
-            <div class="logo">
-                TL
-            </div>
+        <h1 class="business-name">
+            TapLink
+        </h1>
 
-            <h1 class="business-name">
-                Mi Negocio
-            </h1>
+        <p class="description">
+            Todo lo que necesitas, en un solo lugar.
+        </p>
 
-            <p class="description">
-                Todo lo que necesitas, en un solo lugar.
-            </p>
+        <div class="links">
 
-        </section>
-
-
-        <section class="links">
-
-            <a class="link" href="#">
+            <a class="link"
+               href="https://www.google.com"
+               target="_blank">
                 <span class="icon">⭐</span>
                 Déjanos una reseña en Google
             </a>
 
-            <a class="link" href="#">
+            <a class="link"
+               href="https://www.instagram.com"
+               target="_blank">
                 <span class="icon">📸</span>
                 Síguenos en Instagram
             </a>
 
-            <a class="link" href="#">
+            <a class="link"
+               href="https://wa.me/"
+               target="_blank">
                 <span class="icon">💬</span>
                 Escríbenos por WhatsApp
             </a>
 
-            <a class="link" href="#">
+            <a class="link"
+               href="https://www.google.com"
+               target="_blank">
                 <span class="icon">🌐</span>
                 Visita nuestra página web
             </a>
 
-        </section>
+        </div>
 
-
-        <footer class="footer">
+        <div class="footer">
             Powered by TapLink
-        </footer>
+        </div>
 
     </main>
 
