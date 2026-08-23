@@ -14,32 +14,41 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
             background: #f5f5f5;
             color: #111;
+            min-height: 100vh;
         }
 
         .container {
+            width: 100%;
             max-width: 900px;
             margin: auto;
             padding: 40px 20px;
         }
 
         .card {
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            background: #fff;
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
             margin-bottom: 20px;
         }
 
         h1 {
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
         }
 
         .subtitle {
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
+            font-size: 15px;
         }
 
         .form-group {
@@ -48,16 +57,28 @@
 
         label {
             display: block;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 7px;
+            font-size: 14px;
         }
 
         input {
             width: 100%;
-            padding: 13px;
+            padding: 13px 14px;
             border: 1px solid #ddd;
             border-radius: 10px;
             font-size: 15px;
+            outline: none;
+            background: #fff;
+        }
+
+        input:focus {
+            border-color: #000;
+        }
+
+        input[readonly] {
+            background: #f1f1f1;
+            color: #555;
         }
 
         button {
@@ -66,9 +87,9 @@
             border: none;
             border-radius: 10px;
             background: #000;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
         }
 
@@ -77,19 +98,45 @@
         }
 
         .logout {
-            background: #ddd;
+            background: #e5e5e5;
             color: #111;
-            margin-top: 10px;
         }
 
-        #message,
-        #loginMessage {
-            margin-top: 20px;
-            font-weight: bold;
+        #loginPanel {
+            max-width: 500px;
+            margin: 80px auto;
         }
 
         #adminPanel {
             display: none;
+        }
+
+        #message,
+        #loginMessage {
+            margin-top: 18px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .success {
+            color: #16803c;
+        }
+
+        .error {
+            color: #d93025;
+        }
+
+        .slug-info {
+            margin-top: 7px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .url-preview {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #555;
+            word-break: break-all;
         }
     </style>
 </head>
@@ -98,7 +145,9 @@
 
 <div class="container">
 
+    <!-- ========================================= -->
     <!-- LOGIN -->
+    <!-- ========================================= -->
 
     <div id="loginPanel" class="card">
 
@@ -109,35 +158,48 @@
         </p>
 
         <div class="form-group">
-            <label>Correo</label>
+
+            <label for="email">
+                Correo
+            </label>
 
             <input
                 id="email"
                 type="email"
                 placeholder="Tu correo"
             >
+
         </div>
 
+
         <div class="form-group">
-            <label>Contraseña</label>
+
+            <label for="password">
+                Contraseña
+            </label>
 
             <input
                 id="password"
                 type="password"
                 placeholder="Tu contraseña"
             >
+
         </div>
+
 
         <button id="loginButton">
             INICIAR SESIÓN
         </button>
+
 
         <div id="loginMessage"></div>
 
     </div>
 
 
-    <!-- ADMIN PANEL -->
+    <!-- ========================================= -->
+    <!-- ADMIN -->
+    <!-- ========================================= -->
 
     <div id="adminPanel">
 
@@ -150,107 +212,174 @@
             </p>
 
 
+            <!-- NOMBRE -->
+
             <div class="form-group">
-                <label>Nombre del negocio</label>
+
+                <label for="name">
+                    Nombre del negocio
+                </label>
 
                 <input
                     id="name"
                     type="text"
-                    placeholder="Ej: La Folie"
+                    placeholder="Ej: La Folie - Chacarilla"
                 >
+
             </div>
 
 
+            <!-- SLUG -->
+
             <div class="form-group">
-                <label>Slug</label>
+
+                <label for="slug">
+                    Slug
+                </label>
 
                 <input
                     id="slug"
                     type="text"
-                    placeholder="Ej: la-folie"
+                    placeholder="Se generará automáticamente"
+                    readonly
                 >
+
+                <div class="slug-info">
+                    Este será el enlace del negocio.
+                </div>
+
+                <div
+                    id="urlPreview"
+                    class="url-preview">
+                </div>
+
             </div>
 
 
+            <!-- LOGO -->
+
             <div class="form-group">
-                <label>Logo URL</label>
+
+                <label for="logo_url">
+                    Logo URL
+                </label>
 
                 <input
                     id="logo_url"
                     type="text"
                     placeholder="https://..."
                 >
+
             </div>
 
 
+            <!-- GOOGLE -->
+
             <div class="form-group">
-                <label>Google / Reseñas</label>
+
+                <label for="google_url">
+                    Google / Reseñas
+                </label>
 
                 <input
                     id="google_url"
                     type="text"
                     placeholder="https://..."
                 >
+
             </div>
 
 
+            <!-- INSTAGRAM -->
+
             <div class="form-group">
-                <label>Instagram</label>
+
+                <label for="instagram_url">
+                    Instagram
+                </label>
 
                 <input
                     id="instagram_url"
                     type="text"
                     placeholder="https://instagram.com/..."
                 >
+
             </div>
 
 
+            <!-- WHATSAPP -->
+
             <div class="form-group">
-                <label>WhatsApp</label>
+
+                <label for="whatsapp_url">
+                    WhatsApp
+                </label>
 
                 <input
                     id="whatsapp_url"
                     type="text"
-                    placeholder="https://wa.me/..."
+                    placeholder="https://wa.me/51999999999"
                 >
+
             </div>
 
 
+            <!-- WEBSITE -->
+
             <div class="form-group">
-                <label>Página web</label>
+
+                <label for="website_url">
+                    Página web
+                </label>
 
                 <input
                     id="website_url"
                     type="text"
                     placeholder="Opcional"
                 >
+
             </div>
 
 
+            <!-- MAPS -->
+
             <div class="form-group">
-                <label>Google Maps</label>
+
+                <label for="maps_url">
+                    Google Maps
+                </label>
 
                 <input
                     id="maps_url"
                     type="text"
                     placeholder="https://www.google.com/maps/embed?..."
                 >
+
             </div>
 
+
+            <!-- CREAR -->
 
             <button id="createBusiness">
                 CREAR NEGOCIO
             </button>
+
 
             <div id="message"></div>
 
         </div>
 
 
+        <!-- LOGOUT -->
+
         <div class="card">
 
-            <button id="logoutButton" class="logout">
+            <button
+                id="logoutButton"
+                class="logout">
+
                 CERRAR SESIÓN
+
             </button>
 
         </div>
@@ -260,9 +389,12 @@
 </div>
 
 
+<!-- ========================================= -->
 <!-- SUPABASE -->
+<!-- ========================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
@@ -272,6 +404,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_HrhIu7Dx0CV6_WRZlQ2N9Q_EtVdU51T";
 
+
 const supabaseClient =
     supabase.createClient(
         SUPABASE_URL,
@@ -279,9 +412,39 @@ const supabaseClient =
     );
 
 
-// ================================
+// =========================================
+// MOSTRAR LOGIN
+// =========================================
+
+function showLogin() {
+
+    document.getElementById("loginPanel").style.display =
+        "block";
+
+    document.getElementById("adminPanel").style.display =
+        "none";
+
+}
+
+
+// =========================================
+// MOSTRAR ADMIN
+// =========================================
+
+function showAdmin() {
+
+    document.getElementById("loginPanel").style.display =
+        "none";
+
+    document.getElementById("adminPanel").style.display =
+        "block";
+
+}
+
+
+// =========================================
 // COMPROBAR SESIÓN
-// ================================
+// =========================================
 
 async function checkSession() {
 
@@ -292,22 +455,23 @@ async function checkSession() {
     } = await supabaseClient.auth.getSession();
 
 
-    if (session) {
-
-        await checkAdmin(session.user.id);
-
-    } else {
+    if (!session) {
 
         showLogin();
 
+        return;
+
     }
+
+
+    await checkAdmin(session.user.id);
 
 }
 
 
-// ================================
+// =========================================
 // COMPROBAR ADMIN
-// ================================
+// =========================================
 
 async function checkAdmin(userId) {
 
@@ -334,6 +498,9 @@ async function checkAdmin(userId) {
         document.getElementById("loginMessage").textContent =
             "No tienes permisos de administrador.";
 
+        document.getElementById("loginMessage")
+            .className = "error";
+
         return;
 
     }
@@ -344,64 +511,62 @@ async function checkAdmin(userId) {
 }
 
 
-// ================================
-// MOSTRAR LOGIN
-// ================================
-
-function showLogin() {
-
-    document.getElementById("loginPanel").style.display =
-        "block";
-
-    document.getElementById("adminPanel").style.display =
-        "none";
-
-}
-
-
-// ================================
-// MOSTRAR ADMIN
-// ================================
-
-function showAdmin() {
-
-    document.getElementById("loginPanel").style.display =
-        "none";
-
-    document.getElementById("adminPanel").style.display =
-        "block";
-
-}
-
-
-// ================================
+// =========================================
 // LOGIN
-// ================================
+// =========================================
 
 document
     .getElementById("loginButton")
     .addEventListener("click", async () => {
 
+
         const email =
-            document.getElementById("email").value.trim();
+            document.getElementById("email")
+                .value
+                .trim();
+
 
         const password =
-            document.getElementById("password").value;
+            document.getElementById("password")
+                .value;
+
+
+        if (!email || !password) {
+
+            document.getElementById("loginMessage")
+                .textContent =
+                "Completa el correo y la contraseña.";
+
+            document.getElementById("loginMessage")
+                .className = "error";
+
+            return;
+
+        }
 
 
         const {
             data,
             error
         } = await supabaseClient.auth.signInWithPassword({
-            email,
-            password
+
+            email: email,
+
+            password: password
+
         });
 
 
         if (error) {
 
-            document.getElementById("loginMessage").textContent =
+            console.error(error);
+
+            document.getElementById("loginMessage")
+                .textContent =
                 "Correo o contraseña incorrectos.";
+
+            document.getElementById("loginMessage")
+                .className = "error";
 
             return;
 
@@ -413,9 +578,64 @@ document
     });
 
 
-// ================================
+// =========================================
+// GENERAR SLUG AUTOMÁTICO
+// =========================================
+
+document
+    .getElementById("name")
+    .addEventListener("input", () => {
+
+
+        const name =
+            document.getElementById("name")
+                .value;
+
+
+        const slug = name
+
+            .toLowerCase()
+
+            .normalize("NFD")
+
+            .replace(
+                /[\u0300-\u036f]/g,
+                ""
+            )
+
+            .replace(
+                /[^a-z0-9]+/g,
+                "-"
+            )
+
+            .replace(
+                /^-+|-+$/g,
+                "");
+
+
+        document.getElementById("slug")
+            .value = slug;
+
+
+        if (slug) {
+
+            document.getElementById("urlPreview")
+                .textContent =
+                "https://nfc-link.vercel.app/" + slug;
+
+        } else {
+
+            document.getElementById("urlPreview")
+                .textContent = "";
+
+        }
+
+    });
+
+
+// =========================================
 // CREAR NEGOCIO
-// ================================
+// =========================================
 
 document
     .getElementById("createBusiness")
@@ -423,39 +643,88 @@ document
 
 
         const name =
-            document.getElementById("name").value.trim();
+            document.getElementById("name")
+                .value
+                .trim();
+
 
         const slug =
-            document.getElementById("slug").value.trim();
+            document.getElementById("slug")
+                .value
+                .trim();
+
 
         const logo_url =
-            document.getElementById("logo_url").value.trim();
+            document.getElementById("logo_url")
+                .value
+                .trim();
+
 
         const google_url =
-            document.getElementById("google_url").value.trim();
+            document.getElementById("google_url")
+                .value
+                .trim();
+
 
         const instagram_url =
-            document.getElementById("instagram_url").value.trim();
+            document.getElementById("instagram_url")
+                .value
+                .trim();
+
 
         const whatsapp_url =
-            document.getElementById("whatsapp_url").value.trim();
+            document.getElementById("whatsapp_url")
+                .value
+                .trim();
+
 
         const website_url =
-            document.getElementById("website_url").value.trim();
+            document.getElementById("website_url")
+                .value
+                .trim();
+
 
         const maps_url =
-            document.getElementById("maps_url").value.trim();
+            document.getElementById("maps_url")
+                .value
+                .trim();
 
 
-        if (!name || !slug) {
+        // =============================
+        // VALIDACIÓN
+        // =============================
 
-            document.getElementById("message").textContent =
-                "Completa el nombre y el slug.";
+        if (!name) {
+
+            document.getElementById("message")
+                .textContent =
+                "Escribe el nombre del negocio.";
+
+            document.getElementById("message")
+                .className = "error";
 
             return;
 
         }
 
+
+        if (!slug) {
+
+            document.getElementById("message")
+                .textContent =
+                "No se pudo generar el slug.";
+
+            document.getElementById("message")
+                .className = "error";
+
+            return;
+
+        }
+
+
+        // =============================
+        // CREAR
+        // =============================
 
         const {
             data,
@@ -465,69 +734,125 @@ document
             .from("businesses")
 
             .insert([
+
                 {
-                    name,
-                    slug,
-                    logo_url,
-                    google_url,
-                    instagram_url,
-                    whatsapp_url,
-                    website_url,
-                    maps_url
+
+                    name: name,
+
+                    slug: slug,
+
+                    logo_url: logo_url || null,
+
+                    google_url: google_url || null,
+
+                    instagram_url: instagram_url || null,
+
+                    whatsapp_url: whatsapp_url || null,
+
+                    website_url: website_url || null,
+
+                    maps_url: maps_url || null
+
                 }
+
             ])
 
             .select();
 
 
+        // =============================
+        // ERROR
+        // =============================
+
         if (error) {
 
             console.error(error);
 
-            document.getElementById("message").textContent =
+            document.getElementById("message")
+                .textContent =
                 "Error: " + error.message;
+
+            document.getElementById("message")
+                .className = "error";
 
             return;
 
         }
 
 
-        document.getElementById("message").textContent =
+        // =============================
+        // ÉXITO
+        // =============================
+
+        document.getElementById("message")
+            .textContent =
             "✅ Negocio creado correctamente.";
 
+        document.getElementById("message")
+            .className = "success";
 
-        // Limpiar formulario
 
-        document.getElementById("name").value = "";
-        document.getElementById("slug").value = "";
-        document.getElementById("logo_url").value = "";
-        document.getElementById("google_url").value = "";
-        document.getElementById("instagram_url").value = "";
-        document.getElementById("whatsapp_url").value = "";
-        document.getElementById("website_url").value = "";
-        document.getElementById("maps_url").value = "";
+        // =============================
+        // LIMPIAR
+        // =============================
+
+        document.getElementById("name")
+            .value = "";
+
+        document.getElementById("slug")
+            .value = "";
+
+        document.getElementById("logo_url")
+            .value = "";
+
+        document.getElementById("google_url")
+            .value = "";
+
+        document.getElementById("instagram_url")
+            .value = "";
+
+        document.getElementById("whatsapp_url")
+            .value = "";
+
+        document.getElementById("website_url")
+            .value = "";
+
+        document.getElementById("maps_url")
+            .value = "";
+
+        document.getElementById("urlPreview")
+            .textContent = "";
 
     });
 
 
-// ================================
-// LOGOUT
-// ================================
+// =========================================
+// CERRAR SESIÓN
+// =========================================
 
 document
     .getElementById("logoutButton")
     .addEventListener("click", async () => {
 
+
         await supabaseClient.auth.signOut();
+
+
+        document.getElementById("email")
+            .value = "";
+
+        document.getElementById("password")
+            .value = "";
+
 
         showLogin();
 
     });
 
 
-// ================================
+// =========================================
 // INICIAR
-// ================================
+// =========================================
 
 checkSession();
 
