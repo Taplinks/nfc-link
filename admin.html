@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>TapLink Admin</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -17,16 +19,12 @@
     --bg:#09090b;
     --sidebar:#0f0f12;
     --card:#151518;
-    --card2:#18181b;
     --border:#27272a;
     --text:#fafafa;
     --muted:#a1a1aa;
     --muted2:#71717a;
     --green:#22c55e;
     --red:#ef4444;
-    --blue:#3b82f6;
-    --purple:#8b5cf6;
-    --yellow:#eab308;
 }
 
 body{
@@ -35,6 +33,10 @@ body{
     color:var(--text);
     min-height:100vh;
 }
+
+/* =========================
+   LOGIN
+========================= */
 
 #loginPanel{
     width:100%;
@@ -135,6 +137,10 @@ button{
 .error{
     color:var(--red);
 }
+
+/* =========================
+   ADMIN
+========================= */
 
 #adminPanel{
     display:none;
@@ -313,9 +319,13 @@ button{
     font-size:13px;
 }
 
+/* =========================
+   STATS
+========================= */
+
 .stats-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:15px;
     margin-bottom:22px;
 }
@@ -360,11 +370,9 @@ button{
     margin-top:5px;
 }
 
-.grid-2{
-    display:grid;
-    grid-template-columns:1.5fr 1fr;
-    gap:18px;
-}
+/* =========================
+   CARDS
+========================= */
 
 .card{
     background:var(--card);
@@ -380,42 +388,9 @@ button{
     margin-bottom:18px;
 }
 
-.chart{
-    height:260px;
-    display:flex;
-    align-items:flex-end;
-    gap:10px;
-    padding:20px 5px 30px;
-    border-bottom:1px solid var(--border);
-}
-
-.bar-wrap{
-    flex:1;
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-    align-items:center;
-    gap:8px;
-}
-
-.bar{
-    width:100%;
-    max-width:35px;
-    min-height:3px;
-    border-radius:6px 6px 2px 2px;
-    background:#fff;
-}
-
-.bar-label{
-    color:var(--muted2);
-    font-size:9px;
-}
-
-.bar-value{
-    font-size:10px;
-    color:var(--muted);
-}
+/* =========================
+   TABLE
+========================= */
 
 .table-wrap{
     overflow-x:auto;
@@ -497,6 +472,10 @@ tbody tr:hover{
     color:#4ade80;
 }
 
+/* =========================
+   TOOLBAR
+========================= */
+
 .toolbar{
     display:flex;
     gap:10px;
@@ -507,7 +486,7 @@ tbody tr:hover{
 .toolbar input,
 .toolbar select{
     width:auto;
-    min-width:170px;
+    min-width:220px;
 }
 
 .small-btn{
@@ -525,6 +504,10 @@ tbody tr:hover{
     color:#fff;
     font-size:12px;
 }
+
+/* =========================
+   MODALS
+========================= */
 
 .modal-overlay{
     display:none;
@@ -594,29 +577,9 @@ tbody tr:hover{
     color:#000;
 }
 
-.analytics-grid{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:12px;
-}
-
-.analytics-box{
-    background:#111114;
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:15px;
-}
-
-.analytics-box-title{
-    color:var(--muted);
-    font-size:11px;
-}
-
-.analytics-box-number{
-    font-size:22px;
-    font-weight:800;
-    margin-top:8px;
-}
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
     text-align:center;
@@ -634,6 +597,10 @@ tbody tr:hover{
     font-weight:800;
     margin-bottom:5px;
 }
+
+/* =========================
+   MOBILE
+========================= */
 
 .mobile-menu{
     display:none;
@@ -665,15 +632,7 @@ tbody tr:hover{
     }
 
     .stats-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .grid-2{
-        grid-template-columns:1fr;
-    }
-
-    .analytics-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:1fr 1fr;
     }
 
     .content{
@@ -683,83 +642,123 @@ tbody tr:hover{
     .topbar{
         padding:0 18px;
     }
+
 }
 
 @media(max-width:550px){
 
     .stats-grid{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:1fr;
     }
 
     .page-header{
         flex-direction:column;
     }
 
-    .analytics-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
     .admin-user{
         display:none;
     }
+
 }
+
 </style>
+
 </head>
 
 <body>
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
 <div id="loginPanel">
 
     <div class="login-card">
 
-        <div class="logo">TL</div>
+        <div class="logo">
+            TL
+        </div>
 
-        <h1>TapLink Admin</h1>
+        <h1>
+            TapLink Admin
+        </h1>
 
         <p class="subtitle">
-            Panel de administración de TapLink.
+            Panel privado de administración de TapLink.
         </p>
 
         <div class="form-group">
-            <label>Correo</label>
+
+            <label>
+                Correo
+            </label>
+
             <input
                 id="email"
                 type="email"
                 placeholder="admin@taplink.com"
             >
+
         </div>
 
         <div class="form-group">
-            <label>Contraseña</label>
+
+            <label>
+                Contraseña
+            </label>
+
             <input
                 id="password"
                 type="password"
                 placeholder="••••••••"
             >
+
         </div>
 
         <button
             class="primary-btn"
             id="loginButton">
+
             INICIAR SESIÓN
+
         </button>
 
-        <div id="loginMessage" class="message"></div>
+        <div
+            id="loginMessage"
+            class="message">
+        </div>
 
     </div>
 
 </div>
 
+
+<!-- =====================================================
+     ADMIN PANEL
+===================================================== -->
+
 <div id="adminPanel">
 
 <div class="app">
 
-<aside class="sidebar" id="sidebar">
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside
+    class="sidebar"
+    id="sidebar">
 
     <div class="brand">
-        <div class="brand-logo">TL</div>
+
+        <div class="brand-logo">
+            TL
+        </div>
+
         TapLink
+
     </div>
+
 
     <div class="nav-section">
 
@@ -767,12 +766,20 @@ tbody tr:hover{
             Principal
         </div>
 
-        <button class="nav-btn active" data-page="dashboard">
-            <span class="nav-icon">📊</span>
+        <button
+            class="nav-btn active"
+            data-page="dashboard">
+
+            <span class="nav-icon">
+                📊
+            </span>
+
             Dashboard
+
         </button>
 
     </div>
+
 
     <div class="nav-section">
 
@@ -780,35 +787,33 @@ tbody tr:hover{
             Gestión
         </div>
 
-        <button class="nav-btn" data-page="businesses">
-            <span class="nav-icon">🏪</span>
+        <button
+            class="nav-btn"
+            data-page="businesses">
+
+            <span class="nav-icon">
+                🏪
+            </span>
+
             Negocios
+
         </button>
 
-        <button class="nav-btn" data-page="nfc">
-            <span class="nav-icon">📱</span>
+
+        <button
+            class="nav-btn"
+            data-page="nfc">
+
+            <span class="nav-icon">
+                📱
+            </span>
+
             NFC
+
         </button>
 
     </div>
 
-    <div class="nav-section">
-
-        <div class="nav-title">
-            Estadísticas
-        </div>
-
-        <button class="nav-btn" data-page="analytics">
-            <span class="nav-icon">📈</span>
-            Analytics
-        </button>
-
-        <button class="nav-btn" data-page="clicks">
-            <span class="nav-icon">🖱️</span>
-            Clics
-        </button>
-
-    </div>
 
     <div class="nav-section">
 
@@ -816,199 +821,247 @@ tbody tr:hover{
             Sistema
         </div>
 
-        <button class="nav-btn" data-page="trash">
-            <span class="nav-icon">🗑️</span>
-            Papelera
-        </button>
+        <button
+            class="nav-btn"
+            data-page="settings">
 
-        <button class="nav-btn" data-page="settings">
-            <span class="nav-icon">⚙️</span>
+            <span class="nav-icon">
+                ⚙️
+            </span>
+
             Configuración
+
         </button>
 
     </div>
+
 
     <div class="sidebar-bottom">
 
         <button
             class="nav-btn"
             id="logoutButton">
-            <span class="nav-icon">🚪</span>
+
+            <span class="nav-icon">
+                🚪
+            </span>
+
             Cerrar sesión
+
         </button>
 
     </div>
 
 </aside>
 
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main class="main">
 
-    <header class="topbar">
+<header class="topbar">
 
-        <div style="display:flex;align-items:center;gap:12px;">
+    <div
+        style="
+            display:flex;
+            align-items:center;
+            gap:12px;
+        ">
 
-            <button
-                class="mobile-menu"
-                id="mobileMenu">
-                ☰
-            </button>
+        <button
+            class="mobile-menu"
+            id="mobileMenu">
 
-            <div
-                class="page-title"
-                id="pageTitle">
-                Dashboard
-            </div>
+            ☰
 
-        </div>
+        </button>
 
-        <div class="top-right">
+        <div
+            class="page-title"
+            id="pageTitle">
 
-            <div class="status">
-                <span class="status-dot"></span>
-                Sistema online
-            </div>
-
-            <div class="admin-user">
-                Administrador
-            </div>
+            Dashboard
 
         </div>
 
-    </header>
+    </div>
 
-    <div class="content">
 
-<section id="page-dashboard" class="page active">
+    <div class="top-right">
+
+        <div class="status">
+
+            <span class="status-dot"></span>
+
+            Sistema online
+
+        </div>
+
+        <div class="admin-user">
+            Administrador
+        </div>
+
+    </div>
+
+</header>
+
+
+<div class="content">
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section
+    id="page-dashboard"
+    class="page active">
 
     <div class="page-header">
 
         <div>
-            <h1>Dashboard</h1>
+
+            <h1>
+                Dashboard
+            </h1>
+
             <p>
-                Resumen general de tu plataforma TapLink.
+                Administración general de TapLink.
             </p>
+
         </div>
+
 
         <button
             class="secondary-btn"
             onclick="loadDashboard()">
+
             ↻ Actualizar
+
         </button>
 
     </div>
 
+
     <div class="stats-grid">
 
+
         <div class="stat-card">
+
             <div class="stat-top">
-                <div class="stat-label">Negocios</div>
-                <div class="stat-icon">🏪</div>
+
+                <div class="stat-label">
+                    Negocios
+                </div>
+
+                <div class="stat-icon">
+                    🏪
+                </div>
+
             </div>
 
-            <div class="stat-number" id="statBusinesses">0</div>
+            <div
+                class="stat-number"
+                id="statBusinesses">
+
+                0
+
+            </div>
 
             <div class="stat-description">
                 Negocios registrados
             </div>
+
         </div>
 
+
         <div class="stat-card">
+
             <div class="stat-top">
-                <div class="stat-label">NFC registrados</div>
-                <div class="stat-icon">📱</div>
+
+                <div class="stat-label">
+                    NFC registrados
+                </div>
+
+                <div class="stat-icon">
+                    📱
+                </div>
+
             </div>
 
-            <div class="stat-number" id="statNfc">0</div>
+            <div
+                class="stat-number"
+                id="statNfc">
+
+                0
+
+            </div>
 
             <div class="stat-description">
                 Dispositivos NFC
             </div>
+
         </div>
 
+
         <div class="stat-card">
+
             <div class="stat-top">
-                <div class="stat-label">NFC activos</div>
-                <div class="stat-icon">🟢</div>
+
+                <div class="stat-label">
+                    NFC activos
+                </div>
+
+                <div class="stat-icon">
+                    🟢
+                </div>
+
             </div>
 
-            <div class="stat-number" id="statActiveNfc">0</div>
+            <div
+                class="stat-number"
+                id="statActiveNfc">
+
+                0
+
+            </div>
 
             <div class="stat-description">
                 Funcionando actualmente
             </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-top">
-                <div class="stat-label">Clics totales</div>
-                <div class="stat-icon">🖱️</div>
-            </div>
-
-            <div class="stat-number" id="statClicks">0</div>
-
-            <div class="stat-description">
-                Todas las interacciones
-            </div>
-        </div>
-
-    </div>
-
-    <div class="stats-grid">
-
-        <div class="stat-card">
-            <div class="stat-label">Clics NFC</div>
-            <div class="stat-number" id="statNfcClicks">0</div>
-            <div class="stat-description">Escaneos NFC</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">Google</div>
-            <div class="stat-number" id="statGoogle">0</div>
-            <div class="stat-description">Clics en reseñas</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">Instagram</div>
-            <div class="stat-number" id="statInstagram">0</div>
-            <div class="stat-description">Visitas a Instagram</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">WhatsApp</div>
-            <div class="stat-number" id="statWhatsapp">0</div>
-            <div class="stat-description">Conversaciones</div>
-        </div>
-
-    </div>
-
-    <div class="grid-2">
-
-        <div class="card">
-
-            <div class="card-title">
-                Actividad
-            </div>
-
-            <div id="dashboardChart" class="chart"></div>
-
-        </div>
-
-        <div class="card">
-
-            <div class="card-title">
-                Interacciones
-            </div>
-
-            <div id="interactionList"></div>
 
         </div>
 
     </div>
+
 
     <div class="card">
 
         <div class="card-title">
-            Negocios con más actividad
+            Estado del sistema
+        </div>
+
+        <div
+            id="systemStatus"
+            style="
+                color:#a1a1aa;
+                font-size:13px;
+                line-height:1.7;
+            ">
+
+            TapLink está conectado correctamente con Supabase.
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-title">
+            Negocios registrados
         </div>
 
         <div class="table-wrap">
@@ -1016,14 +1069,28 @@ tbody tr:hover{
             <table>
 
                 <thead>
+
                     <tr>
-                        <th>Negocio</th>
-                        <th>NFC</th>
-                        <th>Clics</th>
+
+                        <th>
+                            Negocio
+                        </th>
+
+                        <th>
+                            Slug
+                        </th>
+
+                        <th>
+                            Estado
+                        </th>
+
                     </tr>
+
                 </thead>
 
-                <tbody id="topBusinesses"></tbody>
+                <tbody
+                    id="dashboardBusinesses">
+                </tbody>
 
             </table>
 
@@ -1033,24 +1100,40 @@ tbody tr:hover{
 
 </section>
 
-<section id="page-businesses" class="page">
+
+<!-- =====================================================
+     NEGOCIOS
+===================================================== -->
+
+<section
+    id="page-businesses"
+    class="page">
 
     <div class="page-header">
 
         <div>
-            <h1>Negocios</h1>
+
+            <h1>
+                Negocios
+            </h1>
+
             <p>
                 Administra todos los negocios registrados.
             </p>
+
         </div>
+
 
         <button
             class="small-btn"
             onclick="openBusinessModal()">
+
             + Crear negocio
+
         </button>
 
     </div>
+
 
     <div class="toolbar">
 
@@ -1063,10 +1146,13 @@ tbody tr:hover{
         <button
             class="secondary-btn"
             onclick="loadBusinesses()">
+
             ↻ Actualizar
+
         </button>
 
     </div>
+
 
     <div class="card">
 
@@ -1075,16 +1161,32 @@ tbody tr:hover{
             <table>
 
                 <thead>
+
                     <tr>
-                        <th>Negocio</th>
-                        <th>Slug</th>
-                        <th>NFC</th>
-                        <th>Clics</th>
-                        <th>Acciones</th>
+
+                        <th>
+                            Negocio
+                        </th>
+
+                        <th>
+                            Slug
+                        </th>
+
+                        <th>
+                            NFC
+                        </th>
+
+                        <th>
+                            Acciones
+                        </th>
+
                     </tr>
+
                 </thead>
 
-                <tbody id="businessTable"></tbody>
+                <tbody
+                    id="businessTable">
+                </tbody>
 
             </table>
 
@@ -1094,24 +1196,40 @@ tbody tr:hover{
 
 </section>
 
-<section id="page-nfc" class="page">
+
+<!-- =====================================================
+     NFC
+===================================================== -->
+
+<section
+    id="page-nfc"
+    class="page">
 
     <div class="page-header">
 
         <div>
-            <h1>NFC</h1>
+
+            <h1>
+                NFC
+            </h1>
+
             <p>
                 Administra todos los dispositivos NFC.
             </p>
+
         </div>
+
 
         <button
             class="small-btn"
             onclick="openNfcModal()">
+
             + Crear NFC
+
         </button>
 
     </div>
+
 
     <div class="toolbar">
 
@@ -1121,23 +1239,36 @@ tbody tr:hover{
             oninput="renderNfc()"
         >
 
+
         <select
             id="nfcStatusFilter"
             onchange="renderNfc()">
 
-            <option value="">Todos los estados</option>
-            <option value="active">Activos</option>
-            <option value="inactive">Inactivos</option>
+            <option value="">
+                Todos los estados
+            </option>
+
+            <option value="active">
+                Activos
+            </option>
+
+            <option value="inactive">
+                Inactivos
+            </option>
 
         </select>
+
 
         <button
             class="secondary-btn"
             onclick="loadNfc()">
+
             ↻ Actualizar
+
         </button>
 
     </div>
+
 
     <div class="card">
 
@@ -1148,18 +1279,38 @@ tbody tr:hover{
                 <thead>
 
                     <tr>
-                        <th>NFC</th>
-                        <th>Código</th>
-                        <th>Negocio</th>
-                        <th>Ubicación</th>
-                        <th>Estado</th>
-                        <th>Clics</th>
-                        <th>Acciones</th>
+
+                        <th>
+                            NFC
+                        </th>
+
+                        <th>
+                            Código
+                        </th>
+
+                        <th>
+                            Negocio
+                        </th>
+
+                        <th>
+                            Ubicación
+                        </th>
+
+                        <th>
+                            Estado
+                        </th>
+
+                        <th>
+                            Acciones
+                        </th>
+
                     </tr>
 
                 </thead>
 
-                <tbody id="nfcTable"></tbody>
+                <tbody
+                    id="nfcTable">
+                </tbody>
 
             </table>
 
@@ -1169,236 +1320,31 @@ tbody tr:hover{
 
 </section>
 
-<section id="page-analytics" class="page">
+
+<!-- =====================================================
+     CONFIGURACIÓN
+===================================================== -->
+
+<section
+    id="page-settings"
+    class="page">
 
     <div class="page-header">
 
         <div>
-            <h1>Analytics</h1>
-            <p>
-                Analiza el comportamiento de los clientes.
-            </p>
-        </div>
 
-    </div>
+            <h1>
+                Configuración
+            </h1>
 
-    <div class="toolbar">
-
-        <select
-            id="analyticsBusiness"
-            onchange="loadAnalytics()">
-
-            <option value="">
-                Selecciona un negocio
-            </option>
-
-        </select>
-
-    </div>
-
-    <div class="analytics-grid">
-
-        <div class="analytics-box">
-            <div class="analytics-box-title">
-                Clics totales
-            </div>
-
-            <div
-                class="analytics-box-number"
-                id="analyticsTotal">
-                0
-            </div>
-        </div>
-
-        <div class="analytics-box">
-            <div class="analytics-box-title">
-                📱 NFC
-            </div>
-
-            <div
-                class="analytics-box-number"
-                id="analyticsNfc">
-                0
-            </div>
-        </div>
-
-        <div class="analytics-box">
-            <div class="analytics-box-title">
-                ⭐ Google
-            </div>
-
-            <div
-                class="analytics-box-number"
-                id="analyticsGoogle">
-                0
-            </div>
-        </div>
-
-        <div class="analytics-box">
-            <div class="analytics-box-title">
-                📸 Instagram
-            </div>
-
-            <div
-                class="analytics-box-number"
-                id="analyticsInstagram">
-                0
-            </div>
-        </div>
-
-        <div class="analytics-box">
-            <div class="analytics-box-title">
-                💬 WhatsApp
-            </div>
-
-            <div
-                class="analytics-box-number"
-                id="analyticsWhatsapp">
-                0
-            </div>
-        </div>
-
-    </div>
-
-    <div class="card" style="margin-top:18px;">
-
-        <div class="card-title">
-            Distribución de interacciones
-        </div>
-
-        <div id="analyticsDistribution"></div>
-
-    </div>
-
-</section>
-
-<section id="page-clicks" class="page">
-
-    <div class="page-header">
-
-        <div>
-            <h1>Clics</h1>
-            <p>
-                Registro detallado de interacciones.
-            </p>
-        </div>
-
-        <button
-            class="secondary-btn"
-            onclick="loadClicks()">
-            ↻ Actualizar
-        </button>
-
-    </div>
-
-    <div class="toolbar">
-
-        <select
-            id="clickBusinessFilter"
-            onchange="renderClicks()">
-
-            <option value="">
-                Todos los negocios
-            </option>
-
-        </select>
-
-        <select
-            id="clickTypeFilter"
-            onchange="renderClicks()">
-
-            <option value="">
-                Todas las acciones
-            </option>
-
-            <option value="nfc">NFC</option>
-            <option value="google">Google</option>
-            <option value="instagram">Instagram</option>
-            <option value="whatsapp">WhatsApp</option>
-            <option value="website">Website</option>
-
-        </select>
-
-    </div>
-
-    <div class="card">
-
-        <div class="table-wrap">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Negocio</th>
-                        <th>Acción</th>
-                        <th>NFC</th>
-                        <th>Dispositivo</th>
-                        <th>Navegador</th>
-                        <th>Destino</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="clickTable"></tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section id="page-trash" class="page">
-
-    <div class="page-header">
-
-        <div>
-            <h1>Papelera</h1>
-            <p>
-                Elementos eliminados o desactivados.
-            </p>
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="empty">
-
-            <div class="empty-icon">
-                🗑️
-            </div>
-
-            <div class="empty-title">
-                Papelera preparada
-            </div>
-
-            <div>
-                En la siguiente etapa conectaremos
-                eliminación segura y restauración.
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section id="page-settings" class="page">
-
-    <div class="page-header">
-
-        <div>
-            <h1>Configuración</h1>
             <p>
                 Configuración general de TapLink.
             </p>
+
         </div>
 
     </div>
+
 
     <div class="card">
 
@@ -1406,9 +1352,12 @@ tbody tr:hover{
             Sistema
         </div>
 
+
         <div class="form-group">
 
-            <label>Plataforma</label>
+            <label>
+                Plataforma
+            </label>
 
             <input
                 value="TapLink"
@@ -1417,9 +1366,12 @@ tbody tr:hover{
 
         </div>
 
+
         <div class="form-group">
 
-            <label>URL pública</label>
+            <label>
+                URL pública
+            </label>
 
             <input
                 value="https://nfc-link.vercel.app"
@@ -1428,9 +1380,12 @@ tbody tr:hover{
 
         </div>
 
+
         <div class="form-group">
 
-            <label>Base de datos</label>
+            <label>
+                Base de datos
+            </label>
 
             <input
                 value="Supabase"
@@ -1443,7 +1398,8 @@ tbody tr:hover{
 
 </section>
 
-    </div>
+
+</div>
 
 </main>
 
@@ -1451,107 +1407,180 @@ tbody tr:hover{
 
 </div>
 
-<div class="modal-overlay" id="businessModal">
+
+<!-- =====================================================
+     MODAL NEGOCIO
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="businessModal">
 
     <div class="modal">
 
+
         <div class="modal-header">
 
-            <h2 id="businessModalTitle">
+            <h2
+                id="businessModalTitle">
+
                 Crear negocio
+
             </h2>
+
 
             <button
                 class="close-btn"
                 onclick="closeBusinessModal()">
+
                 ✕
+
             </button>
 
         </div>
+
 
         <input
             type="hidden"
             id="businessEditId"
         >
 
+
         <div class="form-group">
-            <label>Nombre</label>
+
+            <label>
+                Nombre
+            </label>
+
             <input
                 id="businessName"
                 placeholder="Ej: Tanta"
             >
+
         </div>
 
+
         <div class="form-group">
-            <label>Slug</label>
+
+            <label>
+                Slug
+            </label>
+
             <input
                 id="businessSlug"
                 placeholder="tanta"
             >
+
         </div>
 
+
         <div class="form-group">
-            <label>Logo URL</label>
+
+            <label>
+                Logo URL
+            </label>
+
             <input
                 id="businessLogo"
                 placeholder="https://..."
             >
+
         </div>
 
+
         <div class="form-group">
-            <label>Google / Reseñas</label>
+
+            <label>
+                Google / Reseñas
+            </label>
+
             <input
                 id="businessGoogle"
                 placeholder="https://..."
             >
+
         </div>
 
+
         <div class="form-group">
-            <label>Instagram</label>
+
+            <label>
+                Instagram
+            </label>
+
             <input
                 id="businessInstagram"
                 placeholder="https://instagram.com/..."
             >
+
         </div>
 
+
         <div class="form-group">
-            <label>WhatsApp</label>
+
+            <label>
+                WhatsApp
+            </label>
+
             <input
                 id="businessWhatsapp"
                 placeholder="https://wa.me/..."
             >
+
         </div>
 
+
         <div class="form-group">
-            <label>Website</label>
+
+            <label>
+                Website
+            </label>
+
             <input
                 id="businessWebsite"
                 placeholder="https://..."
             >
+
         </div>
 
+
         <div class="form-group">
-            <label>Google Maps</label>
+
+            <label>
+                Google Maps
+            </label>
+
             <input
                 id="businessMaps"
                 placeholder="https://www.google.com/maps/embed..."
             >
+
         </div>
 
-        <div id="businessModalMessage" class="message"></div>
+
+        <div
+            id="businessModalMessage"
+            class="message">
+        </div>
+
 
         <div class="modal-actions">
 
             <button
                 class="cancel-btn"
                 onclick="closeBusinessModal()">
+
                 Cancelar
+
             </button>
+
 
             <button
                 class="save-btn"
                 onclick="saveBusiness()">
+
                 Guardar
+
             </button>
 
         </div>
@@ -1560,40 +1589,63 @@ tbody tr:hover{
 
 </div>
 
-<div class="modal-overlay" id="nfcModal">
+
+<!-- =====================================================
+     MODAL NFC
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="nfcModal">
 
     <div class="modal">
 
+
         <div class="modal-header">
 
-            <h2 id="nfcModalTitle">
+            <h2
+                id="nfcModalTitle">
+
                 Crear NFC
+
             </h2>
+
 
             <button
                 class="close-btn"
                 onclick="closeNfcModal()">
+
                 ✕
+
             </button>
 
         </div>
+
 
         <input
             type="hidden"
             id="nfcEditId"
         >
 
+
         <div class="form-group">
 
-            <label>Negocio</label>
+            <label>
+                Negocio
+            </label>
 
-            <select id="nfcBusiness"></select>
+            <select
+                id="nfcBusiness">
+            </select>
 
         </div>
 
+
         <div class="form-group">
 
-            <label>Nombre</label>
+            <label>
+                Nombre
+            </label>
 
             <input
                 id="nfcName"
@@ -1602,9 +1654,12 @@ tbody tr:hover{
 
         </div>
 
+
         <div class="form-group">
 
-            <label>Código</label>
+            <label>
+                Código
+            </label>
 
             <input
                 id="nfcCode"
@@ -1613,9 +1668,12 @@ tbody tr:hover{
 
         </div>
 
+
         <div class="form-group">
 
-            <label>Ubicación</label>
+            <label>
+                Ubicación
+            </label>
 
             <input
                 id="nfcLocation"
@@ -1624,9 +1682,12 @@ tbody tr:hover{
 
         </div>
 
+
         <div class="form-group">
 
-            <label>Estado</label>
+            <label>
+                Estado
+            </label>
 
             <select id="nfcStatus">
 
@@ -1642,20 +1703,30 @@ tbody tr:hover{
 
         </div>
 
-        <div id="nfcModalMessage" class="message"></div>
+
+        <div
+            id="nfcModalMessage"
+            class="message">
+        </div>
+
 
         <div class="modal-actions">
 
             <button
                 class="cancel-btn"
                 onclick="closeNfcModal()">
+
                 Cancelar
+
             </button>
+
 
             <button
                 class="save-btn"
                 onclick="saveNfc()">
+
                 Guardar
+
             </button>
 
         </div>
@@ -1664,9 +1735,19 @@ tbody tr:hover{
 
 </div>
 
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
     "https://tizigescxnamlliwsbzf.supabase.co";
@@ -1680,13 +1761,26 @@ const supabaseClient =
         SUPABASE_KEY
     );
 
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
 let businesses = [];
+
 let nfcDevices = [];
-let clicks = [];
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
 
 function escapeHtml(value){
 
-    if(value === null || value === undefined)
+    if(
+        value === null ||
+        value === undefined
+    )
         return "";
 
     return String(value)
@@ -1698,118 +1792,205 @@ function escapeHtml(value){
 
 }
 
-function showMessage(elementId,text,type){
+
+function showMessage(
+    elementId,
+    text,
+    type
+){
 
     const el =
-        document.getElementById(elementId);
+        document.getElementById(
+            elementId
+        );
 
-    el.textContent = text;
+    el.textContent =
+        text;
 
     el.className =
         "message " + type;
 
 }
 
+
+/* =====================================================
+   NAVEGACIÓN
+===================================================== */
+
 const pageNames = {
 
     dashboard:"Dashboard",
+
     businesses:"Negocios",
+
     nfc:"NFC",
-    analytics:"Analytics",
-    clicks:"Clics",
-    trash:"Papelera",
+
     settings:"Configuración"
 
 };
 
+
 document
-    .querySelectorAll(".nav-btn[data-page]")
+    .querySelectorAll(
+        ".nav-btn[data-page]"
+    )
     .forEach(btn => {
 
-        btn.addEventListener("click",()=>{
+        btn.addEventListener(
+            "click",
+            () => {
 
-            const page =
-                btn.dataset.page;
+                const page =
+                    btn.dataset.page;
 
-            document
-                .querySelectorAll(".nav-btn")
-                .forEach(x =>
-                    x.classList.remove("active")
+
+                document
+                    .querySelectorAll(
+                        ".nav-btn"
+                    )
+                    .forEach(x =>
+                        x.classList.remove(
+                            "active"
+                        )
+                    );
+
+
+                btn.classList.add(
+                    "active"
                 );
 
-            btn.classList.add("active");
 
-            document
-                .querySelectorAll(".page")
-                .forEach(x =>
-                    x.classList.remove("active")
-                );
+                document
+                    .querySelectorAll(
+                        ".page"
+                    )
+                    .forEach(x =>
+                        x.classList.remove(
+                            "active"
+                        )
+                    );
 
-            document
-                .getElementById("page-"+page)
-                .classList.add("active");
 
-            document
-                .getElementById("pageTitle")
-                .textContent =
-                pageNames[page];
+                document
+                    .getElementById(
+                        "page-" + page
+                    )
+                    .classList.add(
+                        "active"
+                    );
 
-            document
-                .getElementById("sidebar")
-                .classList.remove("open");
 
-            if(page === "dashboard")
-                loadDashboard();
+                document
+                    .getElementById(
+                        "pageTitle"
+                    )
+                    .textContent =
+                    pageNames[page];
 
-            if(page === "businesses")
-                loadBusinesses();
 
-            if(page === "nfc")
-                loadNfc();
+                document
+                    .getElementById(
+                        "sidebar"
+                    )
+                    .classList.remove(
+                        "open"
+                    );
 
-            if(page === "analytics")
-                prepareAnalytics();
 
-            if(page === "clicks")
-                loadClicks();
+                if(
+                    page ===
+                    "dashboard"
+                )
+                    loadDashboard();
 
-        });
+
+                if(
+                    page ===
+                    "businesses"
+                )
+                    loadBusinesses();
+
+
+                if(
+                    page ===
+                    "nfc"
+                )
+                    loadNfc();
+
+            }
+
+        );
 
     });
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
 
 document
-    .getElementById("mobileMenu")
-    .addEventListener("click",()=>{
+    .getElementById(
+        "mobileMenu"
+    )
+    .addEventListener(
+        "click",
+        () => {
 
-        document
-            .getElementById("sidebar")
-            .classList.toggle("open");
+            document
+                .getElementById(
+                    "sidebar"
+                )
+                .classList.toggle(
+                    "open"
+                );
 
-    });
+        }
+    );
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
 
 function showLogin(){
 
     document
-        .getElementById("loginPanel")
-        .style.display = "block";
+        .getElementById(
+            "loginPanel"
+        )
+        .style.display =
+        "block";
+
 
     document
-        .getElementById("adminPanel")
-        .style.display = "none";
+        .getElementById(
+            "adminPanel"
+        )
+        .style.display =
+        "none";
 
 }
+
 
 function showAdmin(){
 
     document
-        .getElementById("loginPanel")
-        .style.display = "none";
+        .getElementById(
+            "loginPanel"
+        )
+        .style.display =
+        "none";
+
 
     document
-        .getElementById("adminPanel")
-        .style.display = "block";
+        .getElementById(
+            "adminPanel"
+        )
+        .style.display =
+        "block";
 
 }
+
 
 async function checkSession(){
 
@@ -1822,6 +2003,7 @@ async function checkSession(){
         .auth
         .getSession();
 
+
     if(!session){
 
         showLogin();
@@ -1830,11 +2012,17 @@ async function checkSession(){
 
     }
 
-    await checkAdmin(session.user.id);
+
+    await checkAdmin(
+        session.user.id
+    );
 
 }
 
-async function checkAdmin(userId){
+
+async function checkAdmin(
+    userId
+){
 
     const {
         data,
@@ -1843,16 +2031,25 @@ async function checkAdmin(userId){
     await supabaseClient
         .from("admins")
         .select("id")
-        .eq("id",userId)
+        .eq(
+            "id",
+            userId
+        )
         .maybeSingle();
 
-    if(error || !data){
+
+    if(
+        error ||
+        !data
+    ){
 
         await supabaseClient
             .auth
             .signOut();
 
+
         showLogin();
+
 
         showMessage(
             "loginMessage",
@@ -1860,83 +2057,123 @@ async function checkAdmin(userId){
             "error"
         );
 
+
         return;
 
     }
 
+
     showAdmin();
 
-    loadDashboard();
+    await loadDashboard();
 
 }
 
-document
-    .getElementById("loginButton")
-    .addEventListener("click",async()=>{
-
-        const email =
-            document
-                .getElementById("email")
-                .value
-                .trim();
-
-        const password =
-            document
-                .getElementById("password")
-                .value;
-
-        if(!email || !password){
-
-            showMessage(
-                "loginMessage",
-                "Completa el correo y la contraseña.",
-                "error"
-            );
-
-            return;
-
-        }
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .auth
-            .signInWithPassword({
-                email,
-                password
-            });
-
-        if(error){
-
-            console.error(error);
-
-            showMessage(
-                "loginMessage",
-                "Correo o contraseña incorrectos.",
-                "error"
-            );
-
-            return;
-
-        }
-
-        await checkAdmin(data.user.id);
-
-    });
 
 document
-    .getElementById("logoutButton")
-    .addEventListener("click",async()=>{
+    .getElementById(
+        "loginButton"
+    )
+    .addEventListener(
+        "click",
+        async () => {
 
-        await supabaseClient
-            .auth
-            .signOut();
+            const email =
+                document
+                    .getElementById(
+                        "email"
+                    )
+                    .value
+                    .trim();
 
-        showLogin();
 
-    });
+            const password =
+                document
+                    .getElementById(
+                        "password"
+                    )
+                    .value;
+
+
+            if(
+                !email ||
+                !password
+            ){
+
+                showMessage(
+                    "loginMessage",
+                    "Completa el correo y la contraseña.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const {
+                data,
+                error
+            } =
+            await supabaseClient
+                .auth
+                .signInWithPassword({
+
+                    email,
+
+                    password
+
+                });
+
+
+            if(error){
+
+                console.error(
+                    error
+                );
+
+
+                showMessage(
+                    "loginMessage",
+                    "Correo o contraseña incorrectos.",
+                    "error"
+                );
+
+
+                return;
+
+            }
+
+
+            await checkAdmin(
+                data.user.id
+            );
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "logoutButton"
+    )
+    .addEventListener(
+        "click",
+        async () => {
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+            showLogin();
+
+        }
+    );
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
 
 async function loadDashboard(){
 
@@ -1947,40 +2184,41 @@ async function loadDashboard(){
             error
         } =
         await supabaseClient
-            .rpc("get_dashboard_summary");
+            .rpc(
+                "get_dashboard_summary"
+            );
+
 
         if(error)
             throw error;
 
-        document.getElementById("statBusinesses").textContent =
-            data.businesses ?? 0;
 
-        document.getElementById("statNfc").textContent =
-            data.nfc_devices ?? 0;
+        document
+            .getElementById(
+                "statBusinesses"
+            )
+            .textContent =
+            data?.businesses ?? 0;
 
-        document.getElementById("statActiveNfc").textContent =
-            data.active_nfc ?? 0;
 
-        document.getElementById("statClicks").textContent =
-            data.total_clicks ?? 0;
+        document
+            .getElementById(
+                "statNfc"
+            )
+            .textContent =
+            data?.nfc_devices ?? 0;
 
-        document.getElementById("statNfcClicks").textContent =
-            data.nfc_clicks ?? 0;
 
-        document.getElementById("statGoogle").textContent =
-            data.google_clicks ?? 0;
+        document
+            .getElementById(
+                "statActiveNfc"
+            )
+            .textContent =
+            data?.active_nfc ?? 0;
 
-        document.getElementById("statInstagram").textContent =
-            data.instagram_clicks ?? 0;
 
-        document.getElementById("statWhatsapp").textContent =
-            data.whatsapp_clicks ?? 0;
+        await loadDashboardBusinesses();
 
-        renderInteractions(data);
-
-        await loadTopBusinesses();
-
-        await loadChart();
 
     }catch(error){
 
@@ -1989,84 +2227,106 @@ async function loadDashboard(){
             error
         );
 
+
+        /*
+         * Si el RPC todavía no está funcionando,
+         * cargamos directamente desde las tablas.
+         */
+
+        await loadDashboardFallback();
+
     }
 
 }
 
-function renderInteractions(data){
 
-    const list =
-        document.getElementById("interactionList");
+async function loadDashboardFallback(){
 
-    const items = [
+    const {
+        data:businessData
+    } =
+    await supabaseClient
+        .from("businesses")
+        .select("id");
 
-        ["📱","NFC",data.nfc_clicks ?? 0],
-        ["⭐","Google",data.google_clicks ?? 0],
-        ["📸","Instagram",data.instagram_clicks ?? 0],
-        ["💬","WhatsApp",data.whatsapp_clicks ?? 0],
-        ["🌐","Website",data.website_clicks ?? 0]
 
-    ];
+    const {
+        data:nfcData
+    } =
+    await supabaseClient
+        .from("nfc_devices")
+        .select("id,status");
 
-    list.innerHTML =
-        items.map(item => `
 
-            <div style="
-                display:flex;
-                align-items:center;
-                justify-content:space-between;
-                padding:13px 0;
-                border-bottom:1px solid #222225;
-            ">
+    document
+        .getElementById(
+            "statBusinesses"
+        )
+        .textContent =
+        businessData?.length || 0;
 
-                <div style="
-                    display:flex;
-                    gap:10px;
-                    align-items:center;
-                    font-size:13px;
-                ">
 
-                    <span>${item[0]}</span>
-                    ${item[1]}
+    document
+        .getElementById(
+            "statNfc"
+        )
+        .textContent =
+        nfcData?.length || 0;
 
-                </div>
 
-                <strong>
-                    ${item[2]}
-                </strong>
+    document
+        .getElementById(
+            "statActiveNfc"
+        )
+        .textContent =
+        (nfcData || [])
+            .filter(
+                n => n.status === "active"
+            )
+            .length;
 
-            </div>
 
-        `).join("");
+    await loadDashboardBusinesses();
 
 }
 
-async function loadTopBusinesses(){
+
+async function loadDashboardBusinesses(){
 
     const {
         data,
         error
     } =
     await supabaseClient
-        .rpc("get_business_clicks");
+        .from("businesses")
+        .select(
+            "id,name,slug"
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        )
+        .limit(10);
+
+
+    const tbody =
+        document.getElementById(
+            "dashboardBusinesses"
+        );
+
 
     if(error){
 
-        console.error(error);
-
-        return;
-
-    }
-
-    const tbody =
-        document.getElementById("topBusinesses");
-
-    if(!data || !data.length){
+        console.error(
+            error
+        );
 
         tbody.innerHTML = `
             <tr>
                 <td colspan="3">
-                    No hay datos.
+                    No se pudieron cargar los negocios.
                 </td>
             </tr>
         `;
@@ -2074,115 +2334,85 @@ async function loadTopBusinesses(){
         return;
 
     }
+
+
+    if(
+        !data ||
+        !data.length
+    ){
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="3">
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            🏪
+                        </div>
+
+                        <div class="empty-title">
+                            No hay negocios
+                        </div>
+
+                        <div>
+                            Crea tu primer negocio desde la sección Negocios.
+                        </div>
+
+                    </div>
+
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
 
     tbody.innerHTML =
-        data.map(row => `
+        data.map(
+            b => `
 
-            <tr>
+                <tr>
 
-                <td>
-                    <strong>
-                        ${escapeHtml(row.business_name)}
-                    </strong>
-                </td>
+                    <td>
+                        <strong>
+                            ${escapeHtml(
+                                b.name
+                            )}
+                        </strong>
+                    </td>
 
-                <td>
-                    ${row.nfc_count ?? 0}
-                </td>
+                    <td>
 
-                <td>
-                    <strong>
-                        ${row.click_count ?? row.clicks ?? 0}
-                    </strong>
-                </td>
+                        <span class="badge gray">
+                            /${escapeHtml(
+                                b.slug
+                            )}
+                        </span>
 
-            </tr>
+                    </td>
 
-        `).join("");
+                    <td>
 
-}
+                        <span class="badge green">
+                            ● Activo
+                        </span>
 
-async function loadChart(){
+                    </td>
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .rpc("get_daily_clicks");
+                </tr>
 
-    const chart =
-        document.getElementById("dashboardChart");
-
-    if(error || !data || !data.length){
-
-        chart.innerHTML = `
-            <div style="
-                width:100%;
-                text-align:center;
-                color:#71717a;
-                padding-top:90px;
-            ">
-                No hay suficientes datos todavía.
-            </div>
-        `;
-
-        return;
-
-    }
-
-    const max =
-        Math.max(
-            ...data.map(x => Number(x.clicks) || 0),
-            1
-        );
-
-    chart.innerHTML =
-        data.slice(-14).map(row => {
-
-            const value =
-                Number(row.clicks) || 0;
-
-            const height =
-                Math.max(
-                    3,
-                    (value/max)*180
-                );
-
-            const date =
-                new Date(row.date)
-                    .toLocaleDateString(
-                        "es-PE",
-                        {
-                            day:"2-digit",
-                            month:"2-digit"
-                        }
-                    );
-
-            return `
-
-                <div class="bar-wrap">
-
-                    <div class="bar-value">
-                        ${value}
-                    </div>
-
-                    <div
-                        class="bar"
-                        style="height:${height}px">
-                    </div>
-
-                    <div class="bar-label">
-                        ${date}
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
+            `
+        ).join("");
 
 }
+
+
+/* =====================================================
+   NEGOCIOS
+===================================================== */
 
 async function loadBusinesses(){
 
@@ -2200,83 +2430,87 @@ async function loadBusinesses(){
             }
         );
 
+
     if(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
 
         return;
 
     }
 
-    businesses = data || [];
+
+    businesses =
+        data || [];
+
 
     renderBusinesses();
 
-    populateBusinessSelects();
+
+    populateNfcBusinessSelect();
 
 }
 
-async function getBusinessClickCounts(){
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .rpc("get_business_clicks");
-
-    if(error)
-        return {};
-
-    const result = {};
-
-    (data || []).forEach(row => {
-
-        result[row.business_id] =
-            Number(
-                row.click_count ??
-                row.clicks ??
-                0
-            );
-
-    });
-
-    return result;
-
-}
 
 async function renderBusinesses(){
 
     const tbody =
-        document.getElementById("businessTable");
+        document.getElementById(
+            "businessTable"
+        );
+
 
     const search =
         (
             document
-                .getElementById("businessSearch")
+                .getElementById(
+                    "businessSearch"
+                )
                 ?.value ||
             ""
-        ).toLowerCase();
+        )
+        .toLowerCase();
 
-    const clickCounts =
-        await getBusinessClickCounts();
 
     const filtered =
-        businesses.filter(b =>
-            b.name
+        businesses.filter(
+            b =>
+                (
+                    b.name ||
+                    ""
+                )
                 .toLowerCase()
-                .includes(search)
+                .includes(
+                    search
+                )
         );
 
-    if(!filtered.length){
+
+    if(
+        !filtered.length
+    ){
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="5">
+
+                <td colspan="4">
+
                     <div class="empty">
-                        No se encontraron negocios.
+
+                        <div class="empty-icon">
+                            🏪
+                        </div>
+
+                        <div class="empty-title">
+                            No se encontraron negocios
+                        </div>
+
                     </div>
+
                 </td>
+
             </tr>
         `;
 
@@ -2284,61 +2518,81 @@ async function renderBusinesses(){
 
     }
 
+
     tbody.innerHTML =
-        filtered.map(b => {
-
-            const count =
-                clickCounts[b.id] || 0;
-
-            return `
+        filtered.map(
+            b => `
 
                 <tr>
 
                     <td>
+
                         <strong>
-                            ${escapeHtml(b.name)}
+                            ${escapeHtml(
+                                b.name
+                            )}
                         </strong>
+
                     </td>
 
+
                     <td>
+
                         <span class="badge gray">
-                            /${escapeHtml(b.slug)}
+                            /${escapeHtml(
+                                b.slug
+                            )}
                         </span>
+
                     </td>
 
-                    <td>
-                        ${nfcDevices.filter(
-                            n => n.business_id === b.id
-                        ).length}
-                    </td>
 
                     <td>
-                        <strong>
-                            ${count}
-                        </strong>
+
+                        ${
+                            nfcDevices.filter(
+                                n =>
+                                    n.business_id ===
+                                    b.id
+                            ).length
+                        }
+
                     </td>
+
 
                     <td>
 
                         <div class="actions">
 
+
                             <button
                                 class="action-btn"
-                                onclick="openBusinessPublic('${escapeHtml(b.slug)}')">
+                                onclick="openBusinessPublic('${encodeURIComponent(
+                                    b.slug
+                                )}')">
+
                                 👁️ Ver
+
                             </button>
+
 
                             <button
                                 class="action-btn"
                                 onclick="editBusiness(${b.id})">
+
                                 ✏️ Editar
+
                             </button>
+
 
                             <button
                                 class="action-btn danger"
                                 onclick="deleteBusiness(${b.id})">
+
                                 🗑️ Eliminar
+
                             </button>
+
 
                         </div>
 
@@ -2346,13 +2600,21 @@ async function renderBusinesses(){
 
                 </tr>
 
-            `;
-
-        }).join("");
+            `
+        ).join("");
 
 }
 
-function openBusinessPublic(slug){
+
+function openBusinessPublic(
+    encodedSlug
+){
+
+    const slug =
+        decodeURIComponent(
+            encodedSlug
+        );
+
 
     window.open(
         "/" + slug,
@@ -2361,14 +2623,30 @@ function openBusinessPublic(slug){
 
 }
 
+
+/* =====================================================
+   MODAL NEGOCIO
+===================================================== */
+
 function openBusinessModal(){
 
-    document.getElementById("businessEditId").value = "";
+    document
+        .getElementById(
+            "businessEditId"
+        )
+        .value = "";
 
-    document.getElementById("businessModalTitle").textContent =
+
+    document
+        .getElementById(
+            "businessModalTitle"
+        )
+        .textContent =
         "Crear negocio";
 
+
     [
+
         "businessName",
         "businessSlug",
         "businessLogo",
@@ -2377,126 +2655,253 @@ function openBusinessModal(){
         "businessWhatsapp",
         "businessWebsite",
         "businessMaps"
-    ].forEach(id =>
-        document.getElementById(id).value = ""
+
+    ].forEach(
+        id =>
+            document
+                .getElementById(id)
+                .value = ""
     );
 
-    document.getElementById("businessModalMessage").textContent = "";
 
-    document.getElementById("businessModal").classList.add("show");
+    document
+        .getElementById(
+            "businessModalMessage"
+        )
+        .textContent = "";
+
+
+    document
+        .getElementById(
+            "businessModal"
+        )
+        .classList.add(
+            "show"
+        );
 
 }
+
 
 function closeBusinessModal(){
 
     document
-        .getElementById("businessModal")
-        .classList.remove("show");
+        .getElementById(
+            "businessModal"
+        )
+        .classList.remove(
+            "show"
+        );
 
 }
 
-function editBusiness(id){
+
+function editBusiness(
+    id
+){
 
     const business =
         businesses.find(
-            b => b.id === id
+            b =>
+                b.id === id
         );
+
 
     if(!business)
         return;
 
-    document.getElementById("businessEditId").value =
+
+    document
+        .getElementById(
+            "businessEditId"
+        )
+        .value =
         business.id;
 
-    document.getElementById("businessModalTitle").textContent =
+
+    document
+        .getElementById(
+            "businessModalTitle"
+        )
+        .textContent =
         "Editar negocio";
 
-    document.getElementById("businessName").value =
+
+    document
+        .getElementById(
+            "businessName"
+        )
+        .value =
         business.name || "";
 
-    document.getElementById("businessSlug").value =
+
+    document
+        .getElementById(
+            "businessSlug"
+        )
+        .value =
         business.slug || "";
 
-    document.getElementById("businessLogo").value =
+
+    document
+        .getElementById(
+            "businessLogo"
+        )
+        .value =
         business.logo_url || "";
 
-    document.getElementById("businessGoogle").value =
+
+    document
+        .getElementById(
+            "businessGoogle"
+        )
+        .value =
         business.google_url || "";
 
-    document.getElementById("businessInstagram").value =
+
+    document
+        .getElementById(
+            "businessInstagram"
+        )
+        .value =
         business.instagram_url || "";
 
-    document.getElementById("businessWhatsapp").value =
+
+    document
+        .getElementById(
+            "businessWhatsapp"
+        )
+        .value =
         business.whatsapp_url || "";
 
-    document.getElementById("businessWebsite").value =
+
+    document
+        .getElementById(
+            "businessWebsite"
+        )
+        .value =
         business.website_url || "";
 
-    document.getElementById("businessMaps").value =
+
+    document
+        .getElementById(
+            "businessMaps"
+        )
+        .value =
         business.maps_url || "";
 
-    document.getElementById("businessModal").classList.add("show");
+
+    document
+        .getElementById(
+            "businessModal"
+        )
+        .classList.add(
+            "show"
+        );
 
 }
+
+
+/* =====================================================
+   GUARDAR NEGOCIO
+===================================================== */
 
 async function saveBusiness(){
 
     const id =
-        document.getElementById("businessEditId").value;
+        document
+            .getElementById(
+                "businessEditId"
+            )
+            .value;
+
 
     const payload = {
 
         name:
             document
-                .getElementById("businessName")
+                .getElementById(
+                    "businessName"
+                )
                 .value
                 .trim(),
+
 
         slug:
             document
-                .getElementById("businessSlug")
+                .getElementById(
+                    "businessSlug"
+                )
                 .value
-                .trim(),
+                .trim()
+                .toLowerCase(),
+
 
         logo_url:
             document
-                .getElementById("businessLogo")
+                .getElementById(
+                    "businessLogo"
+                )
                 .value
-                .trim() || null,
+                .trim() ||
+            null,
+
 
         google_url:
             document
-                .getElementById("businessGoogle")
+                .getElementById(
+                    "businessGoogle"
+                )
                 .value
-                .trim() || null,
+                .trim() ||
+            null,
+
 
         instagram_url:
             document
-                .getElementById("businessInstagram")
+                .getElementById(
+                    "businessInstagram"
+                )
                 .value
-                .trim() || null,
+                .trim() ||
+            null,
+
 
         whatsapp_url:
             document
-                .getElementById("businessWhatsapp")
+                .getElementById(
+                    "businessWhatsapp"
+                )
                 .value
-                .trim() || null,
+                .trim() ||
+            null,
+
 
         website_url:
             document
-                .getElementById("businessWebsite")
+                .getElementById(
+                    "businessWebsite"
+                )
                 .value
-                .trim() || null,
+                .trim() ||
+            null,
+
 
         maps_url:
             document
-                .getElementById("businessMaps")
+                .getElementById(
+                    "businessMaps"
+                )
                 .value
-                .trim() || null
+                .trim() ||
+            null
 
     };
 
-    if(!payload.name || !payload.slug){
+
+    if(
+        !payload.name ||
+        !payload.slug
+    ){
 
         showMessage(
             "businessModalMessage",
@@ -2508,28 +2913,45 @@ async function saveBusiness(){
 
     }
 
+
     let result;
+
 
     if(id){
 
         result =
             await supabaseClient
-                .from("businesses")
-                .update(payload)
-                .eq("id",id);
+                .from(
+                    "businesses"
+                )
+                .update(
+                    payload
+                )
+                .eq(
+                    "id",
+                    id
+                );
 
     }else{
 
         result =
             await supabaseClient
-                .from("businesses")
-                .insert(payload);
+                .from(
+                    "businesses"
+                )
+                .insert(
+                    payload
+                );
 
     }
 
+
     if(result.error){
 
-        console.error(result.error);
+        console.error(
+            result.error
+        );
+
 
         showMessage(
             "businessModalMessage",
@@ -2541,40 +2963,99 @@ async function saveBusiness(){
 
     }
 
+
     closeBusinessModal();
 
+
     await loadBusinesses();
+
+    await loadNfc();
 
     await loadDashboard();
 
 }
 
-async function deleteBusiness(id){
+
+/* =====================================================
+   ELIMINAR NEGOCIO
+===================================================== */
+
+async function deleteBusiness(
+    id
+){
 
     const business =
         businesses.find(
-            b => b.id === id
+            b =>
+                b.id === id
         );
+
 
     if(!business)
         return;
 
+
     const confirmed =
         confirm(
             `¿Quieres eliminar "${business.name}"?\n\n` +
-            `Esta acción puede afectar los NFC asociados. ` +
-            `Por seguridad, todavía no se ejecutará el borrado definitivo ` +
-            `hasta configurar la eliminación segura en Supabase.`
+            `Si tiene NFC asociados, Supabase podría impedir ` +
+            `la eliminación dependiendo de la configuración ` +
+            `de las relaciones.`
         );
+
 
     if(!confirmed)
         return;
 
+
+    const {
+        error
+    } =
+    await supabaseClient
+        .from(
+            "businesses"
+        )
+        .delete()
+        .eq(
+            "id",
+            id
+        );
+
+
+    if(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "No se pudo eliminar el negocio:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await loadBusinesses();
+
+    await loadNfc();
+
+    await loadDashboard();
+
+
     alert(
-        "Eliminación segura pendiente de configurar. El negocio NO fue eliminado."
+        "Negocio eliminado correctamente."
     );
 
 }
+
+
+/* =====================================================
+   NFC
+===================================================== */
 
 async function loadNfc(){
 
@@ -2583,7 +3064,9 @@ async function loadNfc(){
         error
     } =
     await supabaseClient
-        .from("nfc_devices")
+        .from(
+            "nfc_devices"
+        )
         .select("*")
         .order(
             "created_at",
@@ -2592,75 +3075,147 @@ async function loadNfc(){
             }
         );
 
+
     if(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
 
         return;
 
     }
 
-    nfcDevices = data || [];
+
+    nfcDevices =
+        data || [];
+
 
     renderNfc();
 
+
+    populateNfcBusinessSelect();
+
+
+    /*
+     * Actualizar tabla de negocios
+     */
+
+    if(
+        document
+            .getElementById(
+                "businessTable"
+            )
+    )
+        renderBusinesses();
+
 }
 
-async function renderNfc(){
+
+function renderNfc(){
 
     const tbody =
-        document.getElementById("nfcTable");
+        document.getElementById(
+            "nfcTable"
+        );
+
 
     const search =
         (
             document
-                .getElementById("nfcSearch")
+                .getElementById(
+                    "nfcSearch"
+                )
                 ?.value ||
             ""
-        ).toLowerCase();
+        )
+        .toLowerCase();
+
 
     const status =
         document
-            .getElementById("nfcStatusFilter")
-            ?.value || "";
+            .getElementById(
+                "nfcStatusFilter"
+            )
+            ?.value ||
+        "";
+
 
     const filtered =
-        nfcDevices.filter(n => {
+        nfcDevices.filter(
+            n => {
 
-            const business =
-                businesses.find(
-                    b => b.id === n.business_id
+                const business =
+                    businesses.find(
+                        b =>
+                            b.id ===
+                            n.business_id
+                    );
+
+
+                const searchText = (
+
+                    n.name ||
+                    ""
+
+                ) + " " + (
+
+                    n.code ||
+                    ""
+
+                ) + " " + (
+
+                    business?.name ||
+                    ""
+
                 );
 
-            const matchesSearch =
-                (
-                    n.name +
-                    " " +
-                    n.code +
-                    " " +
-                    (business?.name || "")
-                )
-                .toLowerCase()
-                .includes(search);
 
-            const matchesStatus =
-                !status ||
-                n.status === status;
+                const matchesSearch =
+                    searchText
+                        .toLowerCase()
+                        .includes(
+                            search
+                        );
 
-            return matchesSearch &&
-                   matchesStatus;
 
-        });
+                const matchesStatus =
+                    !status ||
+                    n.status === status;
 
-    if(!filtered.length){
+
+                return (
+                    matchesSearch &&
+                    matchesStatus
+                );
+
+            }
+        );
+
+
+    if(
+        !filtered.length
+    ){
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="7">
+
+                <td colspan="6">
+
                     <div class="empty">
-                        No se encontraron NFC.
+
+                        <div class="empty-icon">
+                            📱
+                        </div>
+
+                        <div class="empty-title">
+                            No se encontraron NFC
+                        </div>
+
                     </div>
+
                 </td>
+
             </tr>
         `;
 
@@ -2668,230 +3223,448 @@ async function renderNfc(){
 
     }
 
+
     tbody.innerHTML =
-        filtered.map(n => {
+        filtered.map(
+            n => {
 
-            const business =
-                businesses.find(
-                    b => b.id === n.business_id
-                );
+                const business =
+                    businesses.find(
+                        b =>
+                            b.id ===
+                            n.business_id
+                    );
 
-            return `
 
-                <tr>
+                return `
 
-                    <td>
-                        <strong>
-                            ${escapeHtml(n.name)}
-                        </strong>
-                    </td>
+                    <tr>
 
-                    <td>
-                        <span class="badge gray">
-                            ${escapeHtml(n.code)}
-                        </span>
-                    </td>
 
-                    <td>
-                        ${escapeHtml(
-                            business?.name || "—"
-                        )}
-                    </td>
+                        <td>
 
-                    <td>
-                        ${escapeHtml(
-                            n.location || "—"
-                        )}
-                    </td>
+                            <strong>
+                                ${escapeHtml(
+                                    n.name
+                                )}
+                            </strong>
 
-                    <td>
+                        </td>
 
-                        ${
-                            n.status === "active"
 
-                            ?
+                        <td>
 
-                            `<span class="badge green">
-                                ● Activo
-                            </span>`
+                            <span class="badge gray">
+                                ${escapeHtml(
+                                    n.code
+                                )}
+                            </span>
 
-                            :
+                        </td>
 
-                            `<span class="badge red">
-                                ● Inactivo
-                            </span>`
-                        }
 
-                    </td>
+                        <td>
 
-                    <td>
-                        —
-                    </td>
+                            ${escapeHtml(
+                                business?.name ||
+                                "—"
+                            )}
 
-                    <td>
+                        </td>
 
-                        <div class="actions">
 
-                            <button
-                                class="action-btn"
-                                onclick="editNfc(${n.id})">
-                                ✏️ Editar
-                            </button>
+                        <td>
 
-                            <button
-                                class="action-btn ${
-                                    n.status === "active"
-                                    ? "danger"
-                                    : "success-btn"
-                                }"
-                                onclick="toggleNfc(${n.id})">
+                            ${escapeHtml(
+                                n.location ||
+                                "—"
+                            )}
 
-                                ${
-                                    n.status === "active"
-                                    ? "⏸️ Desactivar"
-                                    : "▶️ Activar"
-                                }
+                        </td>
 
-                            </button>
 
-                            <button
-                                class="action-btn danger"
-                                onclick="deleteNfc(${n.id})">
-                                🗑️ Eliminar
-                            </button>
+                        <td>
 
-                        </div>
+                            ${
+                                n.status ===
+                                "active"
 
-                    </td>
+                                ?
 
-                </tr>
+                                `<span class="badge green">
+                                    ● Activo
+                                </span>`
 
-            `;
+                                :
 
-        }).join("");
+                                `<span class="badge red">
+                                    ● Inactivo
+                                </span>`
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+
+                                <button
+                                    class="action-btn"
+                                    onclick="editNfc(${n.id})">
+
+                                    ✏️ Editar
+
+                                </button>
+
+
+                                <button
+                                    class="action-btn ${
+                                        n.status ===
+                                        "active"
+                                        ? "danger"
+                                        : "success-btn"
+                                    }"
+                                    onclick="toggleNfc(${n.id})">
+
+                                    ${
+                                        n.status ===
+                                        "active"
+                                        ? "⏸️ Desactivar"
+                                        : "▶️ Activar"
+                                    }
+
+                                </button>
+
+
+                                <button
+                                    class="action-btn danger"
+                                    onclick="deleteNfc(${n.id})">
+
+                                    🗑️ Eliminar
+
+                                </button>
+
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
 
 }
 
-function openNfcModal(){
 
-    document.getElementById("nfcEditId").value = "";
-
-    document.getElementById("nfcModalTitle").textContent =
-        "Crear NFC";
-
-    document.getElementById("nfcName").value = "";
-
-    document.getElementById("nfcCode").value = "";
-
-    document.getElementById("nfcLocation").value = "";
-
-    document.getElementById("nfcStatus").value = "active";
-
-    populateNfcBusinessSelect();
-
-    document.getElementById("nfcModal").classList.add("show");
-
-}
-
-function closeNfcModal(){
-
-    document
-        .getElementById("nfcModal")
-        .classList.remove("show");
-
-}
+/* =====================================================
+   SELECT NEGOCIO NFC
+===================================================== */
 
 function populateNfcBusinessSelect(){
 
     const select =
-        document.getElementById("nfcBusiness");
+        document.getElementById(
+            "nfcBusiness"
+        );
 
-    select.innerHTML =
-        businesses.map(b => `
 
-            <option value="${b.id}">
-                ${escapeHtml(b.name)}
+    if(
+        !select
+    )
+        return;
+
+
+    select.innerHTML = "";
+
+
+    if(
+        !businesses.length
+    ){
+
+        select.innerHTML = `
+            <option value="">
+                Primero crea un negocio
             </option>
+        `;
 
-        `).join("");
+        return;
+
+    }
+
+
+    businesses.forEach(
+        b => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                b.id;
+
+
+            option.textContent =
+                b.name;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
 
 }
 
-function editNfc(id){
+
+/* =====================================================
+   MODAL NFC
+===================================================== */
+
+function openNfcModal(){
+
+    document
+        .getElementById(
+            "nfcEditId"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "nfcModalTitle"
+        )
+        .textContent =
+        "Crear NFC";
+
+
+    document
+        .getElementById(
+            "nfcName"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "nfcCode"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "nfcLocation"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "nfcStatus"
+        )
+        .value =
+        "active";
+
+
+    document
+        .getElementById(
+            "nfcModalMessage"
+        )
+        .textContent = "";
+
+
+    populateNfcBusinessSelect();
+
+
+    document
+        .getElementById(
+            "nfcModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+function closeNfcModal(){
+
+    document
+        .getElementById(
+            "nfcModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+function editNfc(
+    id
+){
 
     const n =
         nfcDevices.find(
-            x => x.id === id
+            x =>
+                x.id === id
         );
+
 
     if(!n)
         return;
 
-    document.getElementById("nfcEditId").value =
+
+    document
+        .getElementById(
+            "nfcEditId"
+        )
+        .value =
         n.id;
 
-    document.getElementById("nfcModalTitle").textContent =
+
+    document
+        .getElementById(
+            "nfcModalTitle"
+        )
+        .textContent =
         "Editar NFC";
+
 
     populateNfcBusinessSelect();
 
-    document.getElementById("nfcBusiness").value =
+
+    document
+        .getElementById(
+            "nfcBusiness"
+        )
+        .value =
         n.business_id;
 
-    document.getElementById("nfcName").value =
+
+    document
+        .getElementById(
+            "nfcName"
+        )
+        .value =
         n.name || "";
 
-    document.getElementById("nfcCode").value =
+
+    document
+        .getElementById(
+            "nfcCode"
+        )
+        .value =
         n.code || "";
 
-    document.getElementById("nfcLocation").value =
+
+    document
+        .getElementById(
+            "nfcLocation"
+        )
+        .value =
         n.location || "";
 
-    document.getElementById("nfcStatus").value =
+
+    document
+        .getElementById(
+            "nfcStatus"
+        )
+        .value =
         n.status || "active";
 
-    document.getElementById("nfcModal").classList.add("show");
+
+    document
+        .getElementById(
+            "nfcModalMessage"
+        )
+        .textContent = "";
+
+
+    document
+        .getElementById(
+            "nfcModal"
+        )
+        .classList.add(
+            "show"
+        );
 
 }
+
+
+/* =====================================================
+   GUARDAR NFC
+===================================================== */
 
 async function saveNfc(){
 
     const id =
-        document.getElementById("nfcEditId").value;
+        document
+            .getElementById(
+                "nfcEditId"
+            )
+            .value;
+
 
     const payload = {
 
         business_id:
             Number(
                 document
-                    .getElementById("nfcBusiness")
+                    .getElementById(
+                        "nfcBusiness"
+                    )
                     .value
             ),
 
+
         name:
             document
-                .getElementById("nfcName")
+                .getElementById(
+                    "nfcName"
+                )
                 .value
                 .trim(),
+
 
         code:
             document
-                .getElementById("nfcCode")
+                .getElementById(
+                    "nfcCode"
+                )
                 .value
-                .trim(),
+                .trim()
+                .toUpperCase(),
+
 
         location:
             document
-                .getElementById("nfcLocation")
+                .getElementById(
+                    "nfcLocation"
+                )
                 .value
-                .trim() || null,
+                .trim() ||
+            null,
+
 
         status:
             document
-                .getElementById("nfcStatus")
+                .getElementById(
+                    "nfcStatus"
+                )
                 .value
 
     };
+
 
     if(
         !payload.business_id ||
@@ -2909,28 +3682,45 @@ async function saveNfc(){
 
     }
 
+
     let result;
+
 
     if(id){
 
         result =
             await supabaseClient
-                .from("nfc_devices")
-                .update(payload)
-                .eq("id",id);
+                .from(
+                    "nfc_devices"
+                )
+                .update(
+                    payload
+                )
+                .eq(
+                    "id",
+                    id
+                );
 
     }else{
 
         result =
             await supabaseClient
-                .from("nfc_devices")
-                .insert(payload);
+                .from(
+                    "nfc_devices"
+                )
+                .insert(
+                    payload
+                );
 
     }
 
+
     if(result.error){
 
-        console.error(result.error);
+        console.error(
+            result.error
+        );
+
 
         showMessage(
             "nfcModalMessage",
@@ -2942,43 +3732,74 @@ async function saveNfc(){
 
     }
 
+
     closeNfcModal();
+
 
     await loadNfc();
 
+    await loadBusinesses();
+
     await loadDashboard();
+
+
+    alert(
+        id
+        ? "NFC actualizado correctamente."
+        : "NFC creado correctamente."
+    );
 
 }
 
-async function toggleNfc(id){
+
+/* =====================================================
+   ACTIVAR / DESACTIVAR NFC
+===================================================== */
+
+async function toggleNfc(
+    id
+){
 
     const n =
         nfcDevices.find(
-            x => x.id === id
+            x =>
+                x.id === id
         );
+
 
     if(!n)
         return;
+
 
     const newStatus =
         n.status === "active"
         ? "inactive"
         : "active";
 
+
     const {
         error
     } =
     await supabaseClient
-        .from("nfc_devices")
+        .from(
+            "nfc_devices"
+        )
         .update({
-            status:newStatus
+
+            status:
+                newStatus
+
         })
-        .eq("id",id);
+        .eq(
+            "id",
+            id
+        );
+
 
     if(error){
 
         alert(
-            "No se pudo cambiar el estado: " +
+            "No se pudo cambiar el estado:\n\n" +
             error.message
         );
 
@@ -2986,593 +3807,98 @@ async function toggleNfc(id){
 
     }
 
+
     await loadNfc();
 
     await loadDashboard();
 
 }
 
-async function deleteNfc(id){
+
+/* =====================================================
+   ELIMINAR NFC
+===================================================== */
+
+async function deleteNfc(
+    id
+){
 
     const n =
         nfcDevices.find(
-            x => x.id === id
+            x =>
+                x.id === id
         );
+
 
     if(!n)
         return;
 
+
     const confirmed =
         confirm(
-            `¿Quieres eliminar "${n.name}" (${n.code})?\n\n` +
-            `Por seguridad, el borrado definitivo todavía no se ejecutará.`
+            `¿Quieres eliminar "${n.name}" (${n.code})?`
         );
+
 
     if(!confirmed)
         return;
 
+
+    const {
+        error
+    } =
+    await supabaseClient
+        .from(
+            "nfc_devices"
+        )
+        .delete()
+        .eq(
+            "id",
+            id
+        );
+
+
+    if(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "No se pudo eliminar el NFC:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await loadNfc();
+
+    await loadBusinesses();
+
+    await loadDashboard();
+
+
     alert(
-        "Eliminación segura pendiente de configurar. El NFC NO fue eliminado."
+        "NFC eliminado correctamente."
     );
 
 }
 
-function populateBusinessSelects(){
 
-    const analytics =
-        document.getElementById("analyticsBusiness");
-
-    const clicksSelect =
-        document.getElementById("clickBusinessFilter");
-
-    const currentAnalytics =
-        analytics.value;
-
-    const currentClicks =
-        clicksSelect.value;
-
-    analytics.innerHTML = `
-        <option value="">
-            Selecciona un negocio
-        </option>
-    `;
-
-    clicksSelect.innerHTML = `
-        <option value="">
-            Todos los negocios
-        </option>
-    `;
-
-    businesses.forEach(b => {
-
-        const option1 =
-            document.createElement("option");
-
-        option1.value =
-            b.id;
-
-        option1.textContent =
-            b.name;
-
-        analytics.appendChild(
-            option1
-        );
-
-        const option2 =
-            document.createElement("option");
-
-        option2.value =
-            b.id;
-
-        option2.textContent =
-            b.name;
-
-        clicksSelect.appendChild(
-            option2
-        );
-
-    });
-
-    analytics.value =
-        currentAnalytics;
-
-    clicksSelect.value =
-        currentClicks;
-
-}
-
-async function prepareAnalytics(){
-
-    await loadBusinesses();
-
-    await loadNfc();
-
-}
-
-
-/* =========================================================
-   NUEVA FUNCIÓN LOAD ANALYTICS
-========================================================= */
-
-async function loadAnalytics(){
-
-    const businessId =
-        document
-            .getElementById("analyticsBusiness")
-            .value;
-
-    if(!businessId){
-
-        [
-            "analyticsTotal",
-            "analyticsNfc",
-            "analyticsGoogle",
-            "analyticsInstagram",
-            "analyticsWhatsapp"
-        ].forEach(id => {
-
-            document
-                .getElementById(id)
-                .textContent = "0";
-
-        });
-
-        document
-            .getElementById("analyticsDistribution")
-            .innerHTML = "";
-
-        return;
-    }
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .rpc(
-                "get_business_analytics",
-                {
-                    business_id: Number(businessId)
-                }
-            );
-
-        if(error)
-            throw error;
-
-        console.log(
-            "Analytics:",
-            data
-        );
-
-        const analytics =
-            Array.isArray(data)
-                ? data[0]
-                : data;
-
-        if(!analytics){
-
-            throw new Error(
-                "No se encontraron analytics para este negocio."
-            );
-
-        }
-
-        const total =
-            Number(
-                analytics.total_clicks
-            ) || 0;
-
-        const nfc =
-            Number(
-                analytics.nfc_clicks
-            ) || 0;
-
-        const google =
-            Number(
-                analytics.google_clicks
-            ) || 0;
-
-        const instagram =
-            Number(
-                analytics.instagram_clicks
-            ) || 0;
-
-        const whatsapp =
-            Number(
-                analytics.whatsapp_clicks
-            ) || 0;
-
-        const website =
-            Number(
-                analytics.website_clicks
-            ) || 0;
-
-
-        document
-            .getElementById("analyticsTotal")
-            .textContent =
-            total;
-
-        document
-            .getElementById("analyticsNfc")
-            .textContent =
-            nfc;
-
-        document
-            .getElementById("analyticsGoogle")
-            .textContent =
-            google;
-
-        document
-            .getElementById("analyticsInstagram")
-            .textContent =
-            instagram;
-
-        document
-            .getElementById("analyticsWhatsapp")
-            .textContent =
-            whatsapp;
-
-
-        const distribution = [
-
-            {
-                icon:"📱",
-                name:"NFC",
-                value:nfc
-            },
-
-            {
-                icon:"⭐",
-                name:"Google",
-                value:google
-            },
-
-            {
-                icon:"📸",
-                name:"Instagram",
-                value:instagram
-            },
-
-            {
-                icon:"💬",
-                name:"WhatsApp",
-                value:whatsapp
-            },
-
-            {
-                icon:"🌐",
-                name:"Website",
-                value:website
-            }
-
-        ];
-
-
-        const container =
-            document
-                .getElementById(
-                    "analyticsDistribution"
-                );
-
-
-        if(total === 0){
-
-            container.innerHTML = `
-
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        📊
-                    </div>
-
-                    <div class="empty-title">
-                        Sin interacciones
-                    </div>
-
-                    <div>
-                        Este negocio todavía no tiene clics registrados.
-                    </div>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        container.innerHTML =
-            distribution
-                .map(item => {
-
-                    const percentage =
-                        total > 0
-                            ? Math.round(
-                                (item.value / total) * 100
-                            )
-                            : 0;
-
-                    return `
-
-                        <div style="
-                            padding:15px 0;
-                            border-bottom:1px solid #222225;
-                        ">
-
-                            <div style="
-                                display:flex;
-                                align-items:center;
-                                justify-content:space-between;
-                                margin-bottom:8px;
-                            ">
-
-                                <div style="
-                                    display:flex;
-                                    align-items:center;
-                                    gap:10px;
-                                    font-size:13px;
-                                ">
-
-                                    <span>
-                                        ${item.icon}
-                                    </span>
-
-                                    <span>
-                                        ${item.name}
-                                    </span>
-
-                                </div>
-
-                                <div style="
-                                    display:flex;
-                                    align-items:center;
-                                    gap:10px;
-                                ">
-
-                                    <strong>
-                                        ${item.value}
-                                    </strong>
-
-                                    <span style="
-                                        color:#71717a;
-                                        font-size:11px;
-                                        min-width:40px;
-                                        text-align:right;
-                                    ">
-                                        ${percentage}%
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                            <div style="
-                                width:100%;
-                                height:6px;
-                                background:#222225;
-                                border-radius:10px;
-                                overflow:hidden;
-                            ">
-
-                                <div style="
-                                    width:${percentage}%;
-                                    height:100%;
-                                    background:#fff;
-                                    border-radius:10px;
-                                    transition:width .3s ease;
-                                "></div>
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                })
-                .join("");
-
-
-    }catch(error){
-
-        console.error(
-            "Analytics error:",
-            error
-        );
-
-        document
-            .getElementById(
-                "analyticsDistribution"
-            )
-            .innerHTML = `
-
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        ⚠️
-                    </div>
-
-                    <div class="empty-title">
-                        Error al cargar analytics
-                    </div>
-
-                    <div>
-                        ${escapeHtml(error.message)}
-                    </div>
-
-                </div>
-
-            `;
-
-    }
-
-}
-
-async function loadClicks(){
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("clicks")
-        .select("*")
-        .order(
-            "created_at",
-            {
-                ascending:false
-            }
-        )
-        .limit(500);
-
-    if(error){
-
-        console.error(error);
-
-        return;
-
-    }
-
-    clicks = data || [];
-
-    renderClicks();
-
-}
-
-function renderClicks(){
-
-    const tbody =
-        document.getElementById("clickTable");
-
-    const businessFilter =
-        document
-            .getElementById(
-                "clickBusinessFilter"
-            )
-            .value;
-
-    const typeFilter =
-        document
-            .getElementById(
-                "clickTypeFilter"
-            )
-            .value;
-
-    const filtered =
-        clicks.filter(c => {
-
-            const businessMatch =
-                !businessFilter ||
-                String(c.business_id) ===
-                String(businessFilter);
-
-            const typeMatch =
-                !typeFilter ||
-                c.button === typeFilter;
-
-            return businessMatch &&
-                   typeMatch;
-
-        });
-
-    if(!filtered.length){
-
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7">
-                    <div class="empty">
-                        No hay clics registrados.
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        return;
-
-    }
-
-    tbody.innerHTML =
-        filtered.map(c => {
-
-            const business =
-                businesses.find(
-                    b =>
-                        b.id ===
-                        c.business_id
-                );
-
-            const date =
-                c.created_at
-                    ?
-                    new Date(
-                        c.created_at
-                    ).toLocaleString(
-                        "es-PE"
-                    )
-                    :
-                    "—";
-
-            return `
-
-                <tr>
-
-                    <td>
-                        ${date}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            business?.name ||
-                            "—"
-                        )}
-                    </td>
-
-                    <td>
-                        <span class="badge gray">
-                            ${escapeHtml(
-                                c.button || "—"
-                            )}
-                        </span>
-                    </td>
-
-                    <td>
-                        ${c.nfc_id || "—"}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            c.device || "—"
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            c.browser || "—"
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            c.destination || "—"
-                        )}
-                    </td>
-
-                </tr>
-
-            `;
-
-        }).join("");
-
-}
+/* =====================================================
+   INICIO
+===================================================== */
 
 async function init(){
 
     await checkSession();
 
 }
+
 
 init();
 
