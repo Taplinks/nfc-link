@@ -169,9 +169,11 @@
         // SUPABASE
         // =========================
 
-        const SUPABASE_URL = "https://tizigescxnamlliwsbzf.supabase.co";
+        const SUPABASE_URL =
+            "https://tizigescxnamlliwsbzf.supabase.co";
 
-        const SUPABASE_KEY = "sb_publishable_HrhIu7Dx0CV6_WRZlQ2N9Q_EtVdU51T";
+        const SUPABASE_KEY =
+            "sb_publishable_HrhIu7Dx0CV6_WRZlQ2N9Q_EtVdU51T";
 
         const supabaseClient = supabase.createClient(
             SUPABASE_URL,
@@ -180,66 +182,93 @@
 
 
         // =========================
+        // REGISTRAR CLIC
+        // =========================
+
+        async function trackClick(button, businessId) {
+
+            const { error } = await supabaseClient
+                .from("clicks")
+                .insert({
+                    business_id: businessId,
+                    button: button
+                });
+
+            if (error) {
+                console.error(
+                    "Error registrando clic:",
+                    error
+                );
+            }
+        }
+
+
+        // =========================
         // CARGAR NEGOCIO
         // =========================
 
         async function loadBusiness() {
 
-            // Obtiene el slug desde la URL
-            // Ejemplo:
-            // nfc-link.vercel.app/restaurante-prueba
-
             const pathParts = window.location.pathname
                 .split("/")
                 .filter(Boolean);
 
-            const slug = pathParts[pathParts.length - 1];
+            const slug =
+                pathParts[pathParts.length - 1];
 
 
-            // Si no existe slug
+            // Si no hay slug
+
             if (!slug) {
 
-                document.getElementById("businessName").textContent =
-                    "TapLink";
+                document.getElementById(
+                    "businessName"
+                ).textContent = "TapLink";
 
                 return;
             }
 
 
-            // Buscar negocio en Supabase
+            // Buscar negocio
 
-            const { data, error } = await supabaseClient
-
-                .from("businesses")
-
-                .select("*")
-
-                .eq("slug", slug)
-
-                .single();
+            const { data, error } =
+                await supabaseClient
+                    .from("businesses")
+                    .select("*")
+                    .eq("slug", slug)
+                    .single();
 
 
-            // Si existe un error
+            // Error
 
             if (error) {
 
-                console.error("Supabase error:", error);
+                console.error(
+                    "Supabase error:",
+                    error
+                );
 
-                document.getElementById("businessName").textContent =
+                document.getElementById(
+                    "businessName"
+                ).textContent =
                     "Negocio no encontrado";
 
-                document.getElementById("error").textContent =
+                document.getElementById(
+                    "error"
+                ).textContent =
                     "No pudimos encontrar este negocio.";
 
                 return;
             }
 
 
-            // Si no existe el negocio
+            // Negocio inexistente
 
             if (!data) {
 
-                document.getElementById("businessName").textContent =
+                document.getElementById(
+                    "businessName"
+                ).textContent =
                     "Negocio no encontrado";
 
                 return;
@@ -250,8 +279,9 @@
             // NOMBRE
             // =========================
 
-            document.getElementById("businessName").textContent =
-                data.name;
+            document.getElementById(
+                "businessName"
+            ).textContent = data.name;
 
 
             // =========================
@@ -260,10 +290,14 @@
 
             if (data.logo_url) {
 
-                document.getElementById("logo").innerHTML = `
-                    <img src="${data.logo_url}" alt="${data.name}">
+                document.getElementById(
+                    "logo"
+                ).innerHTML = `
+                    <img
+                        src="${data.logo_url}"
+                        alt="${data.name}"
+                    >
                 `;
-
             }
 
 
@@ -273,14 +307,30 @@
 
             if (data.google_url) {
 
-                document.getElementById("googleLink").href =
+                const link =
+                    document.getElementById(
+                        "googleLink"
+                    );
+
+                link.href =
                     data.google_url;
+
+                link.addEventListener(
+                    "click",
+                    () => {
+                        trackClick(
+                            "google",
+                            data.id
+                        );
+                    }
+                );
 
             } else {
 
-                document.getElementById("googleLink").style.display =
+                document.getElementById(
+                    "googleLink"
+                ).style.display =
                     "none";
-
             }
 
 
@@ -290,14 +340,30 @@
 
             if (data.instagram_url) {
 
-                document.getElementById("instagramLink").href =
+                const link =
+                    document.getElementById(
+                        "instagramLink"
+                    );
+
+                link.href =
                     data.instagram_url;
+
+                link.addEventListener(
+                    "click",
+                    () => {
+                        trackClick(
+                            "instagram",
+                            data.id
+                        );
+                    }
+                );
 
             } else {
 
-                document.getElementById("instagramLink").style.display =
+                document.getElementById(
+                    "instagramLink"
+                ).style.display =
                     "none";
-
             }
 
 
@@ -307,14 +373,30 @@
 
             if (data.whatsapp_url) {
 
-                document.getElementById("whatsappLink").href =
+                const link =
+                    document.getElementById(
+                        "whatsappLink"
+                    );
+
+                link.href =
                     data.whatsapp_url;
+
+                link.addEventListener(
+                    "click",
+                    () => {
+                        trackClick(
+                            "whatsapp",
+                            data.id
+                        );
+                    }
+                );
 
             } else {
 
-                document.getElementById("whatsappLink").style.display =
+                document.getElementById(
+                    "whatsappLink"
+                ).style.display =
                     "none";
-
             }
 
 
@@ -324,20 +406,38 @@
 
             if (data.website_url) {
 
-                document.getElementById("websiteLink").href =
+                const link =
+                    document.getElementById(
+                        "websiteLink"
+                    );
+
+                link.href =
                     data.website_url;
+
+                link.addEventListener(
+                    "click",
+                    () => {
+                        trackClick(
+                            "website",
+                            data.id
+                        );
+                    }
+                );
 
             } else {
 
-                document.getElementById("websiteLink").style.display =
+                document.getElementById(
+                    "websiteLink"
+                ).style.display =
                     "none";
-
             }
 
         }
 
 
-        // Ejecutar
+        // =========================
+        // EJECUTAR
+        // =========================
 
         loadBusiness();
 
