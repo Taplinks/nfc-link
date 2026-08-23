@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -19,144 +18,112 @@ body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
     background:#f5f7fb;
     color:#111827;
+    min-height:100vh;
 }
 
 button,
-input{
-    font-family:inherit;
+input,
+select{
+    font:inherit;
 }
 
 button{
     cursor:pointer;
 }
 
-.app{
-    min-height:100vh;
+.hidden{
+    display:none !important;
 }
 
 /* =========================
    LOGIN
 ========================= */
 
-.login-screen{
+#loginPanel{
     min-height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
     padding:20px;
-    background:#f5f7fb;
 }
 
-.login-card{
+.login-box{
     width:100%;
     max-width:430px;
     background:white;
-    padding:36px;
-    border-radius:24px;
-    box-shadow:0 20px 60px rgba(0,0,0,.08);
+    border-radius:22px;
+    padding:35px;
+    box-shadow:0 15px 50px rgba(0,0,0,.08);
 }
 
-.logo{
-    width:58px;
-    height:58px;
-    border-radius:16px;
-    background:#111827;
-    color:white;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.brand-icon{
+    width:42px;
+    height:42px;
+    background:#111;
+    color:#fff;
+    border-radius:12px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:20px;
     font-weight:800;
-    margin-bottom:24px;
 }
 
-.login-card h1{
-    font-size:28px;
-    margin-bottom:8px;
+.brand h1{
+    font-size:25px;
 }
 
-.login-card p{
+.login-subtitle{
     color:#6b7280;
     margin-bottom:28px;
 }
 
-/* =========================
-   INPUTS
-========================= */
-
-.field{
-    margin-bottom:18px;
+.form-group{
+    margin-bottom:17px;
 }
 
-.field label{
+label{
     display:block;
     font-size:13px;
     font-weight:700;
     margin-bottom:7px;
-    color:#374151;
 }
 
-input{
+input,
+select{
     width:100%;
     padding:13px 14px;
-    border:1px solid #dbe0e8;
-    border-radius:10px;
-    background:white;
-    color:#111827;
+    border:1px solid #dfe3e8;
+    border-radius:11px;
     outline:none;
-    font-size:14px;
+    background:#fff;
 }
 
-input:focus{
-    border-color:#111827;
-    box-shadow:0 0 0 3px rgba(17,24,39,.06);
+input:focus,
+select:focus{
+    border-color:#111;
 }
 
-/* =========================
-   BUTTONS
-========================= */
-
-.btn{
-    border:none;
-    border-radius:10px;
-    padding:12px 16px;
-    font-weight:700;
-    font-size:14px;
-    transition:.15s;
-}
-
-.btn:hover{
-    transform:translateY(-1px);
-}
-
-.btn-primary{
-    background:#111827;
-    color:white;
-}
-
-.btn-secondary{
-    background:#eef0f4;
-    color:#111827;
-}
-
-.btn-danger{
-    background:#fee2e2;
-    color:#b91c1c;
-}
-
-.btn-small{
-    padding:8px 11px;
-    font-size:12px;
-}
-
-.full{
+.primary-btn{
     width:100%;
+    padding:14px;
+    border:0;
+    border-radius:11px;
+    background:#111;
+    color:#fff;
+    font-weight:700;
 }
 
 .message{
-    margin-top:14px;
-    font-size:13px;
-    font-weight:700;
+    margin-top:15px;
+    font-size:14px;
+    font-weight:600;
 }
 
 .success{
@@ -168,104 +135,119 @@ input:focus{
 }
 
 /* =========================
-   SIDEBAR
+   ADMIN LAYOUT
 ========================= */
+
+#adminPanel{
+    display:none;
+}
 
 .sidebar{
     position:fixed;
     left:0;
     top:0;
     bottom:0;
-    width:240px;
-    background:#111827;
-    color:white;
-    padding:24px 16px;
-    z-index:10;
+    width:245px;
+    background:#111;
+    color:#fff;
+    padding:25px 15px;
+    z-index:20;
 }
 
-.brand{
+.sidebar-brand{
     display:flex;
     align-items:center;
-    gap:11px;
-    font-size:19px;
+    gap:10px;
+    padding:5px 10px 30px;
+}
+
+.sidebar-brand .brand-icon{
+    background:#fff;
+    color:#111;
+}
+
+.sidebar-brand span{
+    font-size:21px;
     font-weight:800;
-    margin-bottom:35px;
-    padding:0 10px;
-}
-
-.brand-logo{
-    width:36px;
-    height:36px;
-    border-radius:10px;
-    background:white;
-    color:#111827;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:13px;
-    font-weight:900;
 }
 
 .nav{
     display:flex;
     flex-direction:column;
-    gap:7px;
+    gap:6px;
 }
 
 .nav button{
-    border:none;
+    width:100%;
+    border:0;
     background:transparent;
-    color:#cbd5e1;
-    padding:13px 12px;
+    color:#aaa;
+    padding:13px 14px;
     border-radius:10px;
     text-align:left;
-    font-size:14px;
     font-weight:600;
 }
 
 .nav button:hover,
 .nav button.active{
-    background:#1f2937;
-    color:white;
+    background:#252525;
+    color:#fff;
 }
 
 .sidebar-bottom{
     position:absolute;
+    left:15px;
+    right:15px;
     bottom:20px;
-    left:16px;
-    right:16px;
 }
 
-/* =========================
-   MAIN
-========================= */
+.logout-btn{
+    width:100%;
+    border:1px solid #333;
+    background:transparent;
+    color:#bbb;
+    padding:12px;
+    border-radius:10px;
+}
 
 .main{
-    margin-left:240px;
+    margin-left:245px;
     padding:30px;
     max-width:1500px;
 }
 
 .topbar{
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
+    gap:20px;
     margin-bottom:28px;
 }
 
-.topbar h1{
-    font-size:27px;
+.page-title h1{
+    font-size:29px;
+    margin-bottom:5px;
 }
 
-.topbar p{
+.page-title p{
     color:#6b7280;
-    font-size:14px;
-    margin-top:4px;
 }
 
 .top-actions{
     display:flex;
     gap:10px;
+}
+
+.small-btn{
+    border:1px solid #ddd;
+    background:#fff;
+    padding:10px 15px;
+    border-radius:10px;
+    font-weight:600;
+}
+
+.small-btn:hover{
+    background:#f3f4f6;
 }
 
 /* =========================
@@ -287,15 +269,16 @@ input:focus{
 .stats-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:16px;
-    margin-bottom:22px;
+    gap:18px;
+    margin-bottom:25px;
 }
 
-.stat{
-    background:white;
-    border:1px solid #e8ebf0;
-    border-radius:18px;
+.stat-card{
+    background:#fff;
+    border:1px solid #e9edf2;
+    border-radius:17px;
     padding:22px;
+    box-shadow:0 5px 20px rgba(0,0,0,.03);
 }
 
 .stat-label{
@@ -310,170 +293,162 @@ input:focus{
     font-weight:800;
 }
 
-.stat-sub{
-    color:#9ca3af;
+.stat-extra{
+    margin-top:6px;
     font-size:12px;
-    margin-top:7px;
+    color:#6b7280;
 }
 
 /* =========================
    CARDS
 ========================= */
 
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-bottom:22px;
+}
+
 .card{
-    background:white;
-    border:1px solid #e8ebf0;
-    border-radius:18px;
+    background:#fff;
+    border:1px solid #e9edf2;
+    border-radius:17px;
     padding:22px;
-    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.03);
 }
 
 .card-header{
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     margin-bottom:18px;
 }
 
-.card-title{
-    font-size:17px;
-    font-weight:800;
+.card-header h2{
+    font-size:18px;
 }
 
-.card-subtitle{
+.muted{
     color:#6b7280;
     font-size:13px;
-    margin-top:3px;
 }
 
 /* =========================
-   CHART
+   ANALYTICS
 ========================= */
 
-.chart{
-    height:240px;
+.analytics-list{
     display:flex;
-    align-items:flex-end;
-    gap:5px;
-    padding-top:20px;
+    flex-direction:column;
+    gap:15px;
 }
 
-.bar-wrap{
-    flex:1;
-    height:100%;
+.analytics-row{
     display:flex;
-    align-items:flex-end;
-    justify-content:center;
-}
-
-.bar{
-    width:100%;
-    max-width:18px;
-    min-height:3px;
-    background:#111827;
-    border-radius:5px 5px 2px 2px;
-    position:relative;
-}
-
-.bar:hover{
-    opacity:.75;
-}
-
-.bar-tooltip{
-    position:absolute;
-    bottom:100%;
-    left:50%;
-    transform:translateX(-50%);
-    background:#111827;
-    color:white;
-    padding:4px 6px;
-    border-radius:5px;
-    font-size:10px;
-    display:none;
-    white-space:nowrap;
-}
-
-.bar:hover .bar-tooltip{
-    display:block;
-}
-
-/* =========================
-   ACTION GRID
-========================= */
-
-.action-grid{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
+    align-items:center;
     gap:12px;
 }
 
-.action{
-    border:1px solid #e8ebf0;
-    border-radius:14px;
-    padding:18px;
-    text-align:center;
+.analytics-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:#f1f3f5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
 }
 
-.action-icon{
-    font-size:22px;
-    margin-bottom:8px;
+.analytics-info{
+    flex:1;
 }
 
-.action-value{
-    font-size:22px;
+.analytics-name{
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.progress{
+    width:100%;
+    height:7px;
+    background:#eee;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    background:#111;
+    border-radius:10px;
+}
+
+.analytics-number{
     font-weight:800;
-}
-
-.action-label{
-    color:#6b7280;
-    font-size:12px;
-    margin-top:3px;
+    min-width:35px;
+    text-align:right;
 }
 
 /* =========================
    TABLES
 ========================= */
 
-.table-wrap{
+.table-card{
+    background:#fff;
+    border:1px solid #e9edf2;
+    border-radius:17px;
+    overflow:hidden;
+    margin-bottom:22px;
+}
+
+.table-header{
+    padding:20px 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.table-header h2{
+    font-size:18px;
+}
+
+.table-wrapper{
     overflow-x:auto;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
+    min-width:700px;
 }
 
 th{
-    text-align:left;
-    padding:12px;
-    font-size:11px;
-    text-transform:uppercase;
+    background:#f8fafc;
     color:#6b7280;
-    border-bottom:1px solid #e5e7eb;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    text-align:left;
+    padding:13px 18px;
 }
 
 td{
-    padding:14px 12px;
-    border-bottom:1px solid #f0f1f3;
-    font-size:13px;
+    padding:15px 18px;
+    border-top:1px solid #eef0f3;
+    font-size:14px;
 }
 
-tr:last-child td{
-    border-bottom:none;
-}
-
-.business-name{
-    font-weight:800;
-}
-
-.muted{
-    color:#6b7280;
+td strong{
+    font-weight:700;
 }
 
 .badge{
     display:inline-flex;
     padding:5px 9px;
-    border-radius:999px;
+    border-radius:20px;
     font-size:11px;
     font-weight:700;
 }
@@ -488,77 +463,13 @@ tr:last-child td{
     color:#991b1b;
 }
 
-/* =========================
-   TOOLBAR
-========================= */
-
-.toolbar{
-    display:flex;
-    gap:10px;
-    margin-bottom:18px;
-}
-
-.toolbar input{
-    max-width:330px;
-}
-
-/* =========================
-   MODAL
-========================= */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:100;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-card{
-    width:100%;
-    max-width:600px;
-    max-height:90vh;
-    overflow-y:auto;
-    background:white;
-    border-radius:20px;
-    padding:25px;
-}
-
-.modal-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:22px;
-}
-
-.modal-header h2{
-    font-size:21px;
-}
-
-.close{
-    border:none;
-    background:#f1f2f4;
-    width:34px;
-    height:34px;
-    border-radius:9px;
-    font-size:18px;
-}
-
-.modal-actions{
-    display:flex;
-    gap:10px;
-    margin-top:20px;
-}
-
-.modal-actions button{
-    flex:1;
+.link-btn{
+    border:0;
+    background:#f1f1f1;
+    padding:7px 10px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:700;
 }
 
 /* =========================
@@ -566,14 +477,27 @@ tr:last-child td{
 ========================= */
 
 .empty{
+    padding:35px;
     text-align:center;
-    padding:45px 20px;
-    color:#9ca3af;
+    color:#6b7280;
 }
 
-.empty-icon{
-    font-size:35px;
-    margin-bottom:10px;
+/* =========================
+   CREATE FORMS
+========================= */
+
+.form-card{
+    max-width:800px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:17px;
+}
+
+.full{
+    grid-column:1 / -1;
 }
 
 /* =========================
@@ -586,13 +510,13 @@ tr:last-child td{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .action-grid{
-        grid-template-columns:repeat(3,1fr);
+    .grid-2{
+        grid-template-columns:1fr;
     }
 
 }
 
-@media(max-width:700px){
+@media(max-width:750px){
 
     .sidebar{
         position:relative;
@@ -601,8 +525,8 @@ tr:last-child td{
         padding:15px;
     }
 
-    .brand{
-        margin-bottom:12px;
+    .sidebar-brand{
+        padding-bottom:15px;
     }
 
     .nav{
@@ -624,116 +548,124 @@ tr:last-child td{
     }
 
     .topbar{
-        flex-direction:column;
         align-items:flex-start;
-        gap:15px;
+        flex-direction:column;
     }
 
     .stats-grid{
         grid-template-columns:1fr 1fr;
+        gap:10px;
     }
 
-    .action-grid{
-        grid-template-columns:1fr 1fr;
+    .stat-card{
+        padding:17px;
+    }
+
+    .stat-value{
+        font-size:24px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .stats-grid{
+        grid-template-columns:1fr;
     }
 
 }
 
 </style>
-
 </head>
 
 <body>
 
-
-<!-- =====================================================
+<!-- =========================================================
      LOGIN
-===================================================== -->
+========================================================= -->
 
-<div id="loginScreen" class="login-screen">
+<div id="loginPanel">
 
-    <div class="login-card">
+    <div class="login-box">
 
-        <div class="logo">
-            TL
+        <div class="brand">
+            <div class="brand-icon">TL</div>
+            <h1>TapLink</h1>
         </div>
 
-        <h1>TapLink Admin</h1>
-
-        <p>
-            Administra tus negocios, NFC y estadísticas.
+        <p class="login-subtitle">
+            Panel de administración
         </p>
 
-        <div class="field">
+        <div class="form-group">
 
             <label>Correo</label>
 
             <input
-                id="loginEmail"
+                id="email"
                 type="email"
-                placeholder="Tu correo"
+                placeholder="admin@taplink.com"
             >
 
         </div>
 
-        <div class="field">
+        <div class="form-group">
 
             <label>Contraseña</label>
 
             <input
-                id="loginPassword"
+                id="password"
                 type="password"
-                placeholder="Tu contraseña"
+                placeholder="••••••••"
             >
 
         </div>
 
         <button
-            class="btn btn-primary full"
+            class="primary-btn"
             id="loginButton">
 
             Iniciar sesión
 
         </button>
 
-        <div
-            id="loginMessage"
-            class="message">
-        </div>
+        <div id="loginMessage" class="message"></div>
 
     </div>
 
 </div>
 
 
-<!-- =====================================================
-     APP
-===================================================== -->
+<!-- =========================================================
+     ADMIN
+========================================================= -->
 
-<div
-    id="app"
-    class="app"
-    style="display:none;">
+<div id="adminPanel">
 
     <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
-        <div class="brand">
+        <div class="sidebar-brand">
 
-            <div class="brand-logo">
-                TL
-            </div>
+            <div class="brand-icon">TL</div>
 
-            TapLink
+            <span>TapLink</span>
 
         </div>
-
 
         <nav class="nav">
 
             <button
-                class="active"
+                class="nav-button active"
                 data-section="dashboard">
 
                 📊 Dashboard
@@ -741,34 +673,44 @@ tr:last-child td{
             </button>
 
             <button
+                class="nav-button"
                 data-section="businesses">
 
-                🏪 Negocios
+                🏢 Negocios
 
             </button>
 
             <button
+                class="nav-button"
                 data-section="nfc">
 
-                📱 NFC
+                📡 NFC
 
             </button>
 
             <button
+                class="nav-button"
                 data-section="analytics">
 
                 📈 Analytics
 
             </button>
 
-        </nav>
+            <button
+                class="nav-button"
+                data-section="clicks">
 
+                🖱️ Clicks
+
+            </button>
+
+        </nav>
 
         <div class="sidebar-bottom">
 
             <button
-                class="btn btn-secondary full"
-                id="logoutButton">
+                id="logoutButton"
+                class="logout-btn">
 
                 Cerrar sesión
 
@@ -785,23 +727,22 @@ tr:last-child td{
 
         <div class="topbar">
 
-            <div>
+            <div class="page-title">
 
                 <h1 id="pageTitle">
                     Dashboard
                 </h1>
 
                 <p id="pageSubtitle">
-                    Resumen de tu plataforma TapLink
+                    Resumen general de TapLink
                 </p>
 
             </div>
 
-
             <div class="top-actions">
 
                 <button
-                    class="btn btn-secondary"
+                    class="small-btn"
                     id="refreshButton">
 
                     ↻ Actualizar
@@ -815,20 +756,18 @@ tr:last-child td{
 
         <!-- =================================================
              DASHBOARD
-        ================================================== -->
+        ================================================= -->
 
         <section
-            id="dashboardSection"
+            id="dashboard"
             class="section active">
-
 
             <div class="stats-grid">
 
-
-                <div class="stat">
+                <div class="stat-card">
 
                     <div class="stat-label">
-                        Negocios
+                        Negocios registrados
                     </div>
 
                     <div
@@ -839,14 +778,14 @@ tr:last-child td{
 
                     </div>
 
-                    <div class="stat-sub">
-                        Negocios registrados
+                    <div class="stat-extra">
+                        Clientes registrados
                     </div>
 
                 </div>
 
 
-                <div class="stat">
+                <div class="stat-card">
 
                     <div class="stat-label">
                         NFC registrados
@@ -860,14 +799,14 @@ tr:last-child td{
 
                     </div>
 
-                    <div class="stat-sub">
+                    <div class="stat-extra">
                         Dispositivos NFC
                     </div>
 
                 </div>
 
 
-                <div class="stat">
+                <div class="stat-card">
 
                     <div class="stat-label">
                         NFC activos
@@ -881,14 +820,14 @@ tr:last-child td{
 
                     </div>
 
-                    <div class="stat-sub">
+                    <div class="stat-extra">
                         Funcionando actualmente
                     </div>
 
                 </div>
 
 
-                <div class="stat">
+                <div class="stat-card">
 
                     <div class="stat-label">
                         Clics totales
@@ -902,7 +841,7 @@ tr:last-child td{
 
                     </div>
 
-                    <div class="stat-sub">
+                    <div class="stat-extra">
                         Todas las interacciones
                     </div>
 
@@ -911,164 +850,47 @@ tr:last-child td{
             </div>
 
 
-            <!-- CHART -->
+            <div class="grid-2">
 
-            <div class="card">
+                <!-- ANALYTICS -->
 
-                <div class="card-header">
+                <div class="card">
 
-                    <div>
+                    <div class="card-header">
 
-                        <div class="card-title">
-                            Actividad
-                        </div>
+                        <h2>
+                            Clicks por acción
+                        </h2>
 
-                        <div class="card-subtitle">
-                            Últimos 30 días
-                        </div>
+                        <span class="muted">
+                            Total
+                        </span>
 
                     </div>
 
-                </div>
-
-                <div
-                    id="chart"
-                    class="chart">
-
-                    <div class="empty">
-                        Cargando...
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ACTIONS -->
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-
-                        <div class="card-title">
-                            Clics por acción
-                        </div>
-
-                        <div class="card-subtitle">
-                            Interacciones de los clientes
-                        </div>
+                    <div
+                        id="analyticsOverview"
+                        class="analytics-list">
 
                     </div>
 
                 </div>
 
 
-                <div class="action-grid">
+                <!-- TOP BUSINESSES -->
 
+                <div class="card">
 
-                    <div class="action">
+                    <div class="card-header">
 
-                        <div class="action-icon">
-                            ⭐
-                        </div>
-
-                        <div
-                            id="statGoogle"
-                            class="action-value">
-
-                            0
-
-                        </div>
-
-                        <div class="action-label">
-                            Google
-                        </div>
+                        <h2>
+                            Negocios con más clicks
+                        </h2>
 
                     </div>
 
-
-                    <div class="action">
-
-                        <div class="action-icon">
-                            📸
-                        </div>
-
-                        <div
-                            id="statInstagram"
-                            class="action-value">
-
-                            0
-
-                        </div>
-
-                        <div class="action-label">
-                            Instagram
-                        </div>
-
-                    </div>
-
-
-                    <div class="action">
-
-                        <div class="action-icon">
-                            💬
-                        </div>
-
-                        <div
-                            id="statWhatsapp"
-                            class="action-value">
-
-                            0
-
-                        </div>
-
-                        <div class="action-label">
-                            WhatsApp
-                        </div>
-
-                    </div>
-
-
-                    <div class="action">
-
-                        <div class="action-icon">
-                            🌐
-                        </div>
-
-                        <div
-                            id="statWebsite"
-                            class="action-value">
-
-                            0
-
-                        </div>
-
-                        <div class="action-label">
-                            Página web
-                        </div>
-
-                    </div>
-
-
-                    <div class="action">
-
-                        <div class="action-icon">
-                            📱
-                        </div>
-
-                        <div
-                            id="statNfcClicks"
-                            class="action-value">
-
-                            0
-
-                        </div>
-
-                        <div class="action-label">
-                            NFC
-                        </div>
+                    <div
+                        id="topBusinesses">
 
                     </div>
 
@@ -1077,68 +899,45 @@ tr:last-child td{
             </div>
 
 
-            <!-- BUSINESS RANKING -->
+            <!-- RECENT CLICKS -->
 
-            <div class="card">
+            <div class="table-card">
 
-                <div class="card-header">
+                <div class="table-header">
 
-                    <div>
+                    <h2>
+                        Últimos clicks
+                    </h2>
 
-                        <div class="card-title">
-                            Negocios con más actividad
-                        </div>
-
-                        <div class="card-subtitle">
-                            Ranking por cantidad de clics
-                        </div>
-
-                    </div>
+                    <span class="muted">
+                        Actividad reciente
+                    </span>
 
                 </div>
 
+                <div class="table-wrapper">
 
-                <div
-                    id="businessRanking"
-                    class="table-wrap">
+                    <table>
 
-                    <div class="empty">
-                        Cargando...
-                    </div>
+                        <thead>
 
-                </div>
+                            <tr>
 
-            </div>
+                                <th>Fecha</th>
+                                <th>Negocio</th>
+                                <th>Acción</th>
+                                <th>Dispositivo</th>
+                                <th>Navegador</th>
 
+                            </tr>
 
-            <!-- DEVICES -->
+                        </thead>
 
-            <div class="card">
+                        <tbody id="recentClicksTable">
 
-                <div class="card-header">
+                        </tbody>
 
-                    <div>
-
-                        <div class="card-title">
-                            Dispositivos
-                        </div>
-
-                        <div class="card-subtitle">
-                            Desde qué dispositivos interactúan los clientes
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="deviceStats"
-                    class="table-wrap">
-
-                    <div class="empty">
-                        Cargando...
-                    </div>
+                    </table>
 
                 </div>
 
@@ -1149,40 +948,181 @@ tr:last-child td{
 
         <!-- =================================================
              BUSINESSES
-        ================================================== -->
+        ================================================= -->
 
         <section
-            id="businessesSection"
+            id="businesses"
             class="section">
 
+            <div class="card form-card">
 
-            <div class="card">
+                <div class="card-header">
 
-                <div class="toolbar">
-
-                    <input
-                        id="businessSearch"
-                        placeholder="Buscar negocio..."
-                    >
-
-                    <button
-                        class="btn btn-primary"
-                        id="newBusinessButton">
-
-                        + Nuevo negocio
-
-                    </button>
+                    <h2>
+                        Crear nuevo negocio
+                    </h2>
 
                 </div>
 
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Nombre
+                        </label>
+
+                        <input
+                            id="businessName"
+                            placeholder="Ej: Tanta"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Slug
+                        </label>
+
+                        <input
+                            id="businessSlug"
+                            readonly
+                            placeholder="tanta"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Logo URL
+                        </label>
+
+                        <input
+                            id="businessLogo"
+                            placeholder="https://..."
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Google / Reseñas
+                        </label>
+
+                        <input
+                            id="businessGoogle"
+                            placeholder="https://..."
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Instagram
+                        </label>
+
+                        <input
+                            id="businessInstagram"
+                            placeholder="https://instagram.com/..."
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            WhatsApp
+                        </label>
+
+                        <input
+                            id="businessWhatsapp"
+                            placeholder="https://wa.me/..."
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Página web
+                        </label>
+
+                        <input
+                            id="businessWebsite"
+                            placeholder="https://..."
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Google Maps Embed
+                        </label>
+
+                        <input
+                            id="businessMaps"
+                            placeholder="https://www.google.com/maps/embed..."
+                        >
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="createBusinessButton"
+                    class="primary-btn">
+
+                    Crear negocio
+
+                </button>
 
                 <div
-                    id="businessTable"
-                    class="table-wrap">
+                    id="businessMessage"
+                    class="message">
 
-                    <div class="empty">
-                        Cargando...
-                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <div class="table-header">
+
+                    <h2>
+                        Todos los negocios
+                    </h2>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Negocio</th>
+                                <th>Slug</th>
+                                <th>NFC</th>
+                                <th>Clicks</th>
+                                <th>Enlace</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="businessesTable">
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
@@ -1193,40 +1133,132 @@ tr:last-child td{
 
         <!-- =================================================
              NFC
-        ================================================== -->
+        ================================================= -->
 
         <section
-            id="nfcSection"
+            id="nfc"
             class="section">
 
+            <div class="card form-card">
 
-            <div class="card">
+                <div class="card-header">
 
-                <div class="toolbar">
-
-                    <input
-                        id="nfcSearch"
-                        placeholder="Buscar NFC..."
-                    >
-
-                    <button
-                        class="btn btn-primary"
-                        id="newNfcButton">
-
-                        + Nuevo NFC
-
-                    </button>
+                    <h2>
+                        Registrar nuevo NFC
+                    </h2>
 
                 </div>
 
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Negocio
+                        </label>
+
+                        <select id="nfcBusiness">
+
+                            <option value="">
+                                Selecciona un negocio
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Nombre del NFC
+                        </label>
+
+                        <input
+                            id="nfcName"
+                            placeholder="NFC Principal"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Código
+                        </label>
+
+                        <input
+                            id="nfcCode"
+                            placeholder="TANTA-001"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Ubicación
+                        </label>
+
+                        <input
+                            id="nfcLocation"
+                            placeholder="Caja"
+                        >
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="createNfcButton"
+                    class="primary-btn">
+
+                    Crear NFC
+
+                </button>
 
                 <div
-                    id="nfcTable"
-                    class="table-wrap">
+                    id="nfcMessage"
+                    class="message">
 
-                    <div class="empty">
-                        Cargando...
-                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <div class="table-header">
+
+                    <h2>
+                        Dispositivos NFC
+                    </h2>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>NFC</th>
+                                <th>Código</th>
+                                <th>Negocio</th>
+                                <th>Ubicación</th>
+                                <th>Estado</th>
+                                <th>Clicks</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="nfcTable">
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
@@ -1237,39 +1269,215 @@ tr:last-child td{
 
         <!-- =================================================
              ANALYTICS
-        ================================================== -->
+        ================================================= -->
 
         <section
-            id="analyticsSection"
+            id="analytics"
             class="section">
 
+            <div class="stats-grid">
 
-            <div class="card">
+                <div class="stat-card">
 
-                <div class="card-header">
+                    <div class="stat-label">
+                        Google
+                    </div>
 
-                    <div>
+                    <div
+                        class="stat-value"
+                        id="analyticsGoogle">
 
-                        <div class="card-title">
-                            Analytics
-                        </div>
+                        0
 
-                        <div class="card-subtitle">
-                            Registro detallado de interacciones
-                        </div>
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Instagram
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="analyticsInstagram">
+
+                        0
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        WhatsApp
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="analyticsWhatsapp">
+
+                        0
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Website
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="analyticsWebsite">
+
+                        0
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid-2">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Clicks por acción
+                        </h2>
+
+                    </div>
+
+                    <div
+                        id="analyticsFull"
+                        class="analytics-list">
 
                     </div>
 
                 </div>
 
 
-                <div
-                    id="analyticsTable"
-                    class="table-wrap">
+                <div class="card">
 
-                    <div class="empty">
-                        Cargando...
+                    <div class="card-header">
+
+                        <h2>
+                            Resumen
+                        </h2>
+
                     </div>
+
+                    <div class="analytics-list">
+
+                        <div class="analytics-row">
+
+                            <div class="analytics-info">
+
+                                <div class="analytics-name">
+                                    Total de clicks
+                                </div>
+
+                            </div>
+
+                            <div
+                                class="analytics-number"
+                                id="analyticsTotal">
+
+                                0
+
+                            </div>
+
+                        </div>
+
+                        <div class="analytics-row">
+
+                            <div class="analytics-info">
+
+                                <div class="analytics-name">
+                                    Clicks NFC
+                                </div>
+
+                            </div>
+
+                            <div
+                                class="analytics-number"
+                                id="analyticsNfc">
+
+                                0
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CLICKS
+        ================================================= -->
+
+        <section
+            id="clicks"
+            class="section">
+
+            <div class="table-card">
+
+                <div class="table-header">
+
+                    <h2>
+                        Historial de clicks
+                    </h2>
+
+                    <span
+                        class="muted"
+                        id="clickCountLabel">
+
+                        0 clicks
+
+                    </span>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Fecha</th>
+                                <th>Negocio</th>
+                                <th>NFC</th>
+                                <th>Acción</th>
+                                <th>Source</th>
+                                <th>Dispositivo</th>
+                                <th>Navegador</th>
+                                <th>Destino</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="clicksTable">
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
@@ -1282,338 +1490,13 @@ tr:last-child td{
 </div>
 
 
-<!-- =====================================================
-     BUSINESS MODAL
-===================================================== -->
-
-<div
-    id="businessModal"
-    class="modal">
-
-    <div class="modal-card">
-
-        <div class="modal-header">
-
-            <h2>
-                Nuevo negocio
-            </h2>
-
-            <button
-                class="close"
-                id="closeBusinessModal">
-
-                ×
-
-            </button>
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Nombre
-            </label>
-
-            <input
-                id="businessName"
-                placeholder="Ej: Tanta"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Slug
-            </label>
-
-            <input
-                id="businessSlug"
-                readonly
-                placeholder="tanta"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Logo URL
-            </label>
-
-            <input
-                id="businessLogo"
-                placeholder="https://..."
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Google / Reseñas
-            </label>
-
-            <input
-                id="businessGoogle"
-                placeholder="https://..."
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Instagram
-            </label>
-
-            <input
-                id="businessInstagram"
-                placeholder="https://instagram.com/..."
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                WhatsApp
-            </label>
-
-            <input
-                id="businessWhatsapp"
-                placeholder="https://wa.me/..."
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Página web
-            </label>
-
-            <input
-                id="businessWebsite"
-                placeholder="https://..."
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Google Maps Embed URL
-            </label>
-
-            <input
-                id="businessMaps"
-                placeholder="https://www.google.com/maps/embed?..."
-            >
-
-        </div>
-
-
-        <div
-            id="businessMessage"
-            class="message">
-        </div>
-
-
-        <div class="modal-actions">
-
-            <button
-                class="btn btn-secondary"
-                id="cancelBusiness">
-
-                Cancelar
-
-            </button>
-
-            <button
-                class="btn btn-primary"
-                id="saveBusiness">
-
-                Crear negocio
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     NFC MODAL
-===================================================== -->
-
-<div
-    id="nfcModal"
-    class="modal">
-
-    <div class="modal-card">
-
-        <div class="modal-header">
-
-            <h2>
-                Nuevo NFC
-            </h2>
-
-            <button
-                class="close"
-                id="closeNfcModal">
-
-                ×
-
-            </button>
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Negocio
-            </label>
-
-            <select
-                id="nfcBusiness"
-                style="
-                    width:100%;
-                    padding:13px;
-                    border:1px solid #dbe0e8;
-                    border-radius:10px;
-                    background:white;
-                ">
-            </select>
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Nombre del NFC
-            </label>
-
-            <input
-                id="nfcName"
-                placeholder="Ej: NFC Principal"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Código
-            </label>
-
-            <input
-                id="nfcCode"
-                placeholder="Ej: TANTA-002"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Ubicación
-            </label>
-
-            <input
-                id="nfcLocation"
-                placeholder="Ej: Caja"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Estado
-            </label>
-
-            <select
-                id="nfcStatus"
-                style="
-                    width:100%;
-                    padding:13px;
-                    border:1px solid #dbe0e8;
-                    border-radius:10px;
-                    background:white;
-                ">
-
-                <option value="active">
-                    Activo
-                </option>
-
-                <option value="inactive">
-                    Inactivo
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div
-            id="nfcMessage"
-            class="message">
-        </div>
-
-
-        <div class="modal-actions">
-
-            <button
-                class="btn btn-secondary"
-                id="cancelNfc">
-
-                Cancelar
-
-            </button>
-
-            <button
-                class="btn btn-primary"
-                id="saveNfc">
-
-                Crear NFC
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
+<!-- =========================================================
      SUPABASE
-===================================================== -->
+========================================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
 
 const SUPABASE_URL =
     "https://tizigescxnamlliwsbzf.supabase.co";
@@ -1628,23 +1511,18 @@ const supabaseClient =
     );
 
 
-/* =====================================================
+/* =========================================================
    VARIABLES
-===================================================== */
+========================================================= */
 
 let businesses = [];
 let nfcDevices = [];
 let clicks = [];
 
 
-/* =====================================================
+/* =========================================================
    HELPERS
-===================================================== */
-
-function $(id){
-    return document.getElementById(id);
-}
-
+========================================================= */
 
 function escapeHtml(value){
 
@@ -1658,101 +1536,129 @@ function escapeHtml(value){
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+
 }
 
 
-function showMessage(element,message,type){
+function formatDate(date){
 
-    element.textContent = message;
+    if(!date){
+        return "-";
+    }
+
+    return new Date(date).toLocaleString(
+        "es-PE",
+        {
+            dateStyle:"short",
+            timeStyle:"short"
+        }
+    );
+
+}
+
+
+function actionName(button){
+
+    const names = {
+
+        google:"⭐ Google",
+
+        instagram:"📸 Instagram",
+
+        whatsapp:"💬 WhatsApp",
+
+        website:"🌐 Website",
+
+        nfc:"📡 NFC"
+
+    };
+
+    return names[button] || button || "-";
+
+}
+
+
+function showMessage(elementId,text,type){
+
+    const element =
+        document.getElementById(elementId);
+
+    element.textContent = text;
 
     element.className =
-        "message " +
-        (type === "success"
-            ? "success"
-            : "error");
-}
-
-
-function formatNumber(number){
-
-    return Number(number || 0)
-        .toLocaleString("es-PE");
+        "message " + type;
 
 }
 
 
-function slugify(text){
+/* =========================================================
+   LOGIN
+========================================================= */
 
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
-        .replace(/[^a-z0-9]+/g,"-")
-        .replace(/^-+|-+$/g,"");
+function showLogin(){
+
+    document.getElementById("loginPanel")
+        .style.display = "flex";
+
+    document.getElementById("adminPanel")
+        .style.display = "none";
 
 }
 
 
-/* =====================================================
-   LOGIN / SESSION
-===================================================== */
+function showAdmin(){
+
+    document.getElementById("loginPanel")
+        .style.display = "none";
+
+    document.getElementById("adminPanel")
+        .style.display = "block";
+
+}
+
 
 async function checkSession(){
+
+    const {
+        data:{
+            session
+        }
+    } =
+        await supabaseClient.auth.getSession();
+
+    if(!session){
+
+        showLogin();
+
+        return;
+
+    }
+
+    await checkAdmin(session.user.id);
+
+}
+
+
+async function checkAdmin(userId){
 
     const {
         data,
         error
     } =
-    await supabaseClient
-        .auth
-        .getSession();
-
-
-    if(error){
-
-        console.error(error);
-
-        showLogin();
-
-        return;
-
-    }
-
-
-    if(!data.session){
-
-        showLogin();
-
-        return;
-
-    }
-
-
-    const userId =
-        data.session.user.id;
-
-
-    const {
-        data: admin,
-        error: adminError
-    } =
-    await supabaseClient
-        .from("admins")
-        .select("id")
-        .eq("id",userId)
-        .maybeSingle();
-
-
-    if(adminError || !admin){
-
         await supabaseClient
-            .auth
-            .signOut();
+            .from("admins")
+            .select("id")
+            .eq("id",userId)
+            .maybeSingle();
+
+    if(error || !data){
+
+        await supabaseClient.auth.signOut();
 
         showLogin();
 
         showMessage(
-            $("loginMessage"),
+            "loginMessage",
             "No tienes permisos de administrador.",
             "error"
         );
@@ -1761,59 +1667,36 @@ async function checkSession(){
 
     }
 
+    showAdmin();
 
-    showApp();
-
-    await loadEverything();
-
-}
-
-
-function showLogin(){
-
-    $("loginScreen").style.display =
-        "flex";
-
-    $("app").style.display =
-        "none";
+    await loadAllData();
 
 }
 
 
-function showApp(){
-
-    $("loginScreen").style.display =
-        "none";
-
-    $("app").style.display =
-        "block";
-
-}
-
-
-/* =====================================================
+/* =========================================================
    LOGIN BUTTON
-===================================================== */
+========================================================= */
 
-$("loginButton")
+document
+    .getElementById("loginButton")
     .addEventListener(
         "click",
         async function(){
 
             const email =
-                $("loginEmail")
+                document.getElementById("email")
                     .value
                     .trim();
 
             const password =
-                $("loginPassword")
+                document.getElementById("password")
                     .value;
-
 
             if(!email || !password){
 
                 showMessage(
-                    $("loginMessage"),
+                    "loginMessage",
                     "Completa correo y contraseña.",
                     "error"
                 );
@@ -1822,34 +1705,23 @@ $("loginButton")
 
             }
 
-
-            $("loginButton").textContent =
-                "Iniciando sesión...";
-
-
             const {
                 data,
                 error
             } =
-            await supabaseClient
-                .auth
-                .signInWithPassword({
-                    email,
-                    password
-                });
-
-
-            $("loginButton").textContent =
-                "Iniciar sesión";
-
+                await supabaseClient.auth
+                    .signInWithPassword({
+                        email,
+                        password
+                    });
 
             if(error){
 
                 console.error(error);
 
                 showMessage(
-                    $("loginMessage"),
-                    error.message,
+                    "loginMessage",
+                    "Correo o contraseña incorrectos.",
                     "error"
                 );
 
@@ -1857,150 +1729,17 @@ $("loginButton")
 
             }
 
-
-            await checkSession();
-
-        }
-    );
-
-
-$("loginPassword")
-    .addEventListener(
-        "keydown",
-        function(event){
-
-            if(event.key === "Enter"){
-
-                $("loginButton").click();
-
-            }
+            await checkAdmin(
+                data.user.id
+            );
 
         }
     );
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-$("logoutButton")
-    .addEventListener(
-        "click",
-        async function(){
-
-            await supabaseClient
-                .auth
-                .signOut();
-
-            showLogin();
-
-        }
-    );
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-document
-    .querySelectorAll(".nav button")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            function(){
-
-                const section =
-                    this.dataset.section;
-
-
-                document
-                    .querySelectorAll(".nav button")
-                    .forEach(b =>
-                        b.classList.remove("active")
-                    );
-
-
-                this.classList.add("active");
-
-
-                document
-                    .querySelectorAll(".section")
-                    .forEach(s =>
-                        s.classList.remove("active")
-                    );
-
-
-                $(section + "Section")
-                    .classList.add("active");
-
-
-                const titles = {
-
-                    dashboard:[
-                        "Dashboard",
-                        "Resumen de tu plataforma TapLink"
-                    ],
-
-                    businesses:[
-                        "Negocios",
-                        "Administra todos tus negocios"
-                    ],
-
-                    nfc:[
-                        "NFC",
-                        "Administra tus dispositivos NFC"
-                    ],
-
-                    analytics:[
-                        "Analytics",
-                        "Actividad y clics registrados"
-                    ]
-
-                };
-
-
-                $("pageTitle").textContent =
-                    titles[section][0];
-
-                $("pageSubtitle").textContent =
-                    titles[section][1];
-
-            }
-        );
-
-    });
-
-
-/* =====================================================
-   LOAD EVERYTHING
-===================================================== */
-
-async function loadEverything(){
-
-    await Promise.all([
-        loadBusinesses(),
-        loadNfc(),
-        loadClicks()
-    ]);
-
-
-    renderDashboard();
-
-    renderBusinesses();
-
-    renderNfc();
-
-    renderAnalytics();
-
-    populateNfcBusinessSelect();
-
-}
-
-
-/* =====================================================
+/* =========================================================
    LOAD BUSINESSES
-===================================================== */
+========================================================= */
 
 async function loadBusinesses(){
 
@@ -2008,11 +1747,10 @@ async function loadBusinesses(){
         data,
         error
     } =
-    await supabaseClient
-        .from("businesses")
-        .select("*")
-        .order("id",{ascending:true});
-
+        await supabaseClient
+            .from("businesses")
+            .select("*")
+            .order("id",{ascending:true});
 
     if(error){
 
@@ -2027,16 +1765,14 @@ async function loadBusinesses(){
 
     }
 
-
-    businesses =
-        data || [];
+    businesses = data || [];
 
 }
 
 
-/* =====================================================
+/* =========================================================
    LOAD NFC
-===================================================== */
+========================================================= */
 
 async function loadNfc(){
 
@@ -2044,11 +1780,10 @@ async function loadNfc(){
         data,
         error
     } =
-    await supabaseClient
-        .from("nfc_devices")
-        .select("*")
-        .order("id",{ascending:true});
-
+        await supabaseClient
+            .from("nfc_devices")
+            .select("*")
+            .order("id",{ascending:true});
 
     if(error){
 
@@ -2063,16 +1798,14 @@ async function loadNfc(){
 
     }
 
-
-    nfcDevices =
-        data || [];
+    nfcDevices = data || [];
 
 }
 
 
-/* =====================================================
+/* =========================================================
    LOAD CLICKS
-===================================================== */
+========================================================= */
 
 async function loadClicks(){
 
@@ -2080,11 +1813,15 @@ async function loadClicks(){
         data,
         error
     } =
-    await supabaseClient
-        .from("clicks")
-        .select("*")
-        .order("created_at",{ascending:false});
-
+        await supabaseClient
+            .from("clicks")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
 
     if(error){
 
@@ -2099,442 +1836,657 @@ async function loadClicks(){
 
     }
 
-
-    clicks =
-        data || [];
+    clicks = data || [];
 
 }
 
 
-/* =====================================================
-   FIND BUSINESS
-===================================================== */
+/* =========================================================
+   LOAD EVERYTHING
+========================================================= */
 
-function getBusiness(id){
+async function loadAllData(){
 
-    return businesses.find(
-        b => Number(b.id) === Number(id)
+    await Promise.all([
+        loadBusinesses(),
+        loadNfc(),
+        loadClicks()
+    ]);
+
+    renderEverything();
+
+}
+
+
+/* =========================================================
+   RENDER EVERYTHING
+========================================================= */
+
+function renderEverything(){
+
+    renderStats();
+
+    renderAnalytics();
+
+    renderTopBusinesses();
+
+    renderRecentClicks();
+
+    renderBusinesses();
+
+    renderNfc();
+
+    renderClicks();
+
+    populateBusinessSelect();
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function renderStats(){
+
+    document.getElementById(
+        "statBusinesses"
+    ).textContent =
+        businesses.length;
+
+    document.getElementById(
+        "statNfc"
+    ).textContent =
+        nfcDevices.length;
+
+    document.getElementById(
+        "statActiveNfc"
+    ).textContent =
+        nfcDevices.filter(
+            n => n.status === "active"
+        ).length;
+
+    document.getElementById(
+        "statClicks"
+    ).textContent =
+        clicks.length;
+
+}
+
+
+/* =========================================================
+   ANALYTICS
+========================================================= */
+
+function countButton(button){
+
+    return clicks.filter(
+        click =>
+            click.button === button
+    ).length;
+
+}
+
+
+function renderAnalytics(){
+
+    const google =
+        countButton("google");
+
+    const instagram =
+        countButton("instagram");
+
+    const whatsapp =
+        countButton("whatsapp");
+
+    const website =
+        countButton("website");
+
+    const nfc =
+        countButton("nfc");
+
+    const total =
+        clicks.length;
+
+
+    document.getElementById(
+        "analyticsGoogle"
+    ).textContent = google;
+
+    document.getElementById(
+        "analyticsInstagram"
+    ).textContent = instagram;
+
+    document.getElementById(
+        "analyticsWhatsapp"
+    ).textContent = whatsapp;
+
+    document.getElementById(
+        "analyticsWebsite"
+    ).textContent = website;
+
+    document.getElementById(
+        "analyticsTotal"
+    ).textContent = total;
+
+    document.getElementById(
+        "analyticsNfc"
+    ).textContent = nfc;
+
+
+    renderAnalyticsList(
+        "analyticsOverview"
+    );
+
+    renderAnalyticsList(
+        "analyticsFull"
     );
 
 }
 
 
-/* =====================================================
-   DASHBOARD
-===================================================== */
+function renderAnalyticsList(elementId){
 
-function renderDashboard(){
+    const element =
+        document.getElementById(elementId);
 
-    $("statBusinesses").textContent =
-        formatNumber(businesses.length);
+    const total =
+        clicks.length || 1;
 
+    const actions = [
 
-    $("statNfc").textContent =
-        formatNumber(nfcDevices.length);
+        {
+            key:"nfc",
+            icon:"📡",
+            name:"NFC"
+        },
 
+        {
+            key:"google",
+            icon:"⭐",
+            name:"Google"
+        },
 
-    $("statActiveNfc").textContent =
-        formatNumber(
-            nfcDevices.filter(
-                n =>
-                    String(n.status)
-                        .toLowerCase()
-                    === "active"
-            ).length
-        );
+        {
+            key:"instagram",
+            icon:"📸",
+            name:"Instagram"
+        },
 
+        {
+            key:"whatsapp",
+            icon:"💬",
+            name:"WhatsApp"
+        },
 
-    $("statClicks").textContent =
-        formatNumber(clicks.length);
+        {
+            key:"website",
+            icon:"🌐",
+            name:"Website"
+        }
 
+    ];
 
-    const google =
-        clicks.filter(
-            c =>
-                String(c.button)
-                    .toLowerCase()
-                === "google"
-        ).length;
+    element.innerHTML =
+        actions.map(
+            action => {
 
+                const count =
+                    countButton(
+                        action.key
+                    );
 
-    const instagram =
-        clicks.filter(
-            c =>
-                String(c.button)
-                    .toLowerCase()
-                === "instagram"
-        ).length;
+                const percentage =
+                    Math.round(
+                        count / total * 100
+                    );
 
+                return `
 
-    const whatsapp =
-        clicks.filter(
-            c =>
-                String(c.button)
-                    .toLowerCase()
-                === "whatsapp"
-        ).length;
+                    <div class="analytics-row">
 
+                        <div class="analytics-icon">
+                            ${action.icon}
+                        </div>
 
-    const website =
-        clicks.filter(
-            c =>
-                String(c.button)
-                    .toLowerCase()
-                === "website"
-        ).length;
+                        <div class="analytics-info">
 
+                            <div class="analytics-name">
+                                ${action.name}
+                            </div>
 
-    const nfc =
-        clicks.filter(
-            c =>
-                String(c.button)
-                    .toLowerCase()
-                === "nfc"
-        ).length;
+                            <div class="progress">
 
+                                <div
+                                    class="progress-bar"
+                                    style="width:${percentage}%">
+                                </div>
 
-    $("statGoogle").textContent =
-        formatNumber(google);
+                            </div>
 
-    $("statInstagram").textContent =
-        formatNumber(instagram);
+                        </div>
 
-    $("statWhatsapp").textContent =
-        formatNumber(whatsapp);
+                        <div class="analytics-number">
+                            ${count}
+                        </div>
 
-    $("statWebsite").textContent =
-        formatNumber(website);
+                    </div>
 
-    $("statNfcClicks").textContent =
-        formatNumber(nfc);
+                `;
 
-
-    renderChart();
-
-    renderRanking();
-
-    renderDevices();
+            }
+        ).join("");
 
 }
 
 
-/* =====================================================
-   30 DAY CHART
-===================================================== */
+/* =========================================================
+   TOP BUSINESSES
+========================================================= */
 
-function renderChart(){
+function getBusinessClickCount(id){
 
-    const chart =
-        $("chart");
+    return clicks.filter(
+        click =>
+            Number(click.business_id) ===
+            Number(id)
+    ).length;
 
-    chart.innerHTML = "";
+}
 
 
-    const days = [];
+function renderTopBusinesses(){
 
-
-    for(let i = 29; i >= 0; i--){
-
-        const date =
-            new Date();
-
-        date.setHours(0,0,0,0);
-
-        date.setDate(
-            date.getDate() - i
+    const element =
+        document.getElementById(
+            "topBusinesses"
         );
 
+    const sorted =
+        businesses
+            .map(
+                business => ({
 
-        days.push(date);
+                    ...business,
+
+                    clickCount:
+                        getBusinessClickCount(
+                            business.id
+                        )
+
+                })
+            )
+            .sort(
+                (a,b) =>
+                    b.clickCount -
+                    a.clickCount
+            )
+            .slice(0,5);
+
+
+    if(!sorted.length){
+
+        element.innerHTML =
+            `<div class="empty">
+                No hay negocios.
+            </div>`;
+
+        return;
 
     }
 
 
-    const counts =
-        days.map(date => {
+    element.innerHTML =
+        sorted.map(
+            business => `
 
-            const key =
-                date.toISOString()
-                    .slice(0,10);
+                <div class="analytics-row">
 
+                    <div class="analytics-icon">
+                        🏢
+                    </div>
 
-            return clicks.filter(c => {
+                    <div class="analytics-info">
 
-                const d =
-                    new Date(c.created_at);
+                        <div class="analytics-name">
+                            ${escapeHtml(
+                                business.name
+                            )}
+                        </div>
 
-                return d.toISOString()
-                    .slice(0,10)
-                    === key;
+                        <div class="muted">
+                            ${business.clickCount} clicks
+                        </div>
 
-            }).length;
+                    </div>
 
-        });
+                    <div class="analytics-number">
+                        ${business.clickCount}
+                    </div>
 
+                </div>
 
-    const max =
-        Math.max(
-            ...counts,
-            1
-        );
-
-
-    counts.forEach(
-        (count,index) => {
-
-            const wrap =
-                document.createElement("div");
-
-            wrap.className =
-                "bar-wrap";
-
-
-            const bar =
-                document.createElement("div");
-
-            bar.className =
-                "bar";
-
-
-            const height =
-                count === 0
-                    ? 3
-                    : Math.max(
-                        5,
-                        (count / max) * 100
-                    );
-
-
-            bar.style.height =
-                height + "%";
-
-
-            const tooltip =
-                document.createElement("div");
-
-            tooltip.className =
-                "bar-tooltip";
-
-            tooltip.textContent =
-                formatNumber(count) +
-                " clic" +
-                (count === 1
-                    ? ""
-                    : "s");
-
-
-            bar.appendChild(tooltip);
-
-            wrap.appendChild(bar);
-
-            chart.appendChild(wrap);
-
-        }
-    );
+            `
+        ).join("");
 
 }
 
 
-/* =====================================================
-   BUSINESS RANKING
-===================================================== */
+/* =========================================================
+   RECENT CLICKS
+========================================================= */
 
-function renderRanking(){
+function getBusinessName(id){
 
-    const container =
-        $("businessRanking");
+    const business =
+        businesses.find(
+            b =>
+                Number(b.id) ===
+                Number(id)
+        );
+
+    return business
+        ? business.name
+        : "Desconocido";
+
+}
+
+
+function getNfcName(id){
+
+    if(id === null || id === undefined){
+        return "-";
+    }
+
+    const nfc =
+        nfcDevices.find(
+            n =>
+                Number(n.id) ===
+                Number(id)
+        );
+
+    return nfc
+        ? nfc.name
+        : "-";
+
+}
+
+
+function renderRecentClicks(){
+
+    const element =
+        document.getElementById(
+            "recentClicksTable"
+        );
+
+    const recent =
+        clicks.slice(0,10);
+
+
+    if(!recent.length){
+
+        element.innerHTML =
+            `<tr>
+                <td colspan="5">
+                    <div class="empty">
+                        No hay clicks todavía.
+                    </div>
+                </td>
+            </tr>`;
+
+        return;
+
+    }
+
+
+    element.innerHTML =
+        recent.map(
+            click => `
+
+                <tr>
+
+                    <td>
+                        ${formatDate(
+                            click.created_at
+                        )}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(
+                                getBusinessName(
+                                    click.business_id
+                                )
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${actionName(
+                            click.button
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            click.device || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            click.browser || "-"
+                        )}
+                    </td>
+
+                </tr>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================================================
+   BUSINESSES TABLE
+========================================================= */
+
+function renderBusinesses(){
+
+    const element =
+        document.getElementById(
+            "businessesTable"
+        );
 
 
     if(!businesses.length){
 
-        container.innerHTML =
-            `<div class="empty">
-                No hay negocios registrados.
-             </div>`;
-
-        return;
-
-    }
-
-
-    const rows =
-        businesses
-            .map(b => {
-
-                const count =
-                    clicks.filter(
-                        c =>
-                            Number(c.business_id)
-                            === Number(b.id)
-                    ).length;
-
-
-                const nfc =
-                    nfcDevices.filter(
-                        n =>
-                            Number(n.business_id)
-                            === Number(b.id)
-                    ).length;
-
-
-                return {
-                    ...b,
-                    clicks:count,
-                    nfc
-                };
-
-            })
-            .sort(
-                (a,b) =>
-                    b.clicks - a.clicks
-            );
-
-
-    let html = `
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Negocio</th>
-                    <th>NFC</th>
-                    <th>Clics</th>
-                    <th>Estado</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-    `;
-
-
-    rows.forEach(b => {
-
-        html += `
-
-            <tr>
-
-                <td>
-                    <div class="business-name">
-                        ${escapeHtml(b.name)}
+        element.innerHTML =
+            `<tr>
+                <td colspan="5">
+                    <div class="empty">
+                        No hay negocios.
                     </div>
                 </td>
-
-                <td>
-                    ${formatNumber(b.nfc)}
-                </td>
-
-                <td>
-                    <strong>
-                        ${formatNumber(b.clicks)}
-                    </strong>
-                </td>
-
-                <td>
-                    <span class="badge badge-active">
-                        Activo
-                    </span>
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-
-    html += `
-            </tbody>
-        </table>
-    `;
-
-
-    container.innerHTML =
-        html;
-
-}
-
-
-/* =====================================================
-   DEVICES
-===================================================== */
-
-function renderDevices(){
-
-    const container =
-        $("deviceStats");
-
-
-    if(!clicks.length){
-
-        container.innerHTML =
-            `<div class="empty">
-                Todavía no hay clics registrados.
-             </div>`;
+            </tr>`;
 
         return;
 
     }
 
 
-    const deviceMap = {};
+    element.innerHTML =
+        businesses.map(
+            business => {
+
+                const nfcCount =
+                    nfcDevices.filter(
+                        n =>
+                            Number(n.business_id) ===
+                            Number(business.id)
+                    ).length;
+
+                const clickCount =
+                    getBusinessClickCount(
+                        business.id
+                    );
+
+                const url =
+                    "https://nfc-link.vercel.app/" +
+                    business.slug;
 
 
-    clicks.forEach(c => {
-
-        const device =
-            c.device ||
-            "unknown";
-
-
-        if(!deviceMap[device]){
-            deviceMap[device] = 0;
-        }
-
-
-        deviceMap[device]++;
-
-    });
-
-
-    let html = `
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Dispositivo</th>
-                    <th>Clics</th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-    `;
-
-
-    Object.entries(deviceMap)
-        .sort((a,b) => b[1]-a[1])
-        .forEach(
-            ([device,count]) => {
-
-                html += `
+                return `
 
                     <tr>
 
                         <td>
-                            ${escapeHtml(device)}
+                            <strong>
+                                ${escapeHtml(
+                                    business.name
+                                )}
+                            </strong>
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                business.slug
+                            )}
+                        </td>
+
+                        <td>
+                            ${nfcCount}
                         </td>
 
                         <td>
                             <strong>
-                                ${formatNumber(count)}
+                                ${clickCount}
+                            </strong>
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="link-btn"
+                                onclick="window.open('${url}','_blank')">
+
+                                Abrir
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================================================
+   NFC TABLE
+========================================================= */
+
+function renderNfc(){
+
+    const element =
+        document.getElementById(
+            "nfcTable"
+        );
+
+
+    if(!nfcDevices.length){
+
+        element.innerHTML =
+            `<tr>
+                <td colspan="6">
+                    <div class="empty">
+                        No hay dispositivos NFC.
+                    </div>
+                </td>
+            </tr>`;
+
+        return;
+
+    }
+
+
+    element.innerHTML =
+        nfcDevices.map(
+            nfc => {
+
+                const clickCount =
+                    clicks.filter(
+                        click =>
+                            Number(
+                                click.nfc_id
+                            ) ===
+                            Number(nfc.id)
+                    ).length;
+
+                const businessName =
+                    getBusinessName(
+                        nfc.business_id
+                    );
+
+                const active =
+                    nfc.status === "active";
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                ${escapeHtml(
+                                    nfc.name
+                                )}
+                            </strong>
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                nfc.code
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                businessName
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                nfc.location || "-"
+                            )}
+                        </td>
+
+                        <td>
+
+                            <span class="badge ${
+                                active
+                                ? "badge-active"
+                                : "badge-inactive"
+                            }">
+
+                                ${
+                                    active
+                                    ? "Activo"
+                                    : "Inactivo"
+                                }
+
+                            </span>
+
+                        </td>
+
+                        <td>
+                            <strong>
+                                ${clickCount}
                             </strong>
                         </td>
 
@@ -2543,621 +2495,214 @@ function renderDevices(){
                 `;
 
             }
+        ).join("");
+
+}
+
+
+/* =========================================================
+   CLICKS TABLE
+========================================================= */
+
+function renderClicks(){
+
+    const element =
+        document.getElementById(
+            "clicksTable"
         );
 
 
-    html += `
-            </tbody>
-        </table>
-    `;
-
-
-    container.innerHTML =
-        html;
-
-}
-
-
-/* =====================================================
-   BUSINESSES TABLE
-===================================================== */
-
-function renderBusinesses(){
-
-    const search =
-        $("businessSearch")
-            .value
-            .trim()
-            .toLowerCase();
-
-
-    const filtered =
-        businesses.filter(
-            b =>
-                String(b.name)
-                    .toLowerCase()
-                    .includes(search)
-        );
-
-
-    if(!filtered.length){
-
-        $("businessTable").innerHTML =
-            `<div class="empty">
-                No se encontraron negocios.
-             </div>`;
-
-        return;
-
-    }
-
-
-    let html = `
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Negocio</th>
-                    <th>NFC</th>
-                    <th>Clics</th>
-                    <th>Enlace</th>
-                    <th>Acciones</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-    `;
-
-
-    filtered.forEach(b => {
-
-        const nfcCount =
-            nfcDevices.filter(
-                n =>
-                    Number(n.business_id)
-                    === Number(b.id)
-            ).length;
-
-
-        const clickCount =
-            clicks.filter(
-                c =>
-                    Number(c.business_id)
-                    === Number(b.id)
-            ).length;
-
-
-        const url =
-            "https://nfc-link.vercel.app/" +
-            b.slug;
-
-
-        html += `
-
-            <tr>
-
-                <td>
-
-                    <div class="business-name">
-                        ${escapeHtml(b.name)}
-                    </div>
-
-                    <div class="muted">
-                        /${escapeHtml(b.slug)}
-                    </div>
-
-                </td>
-
-                <td>
-                    ${formatNumber(nfcCount)}
-                </td>
-
-                <td>
-                    <strong>
-                        ${formatNumber(clickCount)}
-                    </strong>
-                </td>
-
-                <td>
-
-                    <button
-                        class="btn btn-secondary btn-small"
-                        onclick="copyText('${url}')">
-
-                        Copiar
-
-                    </button>
-
-                </td>
-
-                <td>
-
-                    <button
-                        class="btn btn-danger btn-small"
-                        onclick="deleteBusiness(${b.id})">
-
-                        Eliminar
-
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-
-    html += `
-            </tbody>
-        </table>
-    `;
-
-
-    $("businessTable").innerHTML =
-        html;
-
-}
-
-
-/* =====================================================
-   NFC TABLE
-===================================================== */
-
-function renderNfc(){
-
-    const search =
-        $("nfcSearch")
-            .value
-            .trim()
-            .toLowerCase();
-
-
-    const filtered =
-        nfcDevices.filter(n => {
-
-            const business =
-                getBusiness(
-                    n.business_id
-                );
-
-
-            return (
-
-                String(n.name || "")
-                    .toLowerCase()
-                    .includes(search)
-
-                ||
-
-                String(n.code || "")
-                    .toLowerCase()
-                    .includes(search)
-
-                ||
-
-                String(
-                    business?.name || ""
-                )
-                    .toLowerCase()
-                    .includes(search)
-
-            );
-
-        });
-
-
-    if(!filtered.length){
-
-        $("nfcTable").innerHTML =
-            `<div class="empty">
-                No se encontraron NFC.
-             </div>`;
-
-        return;
-
-    }
-
-
-    let html = `
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>NFC</th>
-                    <th>Negocio</th>
-                    <th>Código</th>
-                    <th>Ubicación</th>
-                    <th>Estado</th>
-                    <th>Clics</th>
-                    <th>Acciones</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-    `;
-
-
-    filtered.forEach(n => {
-
-        const business =
-            getBusiness(
-                n.business_id
-            );
-
-
-        const count =
-            clicks.filter(
-                c =>
-                    Number(c.nfc_id)
-                    === Number(n.id)
-            ).length;
-
-
-        const active =
-            String(n.status)
-                .toLowerCase()
-            === "active";
-
-
-        html += `
-
-            <tr>
-
-                <td>
-                    <strong>
-                        ${escapeHtml(n.name)}
-                    </strong>
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        business?.name || "-"
-                    )}
-                </td>
-
-                <td>
-                    <code>
-                        ${escapeHtml(n.code)}
-                    </code>
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        n.location || "-"
-                    )}
-                </td>
-
-                <td>
-
-                    <span class="
-                        badge
-                        ${
-                            active
-                            ? "badge-active"
-                            : "badge-inactive"
-                        }
-                    ">
-
-                        ${
-                            active
-                            ? "Activo"
-                            : "Inactivo"
-                        }
-
-                    </span>
-
-                </td>
-
-                <td>
-                    <strong>
-                        ${formatNumber(count)}
-                    </strong>
-                </td>
-
-                <td>
-
-                    <button
-                        class="btn btn-secondary btn-small"
-                        onclick="toggleNfc(
-                            ${n.id},
-                            '${active ? "inactive" : "active"}'
-                        )">
-
-                        ${
-                            active
-                            ? "Desactivar"
-                            : "Activar"
-                        }
-
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-
-    html += `
-            </tbody>
-        </table>
-    `;
-
-
-    $("nfcTable").innerHTML =
-        html;
-
-}
-
-
-/* =====================================================
-   ANALYTICS TABLE
-===================================================== */
-
-function renderAnalytics(){
-
-    const container =
-        $("analyticsTable");
+    document.getElementById(
+        "clickCountLabel"
+    ).textContent =
+        `${clicks.length} clicks`;
 
 
     if(!clicks.length){
 
-        container.innerHTML =
-            `<div class="empty">
-                No hay clics registrados.
-             </div>`;
+        element.innerHTML =
+            `<tr>
+                <td colspan="8">
+                    <div class="empty">
+                        No hay clicks todavía.
+                    </div>
+                </td>
+            </tr>`;
 
         return;
 
     }
 
 
-    let html = `
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Fecha</th>
-                    <th>Negocio</th>
-                    <th>Acción</th>
-                    <th>Fuente</th>
-                    <th>Dispositivo</th>
-                    <th>Navegador</th>
-                    <th>Destino</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-    `;
-
-
-    clicks.slice(0,200)
-        .forEach(c => {
-
-            const business =
-                getBusiness(
-                    c.business_id
-                );
-
-
-            html += `
+    element.innerHTML =
+        clicks.map(
+            click => `
 
                 <tr>
 
                     <td>
-                        ${new Date(
-                            c.created_at
-                        ).toLocaleString(
-                            "es-PE"
+                        ${formatDate(
+                            click.created_at
                         )}
                     </td>
 
                     <td>
                         ${escapeHtml(
-                            business?.name || "-"
-                        )}
-                    </td>
-
-                    <td>
-                        <strong>
-                            ${escapeHtml(
-                                c.button || "-"
-                            )}
-                        </strong>
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            c.source || "-"
+                            getBusinessName(
+                                click.business_id
+                            )
                         )}
                     </td>
 
                     <td>
                         ${escapeHtml(
-                            c.device || "-"
+                            getNfcName(
+                                click.nfc_id
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${actionName(
+                            click.button
                         )}
                     </td>
 
                     <td>
                         ${escapeHtml(
-                            c.browser || "-"
+                            click.source || "-"
                         )}
                     </td>
 
                     <td>
                         ${escapeHtml(
-                            c.destination || "-"
+                            click.device || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            click.browser || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            click.destination || "-"
                         )}
                     </td>
 
                 </tr>
 
-            `;
-
-        });
-
-
-    html += `
-            </tbody>
-        </table>
-    `;
-
-
-    container.innerHTML =
-        html;
+            `
+        ).join("");
 
 }
 
 
-/* =====================================================
-   BUSINESS SEARCH
-===================================================== */
+/* =========================================================
+   BUSINESS SELECT
+========================================================= */
 
-$("businessSearch")
-    .addEventListener(
-        "input",
-        renderBusinesses
-    );
+function populateBusinessSelect(){
 
+    const select =
+        document.getElementById(
+            "nfcBusiness"
+        );
 
-/* =====================================================
-   NFC SEARCH
-===================================================== */
-
-$("nfcSearch")
-    .addEventListener(
-        "input",
-        renderNfc
-    );
+    select.innerHTML =
+        `<option value="">
+            Selecciona un negocio
+        </option>`;
 
 
-/* =====================================================
-   REFRESH
-===================================================== */
+    businesses.forEach(
+        business => {
 
-$("refreshButton")
-    .addEventListener(
-        "click",
-        async function(){
+            select.innerHTML += `
 
-            this.textContent =
-                "Actualizando...";
+                <option value="${business.id}">
 
+                    ${escapeHtml(
+                        business.name
+                    )}
 
-            await loadEverything();
+                </option>
 
-
-            this.textContent =
-                "↻ Actualizar";
+            `;
 
         }
     );
 
-
-/* =====================================================
-   BUSINESS MODAL
-===================================================== */
-
-function openBusinessModal(){
-
-    $("businessModal")
-        .classList.add("show");
-
 }
 
 
-function closeBusinessModal(){
+/* =========================================================
+   GENERATE SLUG
+========================================================= */
 
-    $("businessModal")
-        .classList.remove("show");
-
-}
-
-
-$("newBusinessButton")
-    .addEventListener(
-        "click",
-        openBusinessModal
-    );
-
-
-$("closeBusinessModal")
-    .addEventListener(
-        "click",
-        closeBusinessModal
-    );
-
-
-$("cancelBusiness")
-    .addEventListener(
-        "click",
-        closeBusinessModal
-    );
-
-
-$("businessName")
+document
+    .getElementById("businessName")
     .addEventListener(
         "input",
         function(){
 
-            $("businessSlug")
-                .value =
-                slugify(
-                    this.value
-                );
+            const name =
+                this.value;
+
+            const slug =
+                name
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(
+                        /[\u0300-\u036f]/g,
+                        ""
+                    )
+                    .replace(
+                        /[^a-z0-9]+/g,
+                        "-"
+                    )
+                    .replace(
+                        /^-+|-+$/g,
+                        "");
+
+            document.getElementById(
+                "businessSlug"
+            ).value = slug;
 
         }
     );
 
 
-/* =====================================================
+/* =========================================================
    CREATE BUSINESS
-===================================================== */
+========================================================= */
 
-$("saveBusiness")
+document
+    .getElementById(
+        "createBusinessButton"
+    )
     .addEventListener(
         "click",
         async function(){
 
             const name =
-                $("businessName")
-                    .value
-                    .trim();
-
+                document.getElementById(
+                    "businessName"
+                ).value.trim();
 
             const slug =
-                $("businessSlug")
-                    .value
-                    .trim();
+                document.getElementById(
+                    "businessSlug"
+                ).value.trim();
 
 
             if(!name || !slug){
 
                 showMessage(
-                    $("businessMessage"),
-                    "Ingresa el nombre del negocio.",
+                    "businessMessage",
+                    "Escribe el nombre del negocio.",
                     "error"
                 );
 
@@ -3166,66 +2711,48 @@ $("saveBusiness")
             }
 
 
-            this.disabled = true;
-
-            this.textContent =
-                "Creando...";
-
-
             const {
                 error
             } =
-            await supabaseClient
-                .from("businesses")
-                .insert({
+                await supabaseClient
+                    .from("businesses")
+                    .insert({
 
-                    name,
+                        name,
 
-                    slug,
+                        slug,
 
-                    logo_url:
-                        $("businessLogo")
-                            .value
-                            .trim()
-                        || null,
+                        logo_url:
+                            document.getElementById(
+                                "businessLogo"
+                            ).value.trim() || null,
 
-                    google_url:
-                        $("businessGoogle")
-                            .value
-                            .trim()
-                        || null,
+                        google_url:
+                            document.getElementById(
+                                "businessGoogle"
+                            ).value.trim() || null,
 
-                    instagram_url:
-                        $("businessInstagram")
-                            .value
-                            .trim()
-                        || null,
+                        instagram_url:
+                            document.getElementById(
+                                "businessInstagram"
+                            ).value.trim() || null,
 
-                    whatsapp_url:
-                        $("businessWhatsapp")
-                            .value
-                            .trim()
-                        || null,
+                        whatsapp_url:
+                            document.getElementById(
+                                "businessWhatsapp"
+                            ).value.trim() || null,
 
-                    website_url:
-                        $("businessWebsite")
-                            .value
-                            .trim()
-                        || null,
+                        website_url:
+                            document.getElementById(
+                                "businessWebsite"
+                            ).value.trim() || null,
 
-                    maps_url:
-                        $("businessMaps")
-                            .value
-                            .trim()
-                        || null
+                        maps_url:
+                            document.getElementById(
+                                "businessMaps"
+                            ).value.trim() || null
 
-                });
-
-
-            this.disabled = false;
-
-            this.textContent =
-                "Crear negocio";
+                    });
 
 
             if(error){
@@ -3233,8 +2760,8 @@ $("saveBusiness")
                 console.error(error);
 
                 showMessage(
-                    $("businessMessage"),
-                    error.message,
+                    "businessMessage",
+                    "Error: " + error.message,
                     "error"
                 );
 
@@ -3243,154 +2770,67 @@ $("saveBusiness")
             }
 
 
-            closeBusinessModal();
+            showMessage(
+                "businessMessage",
+                "✅ Negocio creado correctamente.",
+                "success"
+            );
 
-            clearBusinessForm();
 
-            await loadEverything();
+            [
+                "businessName",
+                "businessSlug",
+                "businessLogo",
+                "businessGoogle",
+                "businessInstagram",
+                "businessWhatsapp",
+                "businessWebsite",
+                "businessMaps"
+            ].forEach(
+                id =>
+                    document.getElementById(
+                        id
+                    ).value = ""
+            );
+
+
+            await loadAllData();
 
         }
     );
 
 
-function clearBusinessForm(){
-
-    [
-        "businessName",
-        "businessSlug",
-        "businessLogo",
-        "businessGoogle",
-        "businessInstagram",
-        "businessWhatsapp",
-        "businessWebsite",
-        "businessMaps"
-    ]
-    .forEach(
-        id =>
-            $(id).value = ""
-    );
-
-}
-
-
-/* =====================================================
-   NFC MODAL
-===================================================== */
-
-function openNfcModal(){
-
-    populateNfcBusinessSelect();
-
-    $("nfcModal")
-        .classList.add("show");
-
-}
-
-
-function closeNfcModal(){
-
-    $("nfcModal")
-        .classList.remove("show");
-
-}
-
-
-$("newNfcButton")
-    .addEventListener(
-        "click",
-        openNfcModal
-    );
-
-
-$("closeNfcModal")
-    .addEventListener(
-        "click",
-        closeNfcModal
-    );
-
-
-$("cancelNfc")
-    .addEventListener(
-        "click",
-        closeNfcModal
-    );
-
-
-/* =====================================================
-   NFC BUSINESS SELECT
-===================================================== */
-
-function populateNfcBusinessSelect(){
-
-    const select =
-        $("nfcBusiness");
-
-
-    select.innerHTML = "";
-
-
-    businesses.forEach(b => {
-
-        const option =
-            document.createElement(
-                "option"
-            );
-
-
-        option.value =
-            b.id;
-
-
-        option.textContent =
-            b.name;
-
-
-        select.appendChild(
-            option
-        );
-
-    });
-
-}
-
-
-/* =====================================================
+/* =========================================================
    CREATE NFC
-===================================================== */
+========================================================= */
 
-$("saveNfc")
+document
+    .getElementById(
+        "createNfcButton"
+    )
     .addEventListener(
         "click",
         async function(){
 
             const businessId =
-                Number(
-                    $("nfcBusiness")
-                        .value
-                );
-
+                document.getElementById(
+                    "nfcBusiness"
+                ).value;
 
             const name =
-                $("nfcName")
-                    .value
-                    .trim();
-
+                document.getElementById(
+                    "nfcName"
+                ).value.trim();
 
             const code =
-                $("nfcCode")
-                    .value
-                    .trim();
-
+                document.getElementById(
+                    "nfcCode"
+                ).value.trim();
 
             const location =
-                $("nfcLocation")
-                    .value
-                    .trim();
-
-
-            const status =
-                $("nfcStatus")
-                    .value;
+                document.getElementById(
+                    "nfcLocation"
+                ).value.trim();
 
 
             if(
@@ -3400,7 +2840,7 @@ $("saveNfc")
             ){
 
                 showMessage(
-                    $("nfcMessage"),
+                    "nfcMessage",
                     "Completa negocio, nombre y código.",
                     "error"
                 );
@@ -3410,38 +2850,29 @@ $("saveNfc")
             }
 
 
-            this.disabled = true;
-
-            this.textContent =
-                "Creando...";
-
-
             const {
                 error
             } =
-            await supabaseClient
-                .from("nfc_devices")
-                .insert({
+                await supabaseClient
+                    .from("nfc_devices")
+                    .insert({
 
-                    business_id:
-                        businessId,
+                        business_id:
+                            Number(
+                                businessId
+                            ),
 
-                    name,
+                        name,
 
-                    code,
+                        code,
 
-                    location:
-                        location || null,
+                        location:
+                            location || null,
 
-                    status
+                        status:
+                            "active"
 
-                });
-
-
-            this.disabled = false;
-
-            this.textContent =
-                "Crear NFC";
+                    });
 
 
             if(error){
@@ -3449,8 +2880,8 @@ $("saveNfc")
                 console.error(error);
 
                 showMessage(
-                    $("nfcMessage"),
-                    error.message,
+                    "nfcMessage",
+                    "Error: " + error.message,
                     "error"
                 );
 
@@ -3459,150 +2890,210 @@ $("saveNfc")
             }
 
 
-            closeNfcModal();
+            showMessage(
+                "nfcMessage",
+                "✅ NFC creado correctamente.",
+                "success"
+            );
 
-            clearNfcForm();
 
-            await loadEverything();
+            document.getElementById(
+                "nfcBusiness"
+            ).value = "";
+
+            document.getElementById(
+                "nfcName"
+            ).value = "";
+
+            document.getElementById(
+                "nfcCode"
+            ).value = "";
+
+            document.getElementById(
+                "nfcLocation"
+            ).value = "";
+
+
+            await loadAllData();
 
         }
     );
 
 
-function clearNfcForm(){
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
-    $("nfcName").value =
-        "";
+document
+    .querySelectorAll(".nav-button")
+    .forEach(
+        button => {
 
-    $("nfcCode").value =
-        "";
+            button.addEventListener(
+                "click",
+                function(){
 
-    $("nfcLocation").value =
-        "";
+                    document
+                        .querySelectorAll(
+                            ".nav-button"
+                        )
+                        .forEach(
+                            b =>
+                                b.classList.remove(
+                                    "active"
+                                )
+                        );
 
-}
-
-
-/* =====================================================
-   TOGGLE NFC
-===================================================== */
-
-async function toggleNfc(
-    id,
-    status
-){
-
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("nfc_devices")
-        .update({
-            status
-        })
-        .eq("id",id);
+                    this.classList.add(
+                        "active"
+                    );
 
 
-    if(error){
-
-        alert(
-            "Error: " +
-            error.message
-        );
-
-        return;
-
-    }
-
-
-    await loadEverything();
-
-}
+                    document
+                        .querySelectorAll(
+                            ".section"
+                        )
+                        .forEach(
+                            section =>
+                                section.classList.remove(
+                                    "active"
+                                )
+                        );
 
 
-/* =====================================================
-   DELETE BUSINESS
-===================================================== */
+                    const section =
+                        document.getElementById(
+                            this.dataset.section
+                        );
 
-async function deleteBusiness(id){
-
-    const business =
-        getBusiness(id);
-
-
-    if(!business){
-        return;
-    }
+                    section.classList.add(
+                        "active"
+                    );
 
 
-    const confirmed =
-        confirm(
-            `¿Eliminar "${business.name}"?`
-        );
+                    const titles = {
+
+                        dashboard:[
+                            "Dashboard",
+                            "Resumen general de TapLink"
+                        ],
+
+                        businesses:[
+                            "Negocios",
+                            "Gestiona tus clientes"
+                        ],
+
+                        nfc:[
+                            "NFC",
+                            "Gestiona tus dispositivos NFC"
+                        ],
+
+                        analytics:[
+                            "Analytics",
+                            "Rendimiento de TapLink"
+                        ],
+
+                        clicks:[
+                            "Clicks",
+                            "Historial completo de interacciones"
+                        ]
+
+                    };
 
 
-    if(!confirmed){
-        return;
-    }
+                    document.getElementById(
+                        "pageTitle"
+                    ).textContent =
+                        titles[
+                            this.dataset.section
+                        ][0];
 
 
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("businesses")
-        .delete()
-        .eq("id",id);
+                    document.getElementById(
+                        "pageSubtitle"
+                    ).textContent =
+                        titles[
+                            this.dataset.section
+                        ][1];
+
+                }
+            );
+
+        }
+    );
 
 
-    if(error){
+/* =========================================================
+   REFRESH
+========================================================= */
 
-        alert(
-            "No se pudo eliminar: " +
-            error.message
-        );
+document
+    .getElementById(
+        "refreshButton"
+    )
+    .addEventListener(
+        "click",
+        async function(){
 
-        return;
+            this.textContent =
+                "↻ Actualizando...";
 
-    }
+            await loadAllData();
 
+            this.textContent =
+                "↻ Actualizar";
 
-    await loadEverything();
-
-}
-
-
-/* =====================================================
-   COPY
-===================================================== */
-
-async function copyText(text){
-
-    try{
-
-        await navigator.clipboard
-            .writeText(text);
+        }
+    );
 
 
-        alert(
-            "Enlace copiado."
-        );
+/* =========================================================
+   LOGOUT
+========================================================= */
 
-    }catch(error){
+document
+    .getElementById(
+        "logoutButton"
+    )
+    .addEventListener(
+        "click",
+        async function(){
 
-        prompt(
-            "Copia este enlace:",
-            text
-        );
+            await supabaseClient.auth.signOut();
 
-    }
+            showLogin();
 
-}
+        }
+    );
 
 
-/* =====================================================
-   INIT
-===================================================== */
+/* =========================================================
+   ENTER LOGIN
+========================================================= */
+
+document
+    .getElementById("password")
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Enter"){
+
+                document
+                    .getElementById(
+                        "loginButton"
+                    )
+                    .click();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   START
+========================================================= */
 
 checkSession();
 
