@@ -175,10 +175,11 @@
         const SUPABASE_KEY =
             "sb_publishable_HrhIu7Dx0CV6_WRZlQ2N9Q_EtVdU51T";
 
-        const supabaseClient = supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-        );
+        const supabaseClient =
+            supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
 
 
         // =========================
@@ -187,18 +188,22 @@
 
         async function trackClick(button, businessId) {
 
-            const { error } = await supabaseClient
-                .from("clicks")
-                .insert({
-                    business_id: businessId,
-                    button: button
-                });
+            const { error } =
+                await supabaseClient.rpc(
+                    "increment_analytics",
+                    {
+                        p_business_id: businessId,
+                        p_button: button
+                    }
+                );
 
             if (error) {
+
                 console.error(
                     "Error registrando clic:",
                     error
                 );
+
             }
         }
 
@@ -209,15 +214,16 @@
 
         async function loadBusiness() {
 
-            const pathParts = window.location.pathname
-                .split("/")
-                .filter(Boolean);
+            const pathParts =
+                window.location.pathname
+                    .split("/")
+                    .filter(Boolean);
 
             const slug =
                 pathParts[pathParts.length - 1];
 
 
-            // Si no hay slug
+            // Si no existe slug
 
             if (!slug) {
 
@@ -262,7 +268,7 @@
             }
 
 
-            // Negocio inexistente
+            // Negocio no encontrado
 
             if (!data) {
 
@@ -281,7 +287,8 @@
 
             document.getElementById(
                 "businessName"
-            ).textContent = data.name;
+            ).textContent =
+                data.name;
 
 
             // =========================
@@ -298,6 +305,7 @@
                         alt="${data.name}"
                     >
                 `;
+
             }
 
 
@@ -318,10 +326,12 @@
                 link.addEventListener(
                     "click",
                     () => {
+
                         trackClick(
                             "google",
                             data.id
                         );
+
                     }
                 );
 
@@ -331,6 +341,7 @@
                     "googleLink"
                 ).style.display =
                     "none";
+
             }
 
 
@@ -351,10 +362,12 @@
                 link.addEventListener(
                     "click",
                     () => {
+
                         trackClick(
                             "instagram",
                             data.id
                         );
+
                     }
                 );
 
@@ -364,6 +377,7 @@
                     "instagramLink"
                 ).style.display =
                     "none";
+
             }
 
 
@@ -384,10 +398,12 @@
                 link.addEventListener(
                     "click",
                     () => {
+
                         trackClick(
                             "whatsapp",
                             data.id
                         );
+
                     }
                 );
 
@@ -397,6 +413,7 @@
                     "whatsappLink"
                 ).style.display =
                     "none";
+
             }
 
 
@@ -417,10 +434,12 @@
                 link.addEventListener(
                     "click",
                     () => {
+
                         trackClick(
                             "website",
                             data.id
                         );
+
                     }
                 );
 
@@ -430,6 +449,7 @@
                     "websiteLink"
                 ).style.display =
                     "none";
+
             }
 
         }
