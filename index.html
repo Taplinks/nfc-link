@@ -129,12 +129,6 @@
             margin-top: 30px;
             font-size: 14px;
         }
-
-        .loading {
-            color: #777;
-            font-size: 14px;
-            margin-top: 10px;
-        }
     </style>
 </head>
 
@@ -198,11 +192,6 @@
 
         </div>
 
-
-        <!-- =========================
-             GOOGLE MAPS
-        ========================= -->
-
         <div id="mapSection" style="display: none;">
 
             <div class="map-title">
@@ -222,7 +211,6 @@
 
         </div>
 
-
         <div class="footer">
             Powered by TapLink
         </div>
@@ -240,10 +228,6 @@
 
     <script>
 
-        // =========================
-        // SUPABASE
-        // =========================
-
         const SUPABASE_URL =
             "https://tizigescxnamlliwsbzf.supabase.co";
 
@@ -258,14 +242,15 @@
 
 
         // =========================
-        // DETECTAR DISPOSITIVO
+        // DISPOSITIVO
         // =========================
 
         function getDevice() {
 
             if (
-                /Mobi|Android|iPhone|iPad/i
-                    .test(navigator.userAgent)
+                /Mobi|Android|iPhone|iPad/i.test(
+                    navigator.userAgent
+                )
             ) {
                 return "mobile";
             }
@@ -275,28 +260,28 @@
 
 
         // =========================
-        // DETECTAR NAVEGADOR
+        // NAVEGADOR
         // =========================
 
         function getBrowser() {
 
-            const userAgent =
+            const ua =
                 navigator.userAgent;
 
-            if (userAgent.includes("Edg")) {
+            if (ua.includes("Edg")) {
                 return "Edge";
             }
 
-            if (userAgent.includes("Chrome")) {
+            if (ua.includes("Chrome")) {
                 return "Chrome";
             }
 
-            if (userAgent.includes("Safari")) {
-                return "Safari";
+            if (ua.includes("Firefox")) {
+                return "Firefox";
             }
 
-            if (userAgent.includes("Firefox")) {
-                return "Firefox";
+            if (ua.includes("Safari")) {
+                return "Safari";
             }
 
             return "Other";
@@ -342,11 +327,11 @@
 
                 return data;
 
-            } catch (err) {
+            } catch (error) {
 
                 console.error(
                     "Error inesperado:",
-                    err
+                    error
                 );
 
                 return null;
@@ -355,7 +340,7 @@
 
 
         // =========================
-        // TRACKING DE BOTONES
+        // TRACKING BOTONES
         // =========================
 
         async function trackButtonClick(
@@ -404,34 +389,14 @@
 
                 }
 
-            } catch (err) {
+            } catch (error) {
 
                 console.error(
                     "Error inesperado:",
-                    err
+                    error
                 );
 
             }
-
-        }
-
-
-        // =========================
-        // OCULTAR BOTÓN
-        // =========================
-
-        function hideElement(id) {
-
-            const element =
-                document.getElementById(id);
-
-            if (element) {
-
-                element.style.display =
-                    "none";
-
-            }
-
         }
 
 
@@ -462,14 +427,13 @@
                     "none";
 
                 return;
-
             }
 
             link.href = url;
 
             link.addEventListener(
                 "click",
-                () => {
+                function () {
 
                     trackButtonClick(
                         buttonName,
@@ -479,7 +443,6 @@
 
                 }
             );
-
         }
 
 
@@ -496,7 +459,6 @@
 
 
             let business = null;
-
             let nfc = null;
 
 
@@ -511,26 +473,61 @@
             ) {
 
                 const nfcCode =
-                    pathParts[1];
+                    decodeURIComponent(
+                        pathParts[1]
+                    );
 
 
-                // Buscar NFC
-
-                const { data: nfcData, error: nfcError } =
-                    await supabaseClient
-                        .from("nfc_devices")
-                        .select("*")
-                        .eq("code", nfcCode)
-                        .eq("status", "active")
-                        .single();
+                console.log(
+                    "Buscando NFC:",
+                    nfcCode
+                );
 
 
-                if (nfcError || !nfcData) {
+                // =========================
+                // OBTENER NFC + NEGOCIO
+                // =========================
+
+                const { data, error } =
+                    await supabaseClient.rpc(
+                        "get_nfc_business",
+                        {
+                            p_code: nfcCode
+                        }
+                    );
+
+
+                console.log(
+                    "Respuesta NFC:",
+                    data
+                );
+
+
+                if (error) {
 
                     console.error(
-                        "NFC no encontrado:",
-                        nfcError
+                        "Error RPC:",
+                        error
                     );
+
+                    document.getElementById(
+                        "businessName"
+                    ).textContent =
+                        "Error de conexión";
+
+                    document.getElementById(
+                        "error"
+                    ).textContent =
+                        "No pudimos conectar con TapLink.";
+
+                    return;
+                }
+
+
+                if (
+                    !data ||
+                    data.success !== true
+                ) {
 
                     document.getElementById(
                         "businessName"
@@ -540,56 +537,32 @@
                     document.getElementById(
                         "error"
                     ).textContent =
+                        data?.error ||
                         "Este enlace NFC no existe o está inactivo.";
 
                     return;
-
                 }
 
 
-                nfc = nfcData;
+                // =========================
+                // GUARDAR DATOS
+                // =========================
+
+                nfc =
+                    data.nfc;
+
+                business =
+                    data.business;
 
 
-                // Registrar el toque NFC
+                // =========================
+                // REGISTRAR TOQUE
+                // =========================
 
                 await trackNfcClick(
                     nfc.code,
                     "landing"
                 );
-
-
-                // Buscar negocio
-
-                const { data: businessData, error: businessError } =
-                    await supabaseClient
-                        .from("businesses")
-                        .select("*")
-                        .eq("id", nfc.business_id)
-                        .single();
-
-
-                if (
-                    businessError ||
-                    !businessData
-                ) {
-
-                    console.error(
-                        "Negocio no encontrado:",
-                        businessError
-                    );
-
-                    document.getElementById(
-                        "businessName"
-                    ).textContent =
-                        "Negocio no encontrado";
-
-                    return;
-
-                }
-
-
-                business =
-                    businessData;
 
             }
 
@@ -607,8 +580,6 @@
                     ];
 
 
-                // Página principal
-
                 if (!slug) {
 
                     document.getElementById(
@@ -617,7 +588,6 @@
                         "TapLink";
 
                     return;
-
                 }
 
 
@@ -632,7 +602,7 @@
                 if (error || !data) {
 
                     console.error(
-                        "Supabase error:",
+                        "Error negocio:",
                         error
                     );
 
@@ -647,17 +617,16 @@
                         "No pudimos encontrar este negocio.";
 
                     return;
-
                 }
 
 
-                business = data;
-
+                business =
+                    data;
             }
 
 
             // =================================================
-            // MOSTRAR INFORMACIÓN
+            // NOMBRE
             // =================================================
 
             document.getElementById(
@@ -682,12 +651,11 @@
                     >
 
                 `;
-
             }
 
 
             // =================================================
-            // BOTONES
+            // GOOGLE
             // =================================================
 
             setupButton(
@@ -695,42 +663,46 @@
                 business.google_url,
                 "google",
                 business.id,
-                nfc
-                    ? nfc.id
-                    : null
+                nfc ? nfc.id : null
             );
 
+
+            // =================================================
+            // INSTAGRAM
+            // =================================================
 
             setupButton(
                 "instagramLink",
                 business.instagram_url,
                 "instagram",
                 business.id,
-                nfc
-                    ? nfc.id
-                    : null
+                nfc ? nfc.id : null
             );
 
+
+            // =================================================
+            // WHATSAPP
+            // =================================================
 
             setupButton(
                 "whatsappLink",
                 business.whatsapp_url,
                 "whatsapp",
                 business.id,
-                nfc
-                    ? nfc.id
-                    : null
+                nfc ? nfc.id : null
             );
 
+
+            // =================================================
+            // WEBSITE
+            // =================================================
 
             setupButton(
                 "websiteLink",
                 business.website_url,
                 "website",
                 business.id,
-                nfc
-                    ? nfc.id
-                    : null
+                nfc ? nfc.id : null
             );
 
 
@@ -755,7 +727,6 @@
 
                 mapSection.style.display =
                     "block";
-
             }
 
         }
