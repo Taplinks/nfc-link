@@ -25,6 +25,14 @@
             padding: 40px 20px;
         }
 
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
         h1 {
             margin-bottom: 10px;
         }
@@ -32,13 +40,6 @@
         .subtitle {
             color: #666;
             margin-bottom: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
 
         .form-group {
@@ -75,9 +76,20 @@
             opacity: 0.85;
         }
 
-        #message {
+        .logout {
+            background: #ddd;
+            color: #111;
+            margin-top: 10px;
+        }
+
+        #message,
+        #loginMessage {
             margin-top: 20px;
             font-weight: bold;
+        }
+
+        #adminPanel {
+            display: none;
         }
     </style>
 </head>
@@ -86,63 +98,169 @@
 
 <div class="container">
 
-    <h1>TapLink Admin</h1>
+    <!-- LOGIN -->
 
-    <p class="subtitle">
-        Crear nuevo negocio
-    </p>
+    <div id="loginPanel" class="card">
 
-    <div class="card">
+        <h1>TapLink Admin</h1>
+
+        <p class="subtitle">
+            Inicia sesión para administrar tus negocios.
+        </p>
 
         <div class="form-group">
-            <label>Nombre del negocio</label>
-            <input id="name" type="text" placeholder="Ej: La Folie">
+            <label>Correo</label>
+
+            <input
+                id="email"
+                type="email"
+                placeholder="Tu correo"
+            >
         </div>
 
         <div class="form-group">
-            <label>Slug</label>
-            <input id="slug" type="text" placeholder="Ej: la-folie">
+            <label>Contraseña</label>
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Tu contraseña"
+            >
         </div>
 
-        <div class="form-group">
-            <label>Logo URL</label>
-            <input id="logo_url" type="text" placeholder="https://...">
-        </div>
-
-        <div class="form-group">
-            <label>Google / Reseñas</label>
-            <input id="google_url" type="text" placeholder="https://...">
-        </div>
-
-        <div class="form-group">
-            <label>Instagram</label>
-            <input id="instagram_url" type="text" placeholder="https://instagram.com/...">
-        </div>
-
-        <div class="form-group">
-            <label>WhatsApp</label>
-            <input id="whatsapp_url" type="text" placeholder="https://wa.me/...">
-        </div>
-
-        <div class="form-group">
-            <label>Página web</label>
-            <input id="website_url" type="text" placeholder="Opcional">
-        </div>
-
-        <div class="form-group">
-            <label>Google Maps</label>
-            <input id="maps_url" type="text" placeholder="https://www.google.com/maps/embed?...">
-        </div>
-
-        <button id="createBusiness">
-            CREAR NEGOCIO
+        <button id="loginButton">
+            INICIAR SESIÓN
         </button>
 
-        <div id="message"></div>
+        <div id="loginMessage"></div>
+
+    </div>
+
+
+    <!-- ADMIN PANEL -->
+
+    <div id="adminPanel">
+
+        <div class="card">
+
+            <h1>TapLink Admin</h1>
+
+            <p class="subtitle">
+                Crear nuevo negocio
+            </p>
+
+
+            <div class="form-group">
+                <label>Nombre del negocio</label>
+
+                <input
+                    id="name"
+                    type="text"
+                    placeholder="Ej: La Folie"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Slug</label>
+
+                <input
+                    id="slug"
+                    type="text"
+                    placeholder="Ej: la-folie"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Logo URL</label>
+
+                <input
+                    id="logo_url"
+                    type="text"
+                    placeholder="https://..."
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Google / Reseñas</label>
+
+                <input
+                    id="google_url"
+                    type="text"
+                    placeholder="https://..."
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Instagram</label>
+
+                <input
+                    id="instagram_url"
+                    type="text"
+                    placeholder="https://instagram.com/..."
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>WhatsApp</label>
+
+                <input
+                    id="whatsapp_url"
+                    type="text"
+                    placeholder="https://wa.me/..."
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Página web</label>
+
+                <input
+                    id="website_url"
+                    type="text"
+                    placeholder="Opcional"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Google Maps</label>
+
+                <input
+                    id="maps_url"
+                    type="text"
+                    placeholder="https://www.google.com/maps/embed?..."
+                >
+            </div>
+
+
+            <button id="createBusiness">
+                CREAR NEGOCIO
+            </button>
+
+            <div id="message"></div>
+
+        </div>
+
+
+        <div class="card">
+
+            <button id="logoutButton" class="logout">
+                CERRAR SESIÓN
+            </button>
+
+        </div>
 
     </div>
 
 </div>
+
+
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -160,9 +278,149 @@ const supabaseClient =
         SUPABASE_KEY
     );
 
+
+// ================================
+// COMPROBAR SESIÓN
+// ================================
+
+async function checkSession() {
+
+    const {
+        data: {
+            session
+        }
+    } = await supabaseClient.auth.getSession();
+
+
+    if (session) {
+
+        await checkAdmin(session.user.id);
+
+    } else {
+
+        showLogin();
+
+    }
+
+}
+
+
+// ================================
+// COMPROBAR ADMIN
+// ================================
+
+async function checkAdmin(userId) {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+
+        .from("admins")
+
+        .select("id")
+
+        .eq("id", userId)
+
+        .maybeSingle();
+
+
+    if (error || !data) {
+
+        await supabaseClient.auth.signOut();
+
+        showLogin();
+
+        document.getElementById("loginMessage").textContent =
+            "No tienes permisos de administrador.";
+
+        return;
+
+    }
+
+
+    showAdmin();
+
+}
+
+
+// ================================
+// MOSTRAR LOGIN
+// ================================
+
+function showLogin() {
+
+    document.getElementById("loginPanel").style.display =
+        "block";
+
+    document.getElementById("adminPanel").style.display =
+        "none";
+
+}
+
+
+// ================================
+// MOSTRAR ADMIN
+// ================================
+
+function showAdmin() {
+
+    document.getElementById("loginPanel").style.display =
+        "none";
+
+    document.getElementById("adminPanel").style.display =
+        "block";
+
+}
+
+
+// ================================
+// LOGIN
+// ================================
+
+document
+    .getElementById("loginButton")
+    .addEventListener("click", async () => {
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const password =
+            document.getElementById("password").value;
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+        });
+
+
+        if (error) {
+
+            document.getElementById("loginMessage").textContent =
+                "Correo o contraseña incorrectos.";
+
+            return;
+
+        }
+
+
+        await checkAdmin(data.user.id);
+
+    });
+
+
+// ================================
+// CREAR NEGOCIO
+// ================================
+
 document
     .getElementById("createBusiness")
     .addEventListener("click", async () => {
+
 
         const name =
             document.getElementById("name").value.trim();
@@ -195,25 +453,31 @@ document
                 "Completa el nombre y el slug.";
 
             return;
+
         }
 
 
-        const { data, error } =
-            await supabaseClient
-                .from("businesses")
-                .insert([
-                    {
-                        name,
-                        slug,
-                        logo_url,
-                        google_url,
-                        instagram_url,
-                        whatsapp_url,
-                        website_url,
-                        maps_url
-                    }
-                ])
-                .select();
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("businesses")
+
+            .insert([
+                {
+                    name,
+                    slug,
+                    logo_url,
+                    google_url,
+                    instagram_url,
+                    whatsapp_url,
+                    website_url,
+                    maps_url
+                }
+            ])
+
+            .select();
 
 
         if (error) {
@@ -224,13 +488,48 @@ document
                 "Error: " + error.message;
 
             return;
+
         }
 
 
         document.getElementById("message").textContent =
             "✅ Negocio creado correctamente.";
 
+
+        // Limpiar formulario
+
+        document.getElementById("name").value = "";
+        document.getElementById("slug").value = "";
+        document.getElementById("logo_url").value = "";
+        document.getElementById("google_url").value = "";
+        document.getElementById("instagram_url").value = "";
+        document.getElementById("whatsapp_url").value = "";
+        document.getElementById("website_url").value = "";
+        document.getElementById("maps_url").value = "";
+
     });
+
+
+// ================================
+// LOGOUT
+// ================================
+
+document
+    .getElementById("logoutButton")
+    .addEventListener("click", async () => {
+
+        await supabaseClient.auth.signOut();
+
+        showLogin();
+
+    });
+
+
+// ================================
+// INICIAR
+// ================================
+
+checkSession();
 
 </script>
 
