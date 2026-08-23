@@ -97,6 +97,27 @@
             font-size: 19px;
         }
 
+        .map-title {
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         .footer {
             margin-top: 38px;
             color: #555;
@@ -150,6 +171,31 @@
             </a>
 
         </div>
+
+
+        <!-- =========================
+             GOOGLE MAPS
+        ========================= -->
+
+        <div id="mapSection" style="display: none;">
+
+            <div class="map-title">
+                📍 Nuestra ubicación
+            </div>
+
+            <div class="map-container">
+
+                <iframe
+                    id="googleMap"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="strict-origin-when-cross-origin">
+                </iframe>
+
+            </div>
+
+        </div>
+
 
         <div class="footer">
             Powered by TapLink
@@ -205,6 +251,7 @@
                 );
 
             }
+
         }
 
 
@@ -232,10 +279,13 @@
                 ).textContent = "TapLink";
 
                 return;
+
             }
 
 
-            // Buscar negocio
+            // =========================
+            // BUSCAR NEGOCIO
+            // =========================
 
             const { data, error } =
                 await supabaseClient
@@ -265,6 +315,7 @@
                     "No pudimos encontrar este negocio.";
 
                 return;
+
             }
 
 
@@ -278,6 +329,7 @@
                     "Negocio no encontrado";
 
                 return;
+
             }
 
 
@@ -449,6 +501,31 @@
                     "websiteLink"
                 ).style.display =
                     "none";
+
+            }
+
+
+            // =========================
+            // GOOGLE MAPS
+            // =========================
+
+            if (data.maps_url) {
+
+                const mapSection =
+                    document.getElementById(
+                        "mapSection"
+                    );
+
+                const googleMap =
+                    document.getElementById(
+                        "googleMap"
+                    );
+
+                googleMap.src =
+                    data.maps_url;
+
+                mapSection.style.display =
+                    "block";
 
             }
 
