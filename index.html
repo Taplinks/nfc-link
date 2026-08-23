@@ -95,6 +95,12 @@
             color: #555;
             font-size: 12px;
         }
+
+        .error {
+            color: #ff5555;
+            margin-top: 30px;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -106,8 +112,8 @@
             TL
         </div>
 
-        <h1 class="business-name">
-            TapLink
+        <h1 class="business-name" id="businessName">
+            Cargando...
         </h1>
 
         <p class="description">
@@ -116,30 +122,22 @@
 
         <div class="links">
 
-            <a class="link"
-               href="https://www.google.com"
-               target="_blank">
+            <a class="link" id="googleLink" target="_blank">
                 <span class="icon">⭐</span>
                 Déjanos una reseña en Google
             </a>
 
-            <a class="link"
-               href="https://www.instagram.com"
-               target="_blank">
+            <a class="link" id="instagramLink" target="_blank">
                 <span class="icon">📸</span>
                 Síguenos en Instagram
             </a>
 
-            <a class="link"
-               href="https://wa.me/"
-               target="_blank">
+            <a class="link" id="whatsappLink" target="_blank">
                 <span class="icon">💬</span>
                 Escríbenos por WhatsApp
             </a>
 
-            <a class="link"
-               href="https://www.google.com"
-               target="_blank">
+            <a class="link" id="webLink" target="_blank">
                 <span class="icon">🌐</span>
                 Visita nuestra página web
             </a>
@@ -150,7 +148,80 @@
             Powered by TapLink
         </div>
 
+        <div id="error" class="error"></div>
+
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+const SUPABASE_URL = "https://tizigescxnamlliwsbzf.supabase.co";
+const SUPABASE_KEY = "sb_publishable_HrhIu7Dx0CV6_WRZlQ2N9Q_EtVdU51T";
+
+        const supabaseClient = supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+        async function loadBusiness() {
+
+            const slug = window.location.pathname
+                .split("/")
+                .filter(Boolean)
+                .pop();
+
+            if (!slug) {
+                document.getElementById("businessName").textContent = "TapLink";
+                return;
+            }
+
+            const { data, error } = await supabaseClient
+                .from("businesses")
+                .select("*")
+                .eq("slug", slug)
+                .eq("activo", true)
+                .single();
+
+            if (error || !data) {
+                document.getElementById("businessName").textContent =
+                    "Negocio no encontrado";
+
+                document.getElementById("error").textContent =
+                    "Verifica que el enlace sea correcto.";
+
+                return;
+            }
+
+            document.getElementById("businessName").textContent =
+                data.nombre;
+
+            if (data.google) {
+                document.getElementById("googleLink").href = data.google;
+            } else {
+                document.getElementById("googleLink").style.display = "none";
+            }
+
+            if (data.instagram) {
+                document.getElementById("instagramLink").href = data.instagram;
+            } else {
+                document.getElementById("instagramLink").style.display = "none";
+            }
+
+            if (data.whatsapp) {
+                document.getElementById("whatsappLink").href = data.whatsapp;
+            } else {
+                document.getElementById("whatsappLink").style.display = "none";
+            }
+
+            if (data.web) {
+                document.getElementById("webLink").href = data.web;
+            } else {
+                document.getElementById("webLink").style.display = "none";
+            }
+        }
+
+        loadBusiness();
+    </script>
 
 </body>
 </html>
