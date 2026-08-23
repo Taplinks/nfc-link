@@ -1,386 +1,1123 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TapLink Admin</title>
+<title>TapLink Admin</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-            background: #f5f5f5;
-            color: #111;
-            min-height: 100vh;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            margin: auto;
-            padding: 40px 20px;
-        }
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
 
-        .card {
-            background: #fff;
-            padding: 28px;
-            border-radius: 18px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-        }
+    background: #f5f6f8;
+    color: #111;
+}
 
-        h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
+/* =========================
+   LAYOUT
+========================= */
 
-        h2 {
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
+.app {
+    display: flex;
+    min-height: 100vh;
+}
 
-        .subtitle {
-            color: #666;
-            margin-bottom: 28px;
-            font-size: 15px;
-        }
+/* =========================
+   SIDEBAR
+========================= */
 
-        .form-group {
-            margin-bottom: 18px;
-        }
+.sidebar {
+    width: 240px;
+    background: #050505;
+    color: white;
+    padding: 24px 16px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
 
-        label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 7px;
-            font-size: 14px;
-        }
+.logo-title {
+    font-size: 23px;
+    font-weight: 800;
+    padding: 0 12px 30px;
+}
 
-        input {
-            width: 100%;
-            padding: 13px 14px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-            background: #fff;
-        }
+.logo-title span {
+    color: #777;
+}
 
-        input:focus {
-            border-color: #000;
-        }
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
 
-        input[readonly] {
-            background: #f1f1f1;
-            color: #555;
-        }
+.nav button {
+    border: none;
+    background: transparent;
+    color: #aaa;
+    padding: 13px 14px;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
 
-        button {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: #000;
-            color: #fff;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-        }
+.nav button:hover {
+    background: #171717;
+    color: white;
+}
 
-        button:hover {
-            opacity: 0.85;
-        }
+.nav button.active {
+    background: white;
+    color: black;
+}
 
-        .logout {
-            background: #e5e5e5;
-            color: #111;
-        }
+/* =========================
+   MAIN
+========================= */
 
-        #loginPanel {
-            max-width: 500px;
-            margin: 80px auto;
-        }
+.main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 30px;
+}
 
-        #adminPanel {
-            display: none;
-        }
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
 
-        #message,
-        #loginMessage {
-            margin-top: 18px;
-            font-size: 14px;
-            font-weight: 700;
-        }
+.topbar h1 {
+    font-size: 27px;
+}
 
-        .success {
-            color: #16803c;
-        }
+.topbar p {
+    color: #777;
+    margin-top: 4px;
+    font-size: 14px;
+}
 
-        .error {
-            color: #d93025;
-        }
+.logout {
+    border: none;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 600;
+}
 
-        .slug-info {
-            margin-top: 7px;
-            font-size: 12px;
-            color: #777;
-        }
+/* =========================
+   SECTIONS
+========================= */
 
-        .url-preview {
-            margin-top: 5px;
-            font-size: 12px;
-            color: #555;
-            word-break: break-all;
-        }
-    </style>
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.stat {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #eee;
+}
+
+.stat-label {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #eee;
+    padding: 22px;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.card-header h2 {
+    font-size: 18px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn {
+    border: none;
+    padding: 11px 15px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.btn-primary {
+    background: #000;
+    color: white;
+}
+
+.btn-secondary {
+    background: #eee;
+    color: #111;
+}
+
+.btn-danger {
+    background: #ffe5e5;
+    color: #c62828;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    color: #777;
+    font-size: 12px;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.badge-active {
+    background: #e4f8ea;
+    color: #16803c;
+}
+
+.badge-inactive {
+    background: #eee;
+    color: #777;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 16px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus,
+select:focus {
+    border-color: #000;
+}
+
+.url-preview {
+    color: #777;
+    font-size: 12px;
+    margin-top: 6px;
+    word-break: break-all;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    z-index: 100;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.close {
+    border: none;
+    background: #eee;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* =========================
+   ANALYTICS
+========================= */
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 12px;
+}
+
+.analytics-item {
+    padding: 18px;
+    background: #f7f7f7;
+    border-radius: 12px;
+}
+
+.analytics-item small {
+    color: #777;
+}
+
+.analytics-item strong {
+    display: block;
+    font-size: 25px;
+    margin-top: 6px;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+#loginScreen {
+    position: fixed;
+    inset: 0;
+    background: #f5f6f8;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    border: 1px solid #eee;
+}
+
+.login-box h1 {
+    margin-bottom: 8px;
+}
+
+.login-box p {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.login-box button {
+    width: 100%;
+}
+
+.message {
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.success {
+    color: #16803c;
+}
+
+.error {
+    color: #d93025;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 900px) {
+
+    .sidebar {
+        width: 190px;
+    }
+
+    .main {
+        margin-left: 190px;
+        width: calc(100% - 190px);
+    }
+
+    .stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .analytics-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 650px) {
+
+    .app {
+        display: block;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        padding: 12px;
+    }
+
+    .logo-title {
+        padding: 8px;
+    }
+
+    .nav {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .nav button {
+        white-space: nowrap;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 18px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="container">
 
-    <!-- ========================================= -->
-    <!-- LOGIN -->
-    <!-- ========================================= -->
+<!-- =====================================================
+LOGIN
+===================================================== -->
 
-    <div id="loginPanel" class="card">
+<div id="loginScreen">
+
+    <div class="login-box">
 
         <h1>TapLink Admin</h1>
 
-        <p class="subtitle">
-            Inicia sesión para administrar tus negocios.
+        <p>
+            Panel de administración
         </p>
 
         <div class="form-group">
 
-            <label for="email">
+            <label>
                 Correo
             </label>
 
             <input
                 id="email"
                 type="email"
-                placeholder="Tu correo"
+                placeholder="admin@taplink.pe"
             >
 
         </div>
 
-
         <div class="form-group">
 
-            <label for="password">
+            <label>
                 Contraseña
             </label>
 
             <input
                 id="password"
                 type="password"
-                placeholder="Tu contraseña"
+                placeholder="••••••••"
             >
 
         </div>
 
+        <button
+            class="btn btn-primary"
+            id="loginButton">
 
-        <button id="loginButton">
-            INICIAR SESIÓN
+            Iniciar sesión
+
         </button>
 
-
-        <div id="loginMessage"></div>
+        <div
+            id="loginMessage"
+            class="message">
+        </div>
 
     </div>
 
-
-    <!-- ========================================= -->
-    <!-- ADMIN -->
-    <!-- ========================================= -->
-
-    <div id="adminPanel">
-
-        <div class="card">
-
-            <h1>TapLink Admin</h1>
-
-            <p class="subtitle">
-                Crear nuevo negocio
-            </p>
+</div>
 
 
-            <!-- NOMBRE -->
+<!-- =====================================================
+APP
+===================================================== -->
 
-            <div class="form-group">
+<div
+    class="app"
+    id="app"
+    style="display:none;">
 
-                <label for="name">
-                    Nombre del negocio
-                </label>
+    <!-- SIDEBAR -->
 
-                <input
-                    id="name"
-                    type="text"
-                    placeholder="Ej: La Folie - Chacarilla"
-                >
+    <aside class="sidebar">
 
-            </div>
+        <div class="logo-title">
+            Tap<span>Link</span>
+        </div>
 
+        <div class="nav">
 
-            <!-- SLUG -->
+            <button
+                class="active"
+                data-section="dashboard">
 
-            <div class="form-group">
+                📊 Dashboard
 
-                <label for="slug">
-                    Slug
-                </label>
-
-                <input
-                    id="slug"
-                    type="text"
-                    placeholder="Se generará automáticamente"
-                    readonly
-                >
-
-                <div class="slug-info">
-                    Este será el enlace del negocio.
-                </div>
-
-                <div
-                    id="urlPreview"
-                    class="url-preview">
-                </div>
-
-            </div>
-
-
-            <!-- LOGO -->
-
-            <div class="form-group">
-
-                <label for="logo_url">
-                    Logo URL
-                </label>
-
-                <input
-                    id="logo_url"
-                    type="text"
-                    placeholder="https://..."
-                >
-
-            </div>
-
-
-            <!-- GOOGLE -->
-
-            <div class="form-group">
-
-                <label for="google_url">
-                    Google / Reseñas
-                </label>
-
-                <input
-                    id="google_url"
-                    type="text"
-                    placeholder="https://..."
-                >
-
-            </div>
-
-
-            <!-- INSTAGRAM -->
-
-            <div class="form-group">
-
-                <label for="instagram_url">
-                    Instagram
-                </label>
-
-                <input
-                    id="instagram_url"
-                    type="text"
-                    placeholder="https://instagram.com/..."
-                >
-
-            </div>
-
-
-            <!-- WHATSAPP -->
-
-            <div class="form-group">
-
-                <label for="whatsapp_url">
-                    WhatsApp
-                </label>
-
-                <input
-                    id="whatsapp_url"
-                    type="text"
-                    placeholder="https://wa.me/51999999999"
-                >
-
-            </div>
-
-
-            <!-- WEBSITE -->
-
-            <div class="form-group">
-
-                <label for="website_url">
-                    Página web
-                </label>
-
-                <input
-                    id="website_url"
-                    type="text"
-                    placeholder="Opcional"
-                >
-
-            </div>
-
-
-            <!-- MAPS -->
-
-            <div class="form-group">
-
-                <label for="maps_url">
-                    Google Maps
-                </label>
-
-                <input
-                    id="maps_url"
-                    type="text"
-                    placeholder="https://www.google.com/maps/embed?..."
-                >
-
-            </div>
-
-
-            <!-- CREAR -->
-
-            <button id="createBusiness">
-                CREAR NEGOCIO
             </button>
 
+            <button
+                data-section="businesses">
 
-            <div id="message"></div>
+                🏪 Negocios
+
+            </button>
+
+            <button
+                data-section="nfc">
+
+                📡 NFC
+
+            </button>
+
+            <button
+                data-section="analytics">
+
+                📈 Analytics
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div>
+
+                <h1 id="pageTitle">
+                    Dashboard
+                </h1>
+
+                <p>
+                    Gestiona tu plataforma TapLink
+                </p>
+
+            </div>
+
+            <button
+                class="logout"
+                id="logoutButton">
+
+                Cerrar sesión
+
+            </button>
 
         </div>
 
 
-        <!-- LOGOUT -->
+        <!-- =================================================
+        DASHBOARD
+        ================================================= -->
 
-        <div class="card">
+        <section
+            id="dashboard"
+            class="section active">
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Negocios
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="totalBusinesses">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        NFC activos
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="totalNfc">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Interacciones
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="totalClicks">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Google
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="totalGoogle">
+
+                        0
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Últimos negocios
+                    </h2>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="openBusinessModal()">
+
+                        + Nuevo negocio
+
+                    </button>
+
+                </div>
+
+                <div
+                    id="dashboardBusinesses">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+        BUSINESSES
+        ================================================= -->
+
+        <section
+            id="businesses"
+            class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Negocios
+                    </h2>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="openBusinessModal()">
+
+                        + Nuevo negocio
+
+                    </button>
+
+                </div>
+
+                <div
+                    class="table-wrapper"
+                    id="businessesTable">
+
+                    Cargando...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+        NFC
+        ================================================= -->
+
+        <section
+            id="nfc"
+            class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Dispositivos NFC
+                    </h2>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="openNfcModal()">
+
+                        + Nuevo NFC
+
+                    </button>
+
+                </div>
+
+                <div
+                    class="table-wrapper"
+                    id="nfcTable">
+
+                    Cargando...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+        ANALYTICS
+        ================================================= -->
+
+        <section
+            id="analytics"
+            class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Analytics global
+                    </h2>
+
+                </div>
+
+                <div
+                    class="analytics-grid">
+
+                    <div class="analytics-item">
+
+                        <small>
+                            Google
+                        </small>
+
+                        <strong
+                            id="analyticsGoogle">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                    <div class="analytics-item">
+
+                        <small>
+                            Instagram
+                        </small>
+
+                        <strong
+                            id="analyticsInstagram">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                    <div class="analytics-item">
+
+                        <small>
+                            WhatsApp
+                        </small>
+
+                        <strong
+                            id="analyticsWhatsapp">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                    <div class="analytics-item">
+
+                        <small>
+                            Website
+                        </small>
+
+                        <strong
+                            id="analyticsWebsite">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                    <div class="analytics-item">
+
+                        <small>
+                            NFC
+                        </small>
+
+                        <strong
+                            id="analyticsNfc">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Últimas interacciones
+                    </h2>
+
+                </div>
+
+                <div
+                    class="table-wrapper"
+                    id="analyticsTable">
+
+                    Cargando...
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+BUSINESS MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="businessModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+                Nuevo negocio
+            </h2>
 
             <button
-                id="logoutButton"
-                class="logout">
+                class="close"
+                onclick="closeBusinessModal()">
 
-                CERRAR SESIÓN
+                ×
 
             </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>
+                    Nombre
+                </label>
+
+                <input
+                    id="businessName"
+                    placeholder="Ej: Tanta">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Slug
+                </label>
+
+                <input
+                    id="businessSlug"
+                    readonly>
+
+                <div
+                    class="url-preview"
+                    id="slugPreview">
+                </div>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Logo URL
+                </label>
+
+                <input
+                    id="businessLogo"
+                    placeholder="https://...">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Google / Reseñas
+                </label>
+
+                <input
+                    id="businessGoogle"
+                    placeholder="https://...">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Instagram
+                </label>
+
+                <input
+                    id="businessInstagram"
+                    placeholder="https://instagram.com/...">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    WhatsApp
+                </label>
+
+                <input
+                    id="businessWhatsapp"
+                    placeholder="https://wa.me/...">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Página web
+                </label>
+
+                <input
+                    id="businessWebsite"
+                    placeholder="https://...">
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Google Maps Embed
+                </label>
+
+                <input
+                    id="businessMaps"
+                    placeholder="https://www.google.com/maps/embed?...">
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            style="width:100%;"
+            id="saveBusiness">
+
+            Crear negocio
+
+        </button>
+
+
+        <div
+            id="businessMessage"
+            class="message">
 
         </div>
 
@@ -389,12 +1126,103 @@
 </div>
 
 
-<!-- ========================================= -->
-<!-- SUPABASE -->
-<!-- ========================================= -->
+<!-- =====================================================
+NFC MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="nfcModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+                Nuevo NFC
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeNfcModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Negocio
+            </label>
+
+            <select
+                id="nfcBusiness">
+
+                <option value="">
+                    Seleccionar negocio
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Nombre del NFC
+            </label>
+
+            <input
+                id="nfcName"
+                placeholder="Ej: NFC Principal">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Ubicación
+            </label>
+
+            <input
+                id="nfcLocation"
+                placeholder="Ej: Caja">
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            style="width:100%;"
+            id="saveNfc">
+
+            Crear NFC
+
+        </button>
+
+
+        <div
+            id="nfcMessage"
+            class="message">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+SUPABASE
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script>
 
@@ -404,7 +1232,6 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_HrhIu7Dx0CV6_WRZlQ2N9Q_EtVdU51T";
 
-
 const supabaseClient =
     supabase.createClient(
         SUPABASE_URL,
@@ -412,39 +1239,40 @@ const supabaseClient =
     );
 
 
-// =========================================
-// MOSTRAR LOGIN
-// =========================================
+/* =====================================================
+HELPERS
+===================================================== */
 
-function showLogin() {
+function escapeHtml(value) {
 
-    document.getElementById("loginPanel").style.display =
-        "block";
+    if (!value) return "";
 
-    document.getElementById("adminPanel").style.display =
-        "none";
-
-}
-
-
-// =========================================
-// MOSTRAR ADMIN
-// =========================================
-
-function showAdmin() {
-
-    document.getElementById("loginPanel").style.display =
-        "none";
-
-    document.getElementById("adminPanel").style.display =
-        "block";
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
 
 
-// =========================================
-// COMPROBAR SESIÓN
-// =========================================
+function showMessage(
+    element,
+    message,
+    type = "success"
+) {
+
+    element.textContent = message;
+    element.className =
+        "message " + type;
+
+}
+
+
+/* =====================================================
+LOGIN
+===================================================== */
 
 async function checkSession() {
 
@@ -452,407 +1280,1346 @@ async function checkSession() {
         data: {
             session
         }
-    } = await supabaseClient.auth.getSession();
+    } =
+        await supabaseClient.auth.getSession();
 
 
     if (!session) {
 
-        showLogin();
+        document.getElementById(
+            "loginScreen"
+        ).style.display = "flex";
 
         return;
 
     }
 
 
-    await checkAdmin(session.user.id);
+    await checkAdmin(
+        session.user.id
+    );
 
 }
 
-
-// =========================================
-// COMPROBAR ADMIN
-// =========================================
 
 async function checkAdmin(userId) {
 
     const {
         data,
         error
-    } = await supabaseClient
-
-        .from("admins")
-
-        .select("id")
-
-        .eq("id", userId)
-
-        .maybeSingle();
+    } =
+        await supabaseClient
+            .from("admins")
+            .select("id")
+            .eq("id", userId)
+            .maybeSingle();
 
 
     if (error || !data) {
 
         await supabaseClient.auth.signOut();
 
-        showLogin();
-
-        document.getElementById("loginMessage").textContent =
+        document.getElementById(
+            "loginMessage"
+        ).textContent =
             "No tienes permisos de administrador.";
 
-        document.getElementById("loginMessage")
-            .className = "error";
+        document.getElementById(
+            "loginMessage"
+        ).className =
+            "message error";
 
         return;
 
     }
 
 
-    showAdmin();
+    document.getElementById(
+        "loginScreen"
+    ).style.display = "none";
+
+    document.getElementById(
+        "app"
+    ).style.display = "flex";
+
+
+    loadDashboard();
+    loadBusinesses();
+    loadNfc();
 
 }
 
 
-// =========================================
-// LOGIN
-// =========================================
-
 document
     .getElementById("loginButton")
-    .addEventListener("click", async () => {
+    .addEventListener(
+        "click",
+        async () => {
+
+            const email =
+                document.getElementById(
+                    "email"
+                ).value.trim();
+
+            const password =
+                document.getElementById(
+                    "password"
+                ).value;
 
 
-        const email =
-            document.getElementById("email")
-                .value
-                .trim();
+            if (!email || !password) {
+
+                document.getElementById(
+                    "loginMessage"
+                ).textContent =
+                    "Completa todos los campos.";
+
+                document.getElementById(
+                    "loginMessage"
+                ).className =
+                    "message error";
+
+                return;
+
+            }
 
 
-        const password =
-            document.getElementById("password")
-                .value;
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth
+                    .signInWithPassword({
+
+                        email,
+                        password
+
+                    });
 
 
-        if (!email || !password) {
+            if (error) {
 
-            document.getElementById("loginMessage")
-                .textContent =
-                "Completa el correo y la contraseña.";
+                document.getElementById(
+                    "loginMessage"
+                ).textContent =
+                    "Correo o contraseña incorrectos.";
 
-            document.getElementById("loginMessage")
-                .className = "error";
+                document.getElementById(
+                    "loginMessage"
+                ).className =
+                    "message error";
 
-            return;
+                return;
 
-        }
-
-
-        const {
-            data,
-            error
-        } = await supabaseClient.auth.signInWithPassword({
-
-            email: email,
-
-            password: password
-
-        });
+            }
 
 
-        if (error) {
-
-            console.error(error);
-
-            document.getElementById("loginMessage")
-                .textContent =
-                "Correo o contraseña incorrectos.";
-
-            document.getElementById("loginMessage")
-                .className = "error";
-
-            return;
-
-        }
-
-
-        await checkAdmin(data.user.id);
-
-    });
-
-
-// =========================================
-// GENERAR SLUG AUTOMÁTICO
-// =========================================
-
-document
-    .getElementById("name")
-    .addEventListener("input", () => {
-
-
-        const name =
-            document.getElementById("name")
-                .value;
-
-
-        const slug = name
-
-            .toLowerCase()
-
-            .normalize("NFD")
-
-            .replace(
-                /[\u0300-\u036f]/g,
-                ""
-            )
-
-            .replace(
-                /[^a-z0-9]+/g,
-                "-"
-            )
-
-            .replace(
-                /^-+|-+$/g,
-                "");
-
-
-        document.getElementById("slug")
-            .value = slug;
-
-
-        if (slug) {
-
-            document.getElementById("urlPreview")
-                .textContent =
-                "https://nfc-link.vercel.app/" + slug;
-
-        } else {
-
-            document.getElementById("urlPreview")
-                .textContent = "";
+            await checkAdmin(
+                data.user.id
+            );
 
         }
+    );
 
-    });
-
-
-// =========================================
-// CREAR NEGOCIO
-// =========================================
-
-document
-    .getElementById("createBusiness")
-    .addEventListener("click", async () => {
-
-
-        const name =
-            document.getElementById("name")
-                .value
-                .trim();
-
-
-        const slug =
-            document.getElementById("slug")
-                .value
-                .trim();
-
-
-        const logo_url =
-            document.getElementById("logo_url")
-                .value
-                .trim();
-
-
-        const google_url =
-            document.getElementById("google_url")
-                .value
-                .trim();
-
-
-        const instagram_url =
-            document.getElementById("instagram_url")
-                .value
-                .trim();
-
-
-        const whatsapp_url =
-            document.getElementById("whatsapp_url")
-                .value
-                .trim();
-
-
-        const website_url =
-            document.getElementById("website_url")
-                .value
-                .trim();
-
-
-        const maps_url =
-            document.getElementById("maps_url")
-                .value
-                .trim();
-
-
-        // =============================
-        // VALIDACIÓN
-        // =============================
-
-        if (!name) {
-
-            document.getElementById("message")
-                .textContent =
-                "Escribe el nombre del negocio.";
-
-            document.getElementById("message")
-                .className = "error";
-
-            return;
-
-        }
-
-
-        if (!slug) {
-
-            document.getElementById("message")
-                .textContent =
-                "No se pudo generar el slug.";
-
-            document.getElementById("message")
-                .className = "error";
-
-            return;
-
-        }
-
-
-        // =============================
-        // CREAR
-        // =============================
-
-        const {
-            data,
-            error
-        } = await supabaseClient
-
-            .from("businesses")
-
-            .insert([
-
-                {
-
-                    name: name,
-
-                    slug: slug,
-
-                    logo_url: logo_url || null,
-
-                    google_url: google_url || null,
-
-                    instagram_url: instagram_url || null,
-
-                    whatsapp_url: whatsapp_url || null,
-
-                    website_url: website_url || null,
-
-                    maps_url: maps_url || null
-
-                }
-
-            ])
-
-            .select();
-
-
-        // =============================
-        // ERROR
-        // =============================
-
-        if (error) {
-
-            console.error(error);
-
-            document.getElementById("message")
-                .textContent =
-                "Error: " + error.message;
-
-            document.getElementById("message")
-                .className = "error";
-
-            return;
-
-        }
-
-
-        // =============================
-        // ÉXITO
-        // =============================
-
-        document.getElementById("message")
-            .textContent =
-            "✅ Negocio creado correctamente.";
-
-        document.getElementById("message")
-            .className = "success";
-
-
-        // =============================
-        // LIMPIAR
-        // =============================
-
-        document.getElementById("name")
-            .value = "";
-
-        document.getElementById("slug")
-            .value = "";
-
-        document.getElementById("logo_url")
-            .value = "";
-
-        document.getElementById("google_url")
-            .value = "";
-
-        document.getElementById("instagram_url")
-            .value = "";
-
-        document.getElementById("whatsapp_url")
-            .value = "";
-
-        document.getElementById("website_url")
-            .value = "";
-
-        document.getElementById("maps_url")
-            .value = "";
-
-        document.getElementById("urlPreview")
-            .textContent = "";
-
-    });
-
-
-// =========================================
-// CERRAR SESIÓN
-// =========================================
 
 document
     .getElementById("logoutButton")
-    .addEventListener("click", async () => {
+    .addEventListener(
+        "click",
+        async () => {
+
+            await supabaseClient.auth.signOut();
+
+            location.reload();
+
+        }
+    );
 
 
-        await supabaseClient.auth.signOut();
+/* =====================================================
+NAVIGATION
+===================================================== */
+
+document
+    .querySelectorAll(".nav button")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(".nav button")
+                    .forEach(b =>
+                        b.classList.remove(
+                            "active"
+                        )
+                    );
+
+                button.classList.add(
+                    "active"
+                );
 
 
-        document.getElementById("email")
-            .value = "";
+                document
+                    .querySelectorAll(".section")
+                    .forEach(section =>
+                        section.classList.remove(
+                            "active"
+                        )
+                    );
 
-        document.getElementById("password")
-            .value = "";
+
+                const section =
+                    document.getElementById(
+                        button.dataset.section
+                    );
+
+                section.classList.add(
+                    "active"
+                );
 
 
-        showLogin();
+                document.getElementById(
+                    "pageTitle"
+                ).textContent =
+                    button.textContent.trim();
+
+
+                if (
+                    button.dataset.section ===
+                    "analytics"
+                ) {
+
+                    loadAnalytics();
+
+                }
+
+            }
+        );
 
     });
 
 
-// =========================================
-// INICIAR
-// =========================================
+/* =====================================================
+DASHBOARD
+===================================================== */
+
+async function loadDashboard() {
+
+    const {
+        count: businesses
+    } =
+        await supabaseClient
+            .from("businesses")
+            .select("*", {
+                count: "exact",
+                head: true
+            });
+
+
+    const {
+        count: nfc
+    } =
+        await supabaseClient
+            .from("nfc_devices")
+            .select("*", {
+                count: "exact",
+                head: true
+            })
+            .eq(
+                "status",
+                "active"
+            );
+
+
+    const {
+        count: clicks
+    } =
+        await supabaseClient
+            .from("clicks")
+            .select("*", {
+                count: "exact",
+                head: true
+            });
+
+
+    const {
+        count: google
+    } =
+        await supabaseClient
+            .from("clicks")
+            .select("*", {
+                count: "exact",
+                head: true
+            })
+            .eq(
+                "button",
+                "google"
+            );
+
+
+    document.getElementById(
+        "totalBusinesses"
+    ).textContent =
+        businesses || 0;
+
+    document.getElementById(
+        "totalNfc"
+    ).textContent =
+        nfc || 0;
+
+    document.getElementById(
+        "totalClicks"
+    ).textContent =
+        clicks || 0;
+
+    document.getElementById(
+        "totalGoogle"
+    ).textContent =
+        google || 0;
+
+
+    const {
+        data
+    } =
+        await supabaseClient
+            .from("businesses")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            )
+            .limit(5);
+
+
+    let html = `
+        <div class="table-wrapper">
+        <table>
+        <thead>
+        <tr>
+            <th>NEGOCIO</th>
+            <th>SLUG</th>
+            <th>CREADO</th>
+        </tr>
+        </thead>
+        <tbody>
+    `;
+
+
+    (data || []).forEach(
+        business => {
+
+            html += `
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(
+                                business.name
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        /${escapeHtml(
+                            business.slug
+                        )}
+                    </td>
+
+                    <td>
+                        ${new Date(
+                            business.created_at
+                        ).toLocaleDateString(
+                            "es-PE"
+                        )}
+                    </td>
+
+                </tr>
+            `;
+
+        }
+    );
+
+
+    html += `
+        </tbody>
+        </table>
+        </div>
+    `;
+
+
+    document.getElementById(
+        "dashboardBusinesses"
+    ).innerHTML =
+        html;
+
+}
+
+
+/* =====================================================
+BUSINESSES
+===================================================== */
+
+async function loadBusinesses() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("businesses")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+    if (error) {
+
+        document.getElementById(
+            "businessesTable"
+        ).textContent =
+            error.message;
+
+        return;
+
+    }
+
+
+    let html = `
+        <table>
+
+        <thead>
+
+        <tr>
+            <th>ID</th>
+            <th>NEGOCIO</th>
+            <th>SLUG</th>
+            <th>LINK</th>
+            <th>ACCIONES</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+    `;
+
+
+    (data || []).forEach(
+        business => {
+
+            const url =
+                `https://nfc-link.vercel.app/${business.slug}`;
+
+
+            html += `
+                <tr>
+
+                    <td>
+                        ${business.id}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(
+                                business.name
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            business.slug
+                        )}
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="${url}"
+                            target="_blank">
+
+                            Abrir
+
+                        </a>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-secondary"
+                            onclick="copyText('${url}')">
+
+                            Copiar
+
+                        </button>
+
+                    </td>
+
+                </tr>
+            `;
+
+        }
+    );
+
+
+    html += `
+        </tbody>
+        </table>
+    `;
+
+
+    document.getElementById(
+        "businessesTable"
+    ).innerHTML =
+        html;
+
+}
+
+
+/* =====================================================
+BUSINESS MODAL
+===================================================== */
+
+function openBusinessModal() {
+
+    document
+        .getElementById(
+            "businessModal"
+        )
+        .classList.add(
+            "active"
+        );
+
+}
+
+
+function closeBusinessModal() {
+
+    document
+        .getElementById(
+            "businessModal"
+        )
+        .classList.remove(
+            "active"
+        );
+
+}
+
+
+document
+    .getElementById("businessName")
+    .addEventListener(
+        "input",
+        () => {
+
+            const name =
+                document.getElementById(
+                    "businessName"
+                ).value;
+
+
+            const slug =
+                name
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(
+                        /[\u0300-\u036f]/g,
+                        ""
+                    )
+                    .replace(
+                        /[^a-z0-9]+/g,
+                        "-"
+                    )
+                    .replace(
+                        /^-+|-+$/g,
+                        "");
+
+
+            document.getElementById(
+                "businessSlug"
+            ).value =
+                slug;
+
+
+            document.getElementById(
+                "slugPreview"
+            ).textContent =
+                slug
+                    ? `https://nfc-link.vercel.app/${slug}`
+                    : "";
+
+        }
+    );
+
+
+document
+    .getElementById("saveBusiness")
+    .addEventListener(
+        "click",
+        async () => {
+
+            const message =
+                document.getElementById(
+                    "businessMessage"
+                );
+
+
+            const name =
+                document.getElementById(
+                    "businessName"
+                ).value.trim();
+
+
+            const slug =
+                document.getElementById(
+                    "businessSlug"
+                ).value.trim();
+
+
+            if (!name || !slug) {
+
+                showMessage(
+                    message,
+                    "Completa el nombre del negocio.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("businesses")
+                    .insert({
+
+                        name,
+
+                        slug,
+
+                        logo_url:
+                            document.getElementById(
+                                "businessLogo"
+                            ).value.trim()
+                            || null,
+
+                        google_url:
+                            document.getElementById(
+                                "businessGoogle"
+                            ).value.trim()
+                            || null,
+
+                        instagram_url:
+                            document.getElementById(
+                                "businessInstagram"
+                            ).value.trim()
+                            || null,
+
+                        whatsapp_url:
+                            document.getElementById(
+                                "businessWhatsapp"
+                            ).value.trim()
+                            || null,
+
+                        website_url:
+                            document.getElementById(
+                                "businessWebsite"
+                            ).value.trim()
+                            || null,
+
+                        maps_url:
+                            document.getElementById(
+                                "businessMaps"
+                            ).value.trim()
+                            || null
+
+                    });
+
+
+            if (error) {
+
+                showMessage(
+                    message,
+                    error.message,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            showMessage(
+                message,
+                "✅ Negocio creado correctamente."
+            );
+
+
+            setTimeout(
+                () => {
+
+                    closeBusinessModal();
+
+                    loadBusinesses();
+
+                    loadDashboard();
+
+                    loadNfcBusinesses();
+
+                },
+                800
+            );
+
+        }
+    );
+
+
+/* =====================================================
+NFC
+===================================================== */
+
+async function loadNfc() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("nfc_devices")
+            .select(`
+                id,
+                name,
+                code,
+                location,
+                status,
+                created_at,
+                business_id,
+                businesses (
+                    name
+                )
+            `)
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+    if (error) {
+
+        document.getElementById(
+            "nfcTable"
+        ).textContent =
+            error.message;
+
+        return;
+
+    }
+
+
+    let html = `
+        <table>
+
+        <thead>
+
+        <tr>
+            <th>NEGOCIO</th>
+            <th>NFC</th>
+            <th>CÓDIGO</th>
+            <th>UBICACIÓN</th>
+            <th>ESTADO</th>
+            <th>LINK</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+    `;
+
+
+    (data || []).forEach(
+        nfc => {
+
+            const url =
+                `https://nfc-link.vercel.app/r/${nfc.code}`;
+
+
+            html += `
+                <tr>
+
+                    <td>
+                        ${escapeHtml(
+                            nfc.businesses?.name
+                            || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            nfc.name
+                        )}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(
+                                nfc.code
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            nfc.location
+                            || "—"
+                        )}
+                    </td>
+
+                    <td>
+
+                        <span class="badge ${
+                            nfc.status === "active"
+                                ? "badge-active"
+                                : "badge-inactive"
+                        }">
+
+                            ${
+                                nfc.status === "active"
+                                    ? "Activo"
+                                    : "Inactivo"
+                            }
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-secondary"
+                            onclick="copyText('${url}')">
+
+                            Copiar
+
+                        </button>
+
+                    </td>
+
+                </tr>
+            `;
+
+        }
+    );
+
+
+    html += `
+        </tbody>
+        </table>
+    `;
+
+
+    document.getElementById(
+        "nfcTable"
+    ).innerHTML =
+        html;
+
+}
+
+
+async function loadNfcBusinesses() {
+
+    const {
+        data
+    } =
+        await supabaseClient
+            .from("businesses")
+            .select(
+                "id,name"
+            )
+            .order(
+                "name"
+            );
+
+
+    const select =
+        document.getElementById(
+            "nfcBusiness"
+        );
+
+
+    select.innerHTML = `
+        <option value="">
+            Seleccionar negocio
+        </option>
+    `;
+
+
+    (data || []).forEach(
+        business => {
+
+            select.innerHTML += `
+
+                <option
+                    value="${business.id}">
+
+                    ${escapeHtml(
+                        business.name
+                    )}
+
+                </option>
+
+            `;
+
+        }
+    );
+
+}
+
+
+function openNfcModal() {
+
+    loadNfcBusinesses();
+
+    document
+        .getElementById(
+            "nfcModal"
+        )
+        .classList.add(
+            "active"
+        );
+
+}
+
+
+function closeNfcModal() {
+
+    document
+        .getElementById(
+            "nfcModal"
+        )
+        .classList.remove(
+            "active"
+        );
+
+}
+
+
+document
+    .getElementById("saveNfc")
+    .addEventListener(
+        "click",
+        async () => {
+
+            const message =
+                document.getElementById(
+                    "nfcMessage"
+                );
+
+
+            const businessId =
+                document.getElementById(
+                    "nfcBusiness"
+                ).value;
+
+
+            const name =
+                document.getElementById(
+                    "nfcName"
+                ).value.trim();
+
+
+            const location =
+                document.getElementById(
+                    "nfcLocation"
+                ).value.trim();
+
+
+            if (
+                !businessId ||
+                !name
+            ) {
+
+                showMessage(
+                    message,
+                    "Selecciona un negocio y escribe el nombre del NFC.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            // =============================
+            // OBTENER NEGOCIO
+            // =============================
+
+            const {
+                data: business,
+                error: businessError
+            } =
+                await supabaseClient
+                    .from("businesses")
+                    .select(
+                        "id,name,slug"
+                    )
+                    .eq(
+                        "id",
+                        businessId
+                    )
+                    .single();
+
+
+            if (
+                businessError ||
+                !business
+            ) {
+
+                showMessage(
+                    message,
+                    "No se encontró el negocio.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            // =============================
+            // CONTAR NFC EXISTENTES
+            // =============================
+
+            const {
+                count
+            } =
+                await supabaseClient
+                    .from("nfc_devices")
+                    .select(
+                        "*",
+                        {
+                            count: "exact",
+                            head: true
+                        }
+                    )
+                    .eq(
+                        "business_id",
+                        business.id
+                    );
+
+
+            const number =
+                (count || 0) + 1;
+
+
+            const code =
+                business.slug
+                    .toUpperCase()
+                    .replace(
+                        /[^A-Z0-9]/g,
+                        ""
+                    )
+                    .substring(
+                        0,
+                        8
+                    )
+                    +
+                "-" +
+                String(number)
+                    .padStart(
+                        3,
+                        "0"
+                    );
+
+
+            // =============================
+            // CREAR
+            // =============================
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("nfc_devices")
+                    .insert({
+
+                        business_id:
+                            business.id,
+
+                        name,
+
+                        code,
+
+                        location:
+                            location || null,
+
+                        status:
+                            "active"
+
+                    });
+
+
+            if (error) {
+
+                showMessage(
+                    message,
+                    error.message,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            showMessage(
+                message,
+                `✅ NFC creado: ${code}`
+            );
+
+
+            document.getElementById(
+                "nfcName"
+            ).value = "";
+
+            document.getElementById(
+                "nfcLocation"
+            ).value = "";
+
+
+            setTimeout(
+                () => {
+
+                    closeNfcModal();
+
+                    loadNfc();
+
+                    loadDashboard();
+
+                },
+                1000
+            );
+
+        }
+    );
+
+
+/* =====================================================
+ANALYTICS
+===================================================== */
+
+async function loadAnalytics() {
+
+    const buttons = [
+        "google",
+        "instagram",
+        "whatsapp",
+        "website",
+        "nfc"
+    ];
+
+
+    for (
+        const button of buttons
+    ) {
+
+        const {
+            count
+        } =
+            await supabaseClient
+                .from("clicks")
+                .select(
+                    "*",
+                    {
+                        count: "exact",
+                        head: true
+                    }
+                )
+                .eq(
+                    "button",
+                    button
+                );
+
+
+        const element =
+            document.getElementById(
+                "analytics" +
+                button.charAt(0)
+                    .toUpperCase() +
+                button.slice(1)
+            );
+
+
+        if (element) {
+
+            element.textContent =
+                count || 0;
+
+        }
+
+    }
+
+
+    const {
+        data
+    } =
+        await supabaseClient
+            .from("clicks")
+            .select(`
+                id,
+                created_at,
+                button,
+                source,
+                device,
+                browser,
+                destination,
+                business_id,
+                nfc_id,
+                businesses (
+                    name
+                )
+            `)
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            )
+            .limit(50);
+
+
+    let html = `
+        <table>
+
+        <thead>
+
+        <tr>
+            <th>FECHA</th>
+            <th>NEGOCIO</th>
+            <th>ACCIÓN</th>
+            <th>FUENTE</th>
+            <th>DISPOSITIVO</th>
+            <th>NAVEGADOR</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+    `;
+
+
+    (data || []).forEach(
+        click => {
+
+            html += `
+                <tr>
+
+                    <td>
+                        ${new Date(
+                            click.created_at
+                        ).toLocaleString(
+                            "es-PE"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            click.businesses?.name
+                            || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            click.button
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            click.source
+                            || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            click.device
+                            || "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            click.browser
+                            || "—"
+                        )}
+                    </td>
+
+                </tr>
+            `;
+
+        }
+    );
+
+
+    html += `
+        </tbody>
+        </table>
+    `;
+
+
+    document.getElementById(
+        "analyticsTable"
+    ).innerHTML =
+        html;
+
+}
+
+
+/* =====================================================
+COPY
+===================================================== */
+
+async function copyText(text) {
+
+    try {
+
+        await navigator.clipboard.writeText(
+            text
+        );
+
+        alert(
+            "✅ Enlace copiado"
+        );
+
+    } catch {
+
+        prompt(
+            "Copia este enlace:",
+            text
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+START
+===================================================== */
 
 checkSession();
 
