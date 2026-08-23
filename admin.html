@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TapLink Admin</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #111;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #000;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>TapLink Admin</h1>
+
+    <p class="subtitle">
+        Crear nuevo negocio
+    </p>
+
+    <div class="card">
+
+        <div class="form-group">
+            <label>Nombre del negocio</label>
+            <input id="name" type="text" placeholder="Ej: La Folie">
+        </div>
+
+        <div class="form-group">
+            <label>Slug</label>
+            <input id="slug" type="text" placeholder="Ej: la-folie">
+        </div>
+
+        <div class="form-group">
+            <label>Logo URL</label>
+            <input id="logo_url" type="text" placeholder="https://...">
+        </div>
+
+        <div class="form-group">
+            <label>Google / Reseñas</label>
+            <input id="google_url" type="text" placeholder="https://...">
+        </div>
+
+        <div class="form-group">
+            <label>Instagram</label>
+            <input id="instagram_url" type="text" placeholder="https://instagram.com/...">
+        </div>
+
+        <div class="form-group">
+            <label>WhatsApp</label>
+            <input id="whatsapp_url" type="text" placeholder="https://wa.me/...">
+        </div>
+
+        <div class="form-group">
+            <label>Página web</label>
+            <input id="website_url" type="text" placeholder="Opcional">
+        </div>
+
+        <div class="form-group">
+            <label>Google Maps</label>
+            <input id="maps_url" type="text" placeholder="https://www.google.com/maps/embed?...">
+        </div>
+
+        <button id="createBusiness">
+            CREAR NEGOCIO
+        </button>
+
+        <div id="message"></div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+    "https://tizigescxnamlliwsbzf.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_HrhIu7Dx0CV6_WRZlQ2N9Q_EtVdU51T";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+document
+    .getElementById("createBusiness")
+    .addEventListener("click", async () => {
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const slug =
+            document.getElementById("slug").value.trim();
+
+        const logo_url =
+            document.getElementById("logo_url").value.trim();
+
+        const google_url =
+            document.getElementById("google_url").value.trim();
+
+        const instagram_url =
+            document.getElementById("instagram_url").value.trim();
+
+        const whatsapp_url =
+            document.getElementById("whatsapp_url").value.trim();
+
+        const website_url =
+            document.getElementById("website_url").value.trim();
+
+        const maps_url =
+            document.getElementById("maps_url").value.trim();
+
+
+        if (!name || !slug) {
+
+            document.getElementById("message").textContent =
+                "Completa el nombre y el slug.";
+
+            return;
+        }
+
+
+        const { data, error } =
+            await supabaseClient
+                .from("businesses")
+                .insert([
+                    {
+                        name,
+                        slug,
+                        logo_url,
+                        google_url,
+                        instagram_url,
+                        whatsapp_url,
+                        website_url,
+                        maps_url
+                    }
+                ])
+                .select();
+
+
+        if (error) {
+
+            console.error(error);
+
+            document.getElementById("message").textContent =
+                "Error: " + error.message;
+
+            return;
+        }
+
+
+        document.getElementById("message").textContent =
+            "✅ Negocio creado correctamente.";
+
+    });
+
+</script>
+
+</body>
+</html>
