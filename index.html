@@ -129,6 +129,12 @@
             margin-top: 30px;
             font-size: 14px;
         }
+
+        .loading {
+            color: #777;
+            font-size: 14px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -150,22 +156,42 @@
 
         <div class="links">
 
-            <a class="link" id="googleLink" target="_blank" rel="noopener noreferrer">
+            <a
+                class="link"
+                id="googleLink"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <span class="icon">⭐</span>
                 Déjanos una reseña en Google
             </a>
 
-            <a class="link" id="instagramLink" target="_blank" rel="noopener noreferrer">
+            <a
+                class="link"
+                id="instagramLink"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <span class="icon">📸</span>
                 Síguenos en Instagram
             </a>
 
-            <a class="link" id="whatsappLink" target="_blank" rel="noopener noreferrer">
+            <a
+                class="link"
+                id="whatsappLink"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <span class="icon">💬</span>
                 Escríbenos por WhatsApp
             </a>
 
-            <a class="link" id="websiteLink" target="_blank" rel="noopener noreferrer">
+            <a
+                class="link"
+                id="websiteLink"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <span class="icon">🌐</span>
                 Visita nuestra página web
             </a>
@@ -206,7 +232,10 @@
     </main>
 
 
-    <!-- Supabase -->
+    <!-- =========================
+         SUPABASE
+    ========================= -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
@@ -229,28 +258,227 @@
 
 
         // =========================
-        // REGISTRAR CLIC
+        // DETECTAR DISPOSITIVO
         // =========================
 
-        async function trackClick(button, businessId) {
+        function getDevice() {
 
-            const { error } =
-                await supabaseClient.rpc(
-                    "increment_analytics",
-                    {
-                        p_business_id: businessId,
-                        p_button: button
-                    }
+            if (
+                /Mobi|Android|iPhone|iPad/i
+                    .test(navigator.userAgent)
+            ) {
+                return "mobile";
+            }
+
+            return "desktop";
+        }
+
+
+        // =========================
+        // DETECTAR NAVEGADOR
+        // =========================
+
+        function getBrowser() {
+
+            const userAgent =
+                navigator.userAgent;
+
+            if (userAgent.includes("Edg")) {
+                return "Edge";
+            }
+
+            if (userAgent.includes("Chrome")) {
+                return "Chrome";
+            }
+
+            if (userAgent.includes("Safari")) {
+                return "Safari";
+            }
+
+            if (userAgent.includes("Firefox")) {
+                return "Firefox";
+            }
+
+            return "Other";
+        }
+
+
+        // =========================
+        // TRACKING NFC
+        // =========================
+
+        async function trackNfcClick(
+            code,
+            destination = "landing"
+        ) {
+
+            try {
+
+                const { data, error } =
+                    await supabaseClient.rpc(
+                        "track_nfc_click",
+                        {
+                            p_code: code,
+                            p_destination: destination,
+                            p_device: getDevice(),
+                            p_browser: getBrowser()
+                        }
+                    );
+
+                if (error) {
+
+                    console.error(
+                        "Error registrando NFC:",
+                        error
+                    );
+
+                    return null;
+                }
+
+                console.log(
+                    "NFC registrado:",
+                    data
                 );
 
-            if (error) {
+                return data;
+
+            } catch (err) {
 
                 console.error(
-                    "Error registrando clic:",
-                    error
+                    "Error inesperado:",
+                    err
+                );
+
+                return null;
+            }
+        }
+
+
+        // =========================
+        // TRACKING DE BOTONES
+        // =========================
+
+        async function trackButtonClick(
+            button,
+            businessId,
+            nfcId = null
+        ) {
+
+            try {
+
+                const { error } =
+                    await supabaseClient
+                        .from("clicks")
+                        .insert({
+
+                            button: button,
+
+                            business_id:
+                                businessId,
+
+                            nfc_id:
+                                nfcId,
+
+                            source:
+                                nfcId
+                                    ? "nfc"
+                                    : "direct",
+
+                            destination:
+                                button,
+
+                            device:
+                                getDevice(),
+
+                            browser:
+                                getBrowser()
+
+                        });
+
+                if (error) {
+
+                    console.error(
+                        "Error registrando botón:",
+                        error
+                    );
+
+                }
+
+            } catch (err) {
+
+                console.error(
+                    "Error inesperado:",
+                    err
                 );
 
             }
+
+        }
+
+
+        // =========================
+        // OCULTAR BOTÓN
+        // =========================
+
+        function hideElement(id) {
+
+            const element =
+                document.getElementById(id);
+
+            if (element) {
+
+                element.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        // =========================
+        // CONFIGURAR BOTÓN
+        // =========================
+
+        function setupButton(
+            elementId,
+            url,
+            buttonName,
+            businessId,
+            nfcId
+        ) {
+
+            const link =
+                document.getElementById(
+                    elementId
+                );
+
+            if (!link) {
+                return;
+            }
+
+            if (!url) {
+
+                link.style.display =
+                    "none";
+
+                return;
+
+            }
+
+            link.href = url;
+
+            link.addEventListener(
+                "click",
+                () => {
+
+                    trackButtonClick(
+                        buttonName,
+                        businessId,
+                        nfcId
+                    );
+
+                }
+            );
 
         }
 
@@ -266,250 +494,251 @@
                     .split("/")
                     .filter(Boolean);
 
-            const slug =
-                pathParts[pathParts.length - 1];
+
+            let business = null;
+
+            let nfc = null;
 
 
-            // Si no existe slug
+            // =================================================
+            // MODO NFC
+            // /r/TANTA-001
+            // =================================================
 
-            if (!slug) {
+            if (
+                pathParts.length >= 2 &&
+                pathParts[0].toLowerCase() === "r"
+            ) {
 
-                document.getElementById(
-                    "businessName"
-                ).textContent = "TapLink";
-
-                return;
-
-            }
-
-
-            // =========================
-            // BUSCAR NEGOCIO
-            // =========================
-
-            const { data, error } =
-                await supabaseClient
-                    .from("businesses")
-                    .select("*")
-                    .eq("slug", slug)
-                    .single();
+                const nfcCode =
+                    pathParts[1];
 
 
-            // Error
+                // Buscar NFC
 
-            if (error) {
+                const { data: nfcData, error: nfcError } =
+                    await supabaseClient
+                        .from("nfc_devices")
+                        .select("*")
+                        .eq("code", nfcCode)
+                        .eq("status", "active")
+                        .single();
 
-                console.error(
-                    "Supabase error:",
-                    error
+
+                if (nfcError || !nfcData) {
+
+                    console.error(
+                        "NFC no encontrado:",
+                        nfcError
+                    );
+
+                    document.getElementById(
+                        "businessName"
+                    ).textContent =
+                        "NFC no encontrado";
+
+                    document.getElementById(
+                        "error"
+                    ).textContent =
+                        "Este enlace NFC no existe o está inactivo.";
+
+                    return;
+
+                }
+
+
+                nfc = nfcData;
+
+
+                // Registrar el toque NFC
+
+                await trackNfcClick(
+                    nfc.code,
+                    "landing"
                 );
 
-                document.getElementById(
-                    "businessName"
-                ).textContent =
-                    "Negocio no encontrado";
 
-                document.getElementById(
-                    "error"
-                ).textContent =
-                    "No pudimos encontrar este negocio.";
+                // Buscar negocio
 
-                return;
+                const { data: businessData, error: businessError } =
+                    await supabaseClient
+                        .from("businesses")
+                        .select("*")
+                        .eq("id", nfc.business_id)
+                        .single();
+
+
+                if (
+                    businessError ||
+                    !businessData
+                ) {
+
+                    console.error(
+                        "Negocio no encontrado:",
+                        businessError
+                    );
+
+                    document.getElementById(
+                        "businessName"
+                    ).textContent =
+                        "Negocio no encontrado";
+
+                    return;
+
+                }
+
+
+                business =
+                    businessData;
 
             }
 
 
-            // Negocio no encontrado
+            // =================================================
+            // MODO NORMAL
+            // /tanta
+            // =================================================
 
-            if (!data) {
+            else {
 
-                document.getElementById(
-                    "businessName"
-                ).textContent =
-                    "Negocio no encontrado";
+                const slug =
+                    pathParts[
+                        pathParts.length - 1
+                    ];
 
-                return;
+
+                // Página principal
+
+                if (!slug) {
+
+                    document.getElementById(
+                        "businessName"
+                    ).textContent =
+                        "TapLink";
+
+                    return;
+
+                }
+
+
+                const { data, error } =
+                    await supabaseClient
+                        .from("businesses")
+                        .select("*")
+                        .eq("slug", slug)
+                        .single();
+
+
+                if (error || !data) {
+
+                    console.error(
+                        "Supabase error:",
+                        error
+                    );
+
+                    document.getElementById(
+                        "businessName"
+                    ).textContent =
+                        "Negocio no encontrado";
+
+                    document.getElementById(
+                        "error"
+                    ).textContent =
+                        "No pudimos encontrar este negocio.";
+
+                    return;
+
+                }
+
+
+                business = data;
 
             }
 
 
-            // =========================
-            // NOMBRE
-            // =========================
+            // =================================================
+            // MOSTRAR INFORMACIÓN
+            // =================================================
 
             document.getElementById(
                 "businessName"
             ).textContent =
-                data.name;
+                business.name;
 
 
-            // =========================
+            // =================================================
             // LOGO
-            // =========================
+            // =================================================
 
-            if (data.logo_url) {
+            if (business.logo_url) {
 
                 document.getElementById(
                     "logo"
                 ).innerHTML = `
+
                     <img
-                        src="${data.logo_url}"
-                        alt="${data.name}"
+                        src="${business.logo_url}"
+                        alt="${business.name}"
                     >
+
                 `;
 
             }
 
 
-            // =========================
-            // GOOGLE
-            // =========================
+            // =================================================
+            // BOTONES
+            // =================================================
 
-            if (data.google_url) {
-
-                const link =
-                    document.getElementById(
-                        "googleLink"
-                    );
-
-                link.href =
-                    data.google_url;
-
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        trackClick(
-                            "google",
-                            data.id
-                        );
-
-                    }
-                );
-
-            } else {
-
-                document.getElementById(
-                    "googleLink"
-                ).style.display =
-                    "none";
-
-            }
+            setupButton(
+                "googleLink",
+                business.google_url,
+                "google",
+                business.id,
+                nfc
+                    ? nfc.id
+                    : null
+            );
 
 
-            // =========================
-            // INSTAGRAM
-            // =========================
-
-            if (data.instagram_url) {
-
-                const link =
-                    document.getElementById(
-                        "instagramLink"
-                    );
-
-                link.href =
-                    data.instagram_url;
-
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        trackClick(
-                            "instagram",
-                            data.id
-                        );
-
-                    }
-                );
-
-            } else {
-
-                document.getElementById(
-                    "instagramLink"
-                ).style.display =
-                    "none";
-
-            }
+            setupButton(
+                "instagramLink",
+                business.instagram_url,
+                "instagram",
+                business.id,
+                nfc
+                    ? nfc.id
+                    : null
+            );
 
 
-            // =========================
-            // WHATSAPP
-            // =========================
-
-            if (data.whatsapp_url) {
-
-                const link =
-                    document.getElementById(
-                        "whatsappLink"
-                    );
-
-                link.href =
-                    data.whatsapp_url;
-
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        trackClick(
-                            "whatsapp",
-                            data.id
-                        );
-
-                    }
-                );
-
-            } else {
-
-                document.getElementById(
-                    "whatsappLink"
-                ).style.display =
-                    "none";
-
-            }
+            setupButton(
+                "whatsappLink",
+                business.whatsapp_url,
+                "whatsapp",
+                business.id,
+                nfc
+                    ? nfc.id
+                    : null
+            );
 
 
-            // =========================
-            // WEBSITE
-            // =========================
-
-            if (data.website_url) {
-
-                const link =
-                    document.getElementById(
-                        "websiteLink"
-                    );
-
-                link.href =
-                    data.website_url;
-
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        trackClick(
-                            "website",
-                            data.id
-                        );
-
-                    }
-                );
-
-            } else {
-
-                document.getElementById(
-                    "websiteLink"
-                ).style.display =
-                    "none";
-
-            }
+            setupButton(
+                "websiteLink",
+                business.website_url,
+                "website",
+                business.id,
+                nfc
+                    ? nfc.id
+                    : null
+            );
 
 
-            // =========================
+            // =================================================
             // GOOGLE MAPS
-            // =========================
+            // =================================================
 
-            if (data.maps_url) {
+            if (business.maps_url) {
 
                 const mapSection =
                     document.getElementById(
@@ -522,7 +751,7 @@
                     );
 
                 googleMap.src =
-                    data.maps_url;
+                    business.maps_url;
 
                 mapSection.style.display =
                     "block";
@@ -533,7 +762,7 @@
 
 
         // =========================
-        // EJECUTAR
+        // INICIAR
         // =========================
 
         loadBusiness();
