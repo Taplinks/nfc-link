@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,8 +6,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>TapLink - Mi negocio</title>
 
@@ -302,14 +302,8 @@ input:focus{
 
 
 /* =========================
-   GRID
+   CARD
 ========================= */
-
-.grid-2{
-    display:grid;
-    grid-template-columns:1.4fr 1fr;
-    gap:18px;
-}
 
 .card{
     background:var(--card);
@@ -452,15 +446,6 @@ tbody tr:hover{
 
 
 /* =========================
-   LOADING
-========================= */
-
-.loading{
-    opacity:.6;
-}
-
-
-/* =========================
    RESPONSIVE
 ========================= */
 
@@ -468,10 +453,6 @@ tbody tr:hover{
 
     .stats-grid{
         grid-template-columns:repeat(2,1fr);
-    }
-
-    .grid-2{
-        grid-template-columns:1fr;
     }
 
 }
@@ -643,17 +624,14 @@ tbody tr:hover{
     </h1>
 
     <p id="businessSubtitle">
-        Consulta el rendimiento de tu negocio
-        en TapLink.
+        Consulta el rendimiento de tu negocio en TapLink.
     </p>
 
 </div>
 
 
 
-<!-- =========================
-     STATS
-========================= -->
+<!-- STATS -->
 
 <div class="stats-grid">
 
@@ -846,9 +824,7 @@ tbody tr:hover{
 
 
 
-<!-- =========================
-     DISTRIBUTION
-========================= -->
+<!-- DISTRIBUTION -->
 
 <div class="card">
 
@@ -876,9 +852,7 @@ tbody tr:hover{
 
 
 
-<!-- =========================
-     CLICKS
-========================= -->
+<!-- CLICKS -->
 
 <div class="card">
 
@@ -895,29 +869,17 @@ tbody tr:hover{
 
                 <tr>
 
-                    <th>
-                        Fecha
-                    </th>
+                    <th>Fecha</th>
 
-                    <th>
-                        Acción
-                    </th>
+                    <th>Acción</th>
 
-                    <th>
-                        NFC
-                    </th>
+                    <th>NFC</th>
 
-                    <th>
-                        Dispositivo
-                    </th>
+                    <th>Dispositivo</th>
 
-                    <th>
-                        Navegador
-                    </th>
+                    <th>Navegador</th>
 
-                    <th>
-                        Destino
-                    </th>
+                    <th>Destino</th>
 
                 </tr>
 
@@ -950,9 +912,9 @@ tbody tr:hover{
 <script>
 
 
-/* =========================
+/* =====================================================
    SUPABASE
-========================= */
+===================================================== */
 
 const SUPABASE_URL =
     "https://tizigescxnamlliwsbzf.supabase.co";
@@ -969,16 +931,14 @@ const supabaseClient =
 
 
 let currentUser = null;
-
 let currentBusiness = null;
-
 let clicks = [];
 
 
 
-/* =========================
+/* =====================================================
    HELPERS
-========================= */
+===================================================== */
 
 function escapeHtml(value){
 
@@ -998,6 +958,7 @@ function escapeHtml(value){
 }
 
 
+
 function showMessage(
     elementId,
     text,
@@ -1009,18 +970,47 @@ function showMessage(
             elementId
         );
 
-    element.textContent =
-        text;
+    if(!element){
+        return;
+    }
+
+    element.textContent = text;
 
     element.className =
         "message " + type;
-
 }
 
 
-/* =========================
+
+function showLogin(){
+
+    document
+        .getElementById("loginPanel")
+        .style.display = "block";
+
+    document
+        .getElementById("clientPanel")
+        .style.display = "none";
+}
+
+
+
+function showDashboard(){
+
+    document
+        .getElementById("loginPanel")
+        .style.display = "none";
+
+    document
+        .getElementById("clientPanel")
+        .style.display = "block";
+}
+
+
+
+/* =====================================================
    LOGIN
-========================= */
+===================================================== */
 
 async function login(){
 
@@ -1054,6 +1044,7 @@ async function login(){
             "loginButton"
         );
 
+
     button.disabled = true;
 
     button.textContent =
@@ -1081,12 +1072,13 @@ async function login(){
     if(error){
 
         console.error(
-            "Login error:",
+            "LOGIN ERROR:",
             error
         );
 
         showMessage(
             "loginMessage",
+            error.message ||
             "Correo o contraseña incorrectos.",
             "error"
         );
@@ -1099,19 +1091,20 @@ async function login(){
         data.user;
 
 
-    showMessage(
-        "loginMessage",
-        "Sesión iniciada correctamente.",
-        "success"
-    );
-
-
     await loadClient();
 
 }
 
 
-/* Enter para iniciar sesión */
+
+document
+    .getElementById("loginButton")
+    .addEventListener(
+        "click",
+        login
+    );
+
+
 
 document
     .getElementById("password")
@@ -1127,18 +1120,10 @@ document
     );
 
 
-document
-    .getElementById("loginButton")
-    .addEventListener(
-        "click",
-        login
-    );
 
-
-
-/* =========================
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
 document
     .getElementById("logoutButton")
@@ -1151,41 +1136,21 @@ document
                 .signOut();
 
             currentUser = null;
-
             currentBusiness = null;
-
             clicks = [];
 
-            document
-                .getElementById(
-                    "clientPanel"
-                )
-                .style.display =
-                "none";
+            showLogin();
 
             document
-                .getElementById(
-                    "loginPanel"
-                )
-                .style.display =
-                "block";
-
-            document
-                .getElementById(
-                    "email"
-                )
+                .getElementById("email")
                 .value = "";
 
             document
-                .getElementById(
-                    "password"
-                )
+                .getElementById("password")
                 .value = "";
 
             document
-                .getElementById(
-                    "loginMessage"
-                )
+                .getElementById("loginMessage")
                 .textContent = "";
 
         }
@@ -1193,79 +1158,90 @@ document
 
 
 
-/* =========================
-   LOAD CLIENT
-========================= */
+/* =====================================================
+   CARGAR CLIENT ACCOUNT
+===================================================== */
 
 async function loadClient(){
 
     if(!currentUser){
+
+        showLogin();
+
         return;
     }
 
 
+    console.log(
+        "Buscando client_accounts para:",
+        currentUser.id
+    );
+
+
     /*
-     * AQUÍ ESTÁ EL CAMBIO IMPORTANTE.
+     * PASO 1
      *
-     * Antes utilizábamos:
+     * Buscamos SOLAMENTE la relación
+     * del usuario con el negocio.
      *
-     * business_users
-     *
-     * Ahora utilizamos:
-     *
-     * client_accounts
-     *
-     * que es la tabla que utiliza
-     * nuestro sistema de creación
-     * de clientes.
+     * Esto evita que el JOIN con
+     * businesses/RLS nos bloquee.
      */
 
-
     const {
-        data,
-        error
+        data: account,
+        error: accountError
     } =
     await supabaseClient
 
         .from("client_accounts")
 
-        .select(`
-            id,
-            user_id,
-            business_id,
-            businesses (
-                id,
-                name,
-                slug
-            )
-        `)
+        .select(
+            "id,user_id,business_id,created_at"
+        )
 
         .eq(
             "user_id",
             currentUser.id
         )
 
+        .limit(1)
         .maybeSingle();
 
 
-    if(error){
+    console.log(
+        "CLIENT ACCOUNT:",
+        account
+    );
+
+
+    if(accountError){
 
         console.error(
-            "Client account error:",
-            error
+            "CLIENT ACCOUNT ERROR:",
+            accountError
         );
+
 
         showMessage(
             "loginMessage",
-            "No se pudo cargar la cuenta del cliente.",
+            "No se pudo consultar tu cuenta: " +
+            accountError.message,
             "error"
         );
+
 
         return;
     }
 
 
-    if(!data){
+    if(!account){
+
+        console.error(
+            "No existe client_accounts para:",
+            currentUser.id
+        );
+
 
         showMessage(
             "loginMessage",
@@ -1273,44 +1249,95 @@ async function loadClient(){
             "error"
         );
 
-        return;
-    }
-
-
-    if(!data.businesses){
-
-        showMessage(
-            "loginMessage",
-            "No se encontró el negocio asociado a tu cuenta.",
-            "error"
-        );
 
         return;
     }
-
-
-    currentBusiness =
-        data.businesses;
 
 
     /*
-     * Mostrar dashboard
+     * Tenemos business_id.
+     *
+     * Ahora buscamos el negocio
+     * directamente por su ID.
      */
 
-    document
-        .getElementById(
-            "loginPanel"
+    const {
+        data: business,
+        error: businessError
+    } =
+    await supabaseClient
+
+        .from("businesses")
+
+        .select(
+            "id,name,slug"
         )
-        .style.display =
-        "none";
+
+        .eq(
+            "id",
+            account.business_id
+        )
+
+        .maybeSingle();
 
 
-    document
-        .getElementById(
-            "clientPanel"
-        )
-        .style.display =
-        "block";
+    console.log(
+        "BUSINESS:",
+        business
+    );
+
+
+    if(businessError){
+
+        console.error(
+            "BUSINESS ERROR:",
+            businessError
+        );
+
+
+        /*
+         * Si aquí aparece un error de RLS,
+         * sabemos que client_accounts funciona
+         * pero businesses necesita una policy.
+         */
+
+        showMessage(
+            "loginMessage",
+            "La cuenta existe, pero no se puede consultar el negocio. Error: " +
+            businessError.message,
+            "error"
+        );
+
+
+        return;
+    }
+
+
+    if(!business){
+
+        showMessage(
+            "loginMessage",
+            "La cuenta está creada, pero el negocio asociado no existe.",
+            "error"
+        );
+
+
+        return;
+    }
+
+
+    /*
+     * Guardamos negocio actual.
+     */
+
+    currentBusiness = business;
+
+
+    /*
+     * Mostramos dashboard.
+     */
+
+    showDashboard();
 
 
     document
@@ -1318,7 +1345,7 @@ async function loadClient(){
             "businessNameTop"
         )
         .textContent =
-        currentBusiness.name;
+        business.name;
 
 
     document
@@ -1327,11 +1354,20 @@ async function loadClient(){
         )
         .textContent =
         "Estadísticas de " +
-        currentBusiness.name +
+        business.name +
         " en TapLink.";
 
 
+    /*
+     * Cargar estadísticas.
+     */
+
     await loadAnalytics();
+
+
+    /*
+     * Cargar clics.
+     */
 
     await loadClicks();
 
@@ -1339,9 +1375,9 @@ async function loadClient(){
 
 
 
-/* =========================
+/* =====================================================
    ANALYTICS
-========================= */
+===================================================== */
 
 async function loadAnalytics(){
 
@@ -1349,11 +1385,6 @@ async function loadAnalytics(){
         return;
     }
 
-
-    /*
-     * Intentamos utilizar la función
-     * RPC que ya tienes configurada.
-     */
 
     const {
         data,
@@ -1375,16 +1406,10 @@ async function loadAnalytics(){
     if(error){
 
         console.error(
-            "Analytics RPC error:",
+            "ANALYTICS ERROR:",
             error
         );
 
-        /*
-         * Si la función RPC todavía
-         * no existe, mostramos 0
-         * para que el dashboard
-         * siga funcionando.
-         */
 
         resetAnalytics();
 
@@ -1443,49 +1468,37 @@ async function loadAnalytics(){
 
 
     document
-        .getElementById(
-            "totalClicks"
-        )
+        .getElementById("totalClicks")
         .textContent =
         total;
 
 
     document
-        .getElementById(
-            "nfcClicks"
-        )
+        .getElementById("nfcClicks")
         .textContent =
         nfc;
 
 
     document
-        .getElementById(
-            "googleClicks"
-        )
+        .getElementById("googleClicks")
         .textContent =
         google;
 
 
     document
-        .getElementById(
-            "instagramClicks"
-        )
+        .getElementById("instagramClicks")
         .textContent =
         instagram;
 
 
     document
-        .getElementById(
-            "whatsappClicks"
-        )
+        .getElementById("whatsappClicks")
         .textContent =
         whatsapp;
 
 
     document
-        .getElementById(
-            "websiteClicks"
-        )
+        .getElementById("websiteClicks")
         .textContent =
         website;
 
@@ -1505,46 +1518,39 @@ async function loadAnalytics(){
 
 
 
-/* =========================
+/* =====================================================
    RESET ANALYTICS
-========================= */
+===================================================== */
 
 function resetAnalytics(){
 
     document
-        .getElementById(
-            "totalClicks"
-        )
+        .getElementById("totalClicks")
         .textContent = "0";
 
-    document
-        .getElementById(
-            "nfcClicks"
-        )
-        .textContent = "0";
 
     document
-        .getElementById(
-            "googleClicks"
-        )
+        .getElementById("nfcClicks")
         .textContent = "0";
 
-    document
-        .getElementById(
-            "instagramClicks"
-        )
-        .textContent = "0";
 
     document
-        .getElementById(
-            "whatsappClicks"
-        )
+        .getElementById("googleClicks")
         .textContent = "0";
 
+
     document
-        .getElementById(
-            "websiteClicks"
-        )
+        .getElementById("instagramClicks")
+        .textContent = "0";
+
+
+    document
+        .getElementById("whatsappClicks")
+        .textContent = "0";
+
+
+    document
+        .getElementById("websiteClicks")
         .textContent = "0";
 
 
@@ -1563,9 +1569,9 @@ function resetAnalytics(){
 
 
 
-/* =========================
+/* =====================================================
    DISTRIBUTION
-========================= */
+===================================================== */
 
 function renderDistribution(data){
 
@@ -1700,9 +1706,9 @@ function renderDistribution(data){
 
 
 
-/* =========================
+/* =====================================================
    CLICKS
-========================= */
+===================================================== */
 
 async function loadClicks(){
 
@@ -1739,9 +1745,10 @@ async function loadClicks(){
     if(error){
 
         console.error(
-            "Clicks error:",
+            "CLICKS ERROR:",
             error
         );
+
 
         renderClicksError();
 
@@ -1759,9 +1766,9 @@ async function loadClicks(){
 
 
 
-/* =========================
+/* =====================================================
    CLICKS ERROR
-========================= */
+===================================================== */
 
 function renderClicksError(){
 
@@ -1803,9 +1810,9 @@ function renderClicksError(){
 
 
 
-/* =========================
+/* =====================================================
    RENDER CLICKS
-========================= */
+===================================================== */
 
 function renderClicks(){
 
@@ -1856,12 +1863,14 @@ function renderClicks(){
 
             const date =
                 click.created_at
-                    ? new Date(
+                    ?
+                    new Date(
                         click.created_at
                     ).toLocaleString(
                         "es-PE"
                     )
-                    : "—";
+                    :
+                    "—";
 
 
             return `
@@ -1924,37 +1933,41 @@ function renderClicks(){
 
 
 
-/* =========================
+/* =====================================================
    SESSION
-========================= */
+===================================================== */
 
 async function checkSession(){
 
     const {
-        data:{
-            session
-        }
+        data,
+        error
     } =
     await supabaseClient
         .auth
         .getSession();
 
 
+    if(error){
+
+        console.error(
+            "SESSION ERROR:",
+            error
+        );
+
+        showLogin();
+
+        return;
+    }
+
+
+    const session =
+        data.session;
+
+
     if(!session){
 
-        document
-            .getElementById(
-                "loginPanel"
-            )
-            .style.display =
-            "block";
-
-        document
-            .getElementById(
-                "clientPanel"
-            )
-            .style.display =
-            "none";
+        showLogin();
 
         return;
     }
@@ -1970,14 +1983,14 @@ async function checkSession(){
 
 
 
-/* =========================
+/* =====================================================
    AUTH STATE
-========================= */
+===================================================== */
 
 supabaseClient
     .auth
     .onAuthStateChange(
-        async function(
+        function(
             event,
             session
         ){
@@ -1991,21 +2004,10 @@ supabaseClient
 
                 currentBusiness = null;
 
-                document
-                    .getElementById(
-                        "clientPanel"
-                    )
-                    .style.display =
-                    "none";
+                clicks = [];
 
-                document
-                    .getElementById(
-                        "loginPanel"
-                    )
-                    .style.display =
-                    "block";
+                showLogin();
 
-                return;
             }
 
         }
@@ -2013,9 +2015,9 @@ supabaseClient
 
 
 
-/* =========================
+/* =====================================================
    START
-========================= */
+===================================================== */
 
 checkSession();
 
@@ -2025,3 +2027,4 @@ checkSession();
 </body>
 
 </html>
+```
